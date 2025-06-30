@@ -3,7 +3,6 @@
 theme: seriph
 # random image from a curated Unsplash collection by Anthony
 # like them? see https://unsplash.com/collections/94734566/slidev
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
 # some information about your slides (markdown enabled)
 title: AI Breakfast - July 3
 info: |
@@ -31,7 +30,10 @@ fonts:
 
 <div class="flex flex-col items-center justify-center h-full text-white px-8">
 
-# AI Breakfast
+  <!-- Banner image -->
+  <img src="/events/2025/ai-breakfast-july-03/images/graphics/Gemini_Generated_Image_rrodlyrrodlyrrod.png" alt="AI Breakfast banner" class="w-[80%] max-w-md mx-auto mb-6" />
+
+  # AI Breakfast
 
 <div class="text-xl mb-10 max-w-md leading-relaxed opacity-90 text-center">
 A casual gathering of AI enthusiasts, professionals, builders, and creatives to share how we're using AI for work, play, and life
@@ -59,6 +61,9 @@ A casual gathering of AI enthusiasts, professionals, builders, and creatives to 
 </div>
 
 </div>
+
+<!-- QR code (RSVP via 活动行) -->
+<img src="/events/2025/ai-breakfast-july-03/images/qr-codes/IMG_8025.PNG" alt="活动行 RSVP QR" class="w-32 absolute bottom-6 left-6" />
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
