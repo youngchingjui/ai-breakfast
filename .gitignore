@@ -5,3 +5,26 @@ dist
 .vite-inspect
 .remote-assets
 components.d.ts
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Event assets - ignore temporary/working files but keep final assets
+events/**/temp/
+events/**/*.tmp
+events/**/*~
+events/**/.DS_Store
+
+# Large media files - consider using Git LFS for these
+# events/**/*.mov
+# events/**/*.mp4
+# events/**/*.avi
+
+# Backup files
+events/**/*.bak
+events/**/*.backup
