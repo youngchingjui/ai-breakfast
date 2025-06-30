@@ -3,14 +3,12 @@
 theme: seriph
 # random image from a curated Unsplash collection by Anthony
 # like them? see https://unsplash.com/collections/94734566/slidev
-background: https://cover.sli.dev
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
 # some information about your slides (markdown enabled)
-title: Welcome to Slidev
+title: AI Breakfast - July 3
 info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
+  ## AI Breakfast - Shanghai
+  A casual gathering of AI enthusiasts, professionals, builders, and creatives
 # apply unocss classes to the current slide
 class: text-center
 # https://sli.dev/features/drawing
@@ -20,26 +18,84 @@ drawings:
 transition: slide-left
 # enable MDC Syntax: https://sli.dev/features/mdc
 mdc: true
+# aspect ratio for mobile-friendly vertical viewing
+aspectRatio: 9/16
+# modern font configuration
+fonts:
+  sans: 'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, "Noto Sans", sans-serif'
+  mono: 'JetBrains Mono, ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
 # open graph
 # seoMeta:
 #  ogImage: https://cover.sli.dev
 ---
 
-# Welcome to Slidev
+<div class="flex flex-col items-center justify-center h-full text-white px-8">
 
-Presentation slides for developers
+# AI Breakfast
 
-<div @click="$slidev.nav.next" class="mt-12 py-1" hover:bg="white op-10">
-  Press Space for next page <carbon:arrow-right />
+<div class="text-xl mb-10 max-w-md leading-relaxed opacity-90 text-center">
+A casual gathering of AI enthusiasts, professionals, builders, and creatives to share how we're using AI for work, play, and life
 </div>
 
-<div class="abs-br m-6 text-xl">
-  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="slidev-icon-btn">
-    <carbon:edit />
-  </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" class="slidev-icon-btn">
-    <carbon:logo-github />
-  </a>
+<div class="space-y-10 text-lg">
+
+<div class="flex flex-col items-center gap-2">
+  <carbon:calendar class="text-4xl" />
+  <span class="text-xl font-semibold text-center">Thursday July 3<br>8-9am</span>
+</div>
+
+<div class="flex flex-col items-center gap-3">
+  <carbon:location class="text-4xl" />
+  <div class="text-center">
+    <div class="font-medium text-base">BAKER&SPICE 会德丰国际广场店</div>
+    <div class="text-sm opacity-80 mt-2 leading-relaxed">南京西路1717号会德丰国际广场南院首层101号商铺<br>1717 West Nanjing Road, Wheelock Square Branch</div>
+  </div>
+</div>
+
+</div>
+
+<div class="absolute bottom-6 right-6 text-5xl">
+🤖☕
+</div>
+
+</div>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+.slidev-layout {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, "Noto Sans", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+h1 {
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, "Noto Sans", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+</style>
+
+---
+
+layout: center
+class: text-center
+
+---
+
+# Thank you!
+
+Looking forward to seeing everyone at the breakfast ☕
+
+<div class="mt-12 text-base opacity-80 text-center max-w-xs mx-auto leading-relaxed">
+AI Breakfast - July 3, 2025<br>
+8-9am<br>
+BAKER&SPICE Wheelock Square
 </div>
 
 <!--
@@ -47,8 +103,8 @@ The last comment block of each slide will be treated as slide notes. It will be 
 -->
 
 ---
-transition: fade-out
----
+
+## transition: fade-out
 
 # What is Slidev?
 
@@ -61,8 +117,8 @@ Slidev is a slides maker and presenter designed for developers, consist of the f
 - 🎥 **Recording** - built-in recording and camera view
 - 📤 **Portable** - export to PDF, PPTX, PNGs, or even a hostable SPA
 - 🛠 **Hackable** - virtually anything that's possible on a webpage is possible in Slidev
-<br>
-<br>
+  <br>
+  <br>
 
 Read more about [Why Slidev?](https://sli.dev/guide/why)
 
@@ -88,8 +144,10 @@ Here is another comment.
 -->
 
 ---
+
 transition: slide-up
 level: 2
+
 ---
 
 # Navigation
@@ -98,25 +156,29 @@ Hover on the bottom-left corner to see the navigation's controls panel, [learn m
 
 ## Keyboard Shortcuts
 
-|                                                     |                             |
-| --------------------------------------------------- | --------------------------- |
-| <kbd>right</kbd> / <kbd>space</kbd>                 | next animation or slide     |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd>                                       | previous slide              |
-| <kbd>down</kbd>                                     | next slide                  |
+|                                                    |                             |
+| -------------------------------------------------- | --------------------------- |
+| <kbd>right</kbd> / <kbd>space</kbd>                | next animation or slide     |
+| <kbd>left</kbd> / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
+| <kbd>up</kbd>                                      | previous slide              |
+| <kbd>down</kbd>                                    | next slide                  |
 
 <!-- https://sli.dev/guide/animations.html#click-animation -->
+
 <img
   v-click
   class="absolute -bottom-9 -left-7 w-80 opacity-50"
   src="https://sli.dev/assets/arrow-bottom-left.svg"
   alt=""
 />
+
 <p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
 
 ---
+
 layout: two-cols
 layoutClass: gap-16
+
 ---
 
 # Table of contents
@@ -134,8 +196,10 @@ The title will be inferred from your slide content, or you can override it with 
 <Toc text-sm minDepth="1" maxDepth="2" />
 
 ---
+
 layout: image-right
 image: https://cover.sli.dev
+
 ---
 
 # Code
@@ -146,17 +210,18 @@ Use code snippets and get the highlighting directly, and even types hover!
 // TwoSlash enables TypeScript hover information
 // and errors in markdown code blocks
 // More at https://shiki.style/packages/twoslash
-import { computed, ref } from 'vue'
+import { computed, ref } from "vue";
 
-const count = ref(0)
-const doubled = computed(() => count.value * 2)
+const count = ref(0);
+const doubled = computed(() => count.value * 2);
 
-doubled.value = 2
+doubled.value = 2;
 ```
 
 <arrow v-click="[4, 5]" x1="350" y1="310" x2="195" y2="342" color="#953" width="2" arrowSize="1" />
 
 <!-- This allow you to embed external code blocks -->
+
 <<< @/snippets/external.ts#snippet
 
 <!-- Footer -->
@@ -187,8 +252,8 @@ Notes can also sync with clicks
 -->
 
 ---
-level: 2
----
+
+## level: 2
 
 # Shiki Magic Move
 
@@ -200,13 +265,13 @@ Add multiple code blocks and wrap them with <code>````md magic-move</code> (four
 ```ts {*|2|*}
 // step 1
 const author = reactive({
-  name: 'John Doe',
+  name: "John Doe",
   books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-})
+    "Vue 2 - Advanced Guide",
+    "Vue 3 - Basic Guide",
+    "Vue 4 - The Mystery",
+  ],
+});
 ```
 
 ```ts {*|1-2|3-4|3-4,8}
@@ -215,16 +280,16 @@ export default {
   data() {
     return {
       author: {
-        name: 'John Doe',
+        name: "John Doe",
         books: [
-          'Vue 2 - Advanced Guide',
-          'Vue 3 - Basic Guide',
-          'Vue 4 - The Mystery'
-        ]
-      }
-    }
-  }
-}
+          "Vue 2 - Advanced Guide",
+          "Vue 3 - Basic Guide",
+          "Vue 4 - The Mystery",
+        ],
+      },
+    };
+  },
+};
 ```
 
 ```ts
@@ -232,15 +297,15 @@ export default {
 export default {
   data: () => ({
     author: {
-      name: 'John Doe',
+      name: "John Doe",
       books: [
-        'Vue 2 - Advanced Guide',
-        'Vue 3 - Basic Guide',
-        'Vue 4 - The Mystery'
-      ]
-    }
-  })
-}
+        "Vue 2 - Advanced Guide",
+        "Vue 3 - Basic Guide",
+        "Vue 4 - The Mystery",
+      ],
+    },
+  }),
+};
 ```
 
 Non-code blocks are ignored.
@@ -249,13 +314,13 @@ Non-code blocks are ignored.
 <!-- step 4 -->
 <script setup>
 const author = {
-  name: 'John Doe',
+  name: "John Doe",
   books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-}
+    "Vue 2 - Advanced Guide",
+    "Vue 3 - Basic Guide",
+    "Vue 4 - The Mystery",
+  ],
+};
 </script>
 ```
 ````
@@ -303,8 +368,8 @@ Also, HTML elements are valid:
 -->
 
 ---
-class: px-20
----
+
+## class: px-20
 
 # Themes
 
@@ -461,7 +526,9 @@ LaTeX is supported out-of-box. Powered by [KaTeX](https://katex.org/).
 Inline $\sqrt{3x-1}+(1+x)^2$
 
 Block
-$$ {1|3|all}
+
+$$
+{1|3|all}
 \begin{aligned}
 \nabla \cdot \vec{E} &= \frac{\rho}{\varepsilon_0} \\
 \nabla \cdot \vec{B} &= 0 \\
@@ -551,9 +618,22 @@ database "MySql" {
 Learn more: [Mermaid Diagrams](https://sli.dev/features/mermaid) and [PlantUML Diagrams](https://sli.dev/features/plantuml)
 
 ---
+
 foo: bar
 dragPos:
-  square: 691,32,167,_,-16
+square: 691,32,167,\_,-16
+
+---
+dragPos:
+  square: -238,0,0,0
+---
+
+dragPos:
+square: -280,0,0,0
+
+---
+dragPos:
+  square: -280,0,0,0
 ---
 
 # Draggable Elements
@@ -596,9 +676,12 @@ Double-click on the draggable elements to edit their positions.
 <v-drag-arrow pos="67,452,253,46" two-way op70 />
 
 ---
+
 src: ./pages/imported-slides.md
 hide: false
+
 ---
+
 
 ---
 
@@ -609,26 +692,33 @@ Slidev provides built-in Monaco Editor support.
 Add `{monaco}` to the code block to turn it into an editor:
 
 ```ts {monaco}
-import { ref } from 'vue'
-import { emptyArray } from './external'
+import { ref } from "vue";
+import { emptyArray } from "./external";
 
-const arr = ref(emptyArray(10))
+const arr = ref(emptyArray(10));
 ```
 
 Use `{monaco-run}` to create an editor that can execute the code directly in the slide:
 
 ```ts {monaco-run}
-import { version } from 'vue'
-import { emptyArray, sayHello } from './external'
+import { version } from "vue";
+import { emptyArray, sayHello } from "./external";
 
-sayHello()
-console.log(`vue ${version}`)
-console.log(emptyArray<number>(10).reduce(fib => [...fib, fib.at(-1)! + fib.at(-2)!], [1, 1]))
+sayHello();
+console.log(`vue ${version}`);
+console.log(
+  emptyArray<number>(10).reduce(
+    (fib) => [...fib, fib.at(-1)! + fib.at(-2)!],
+    [1, 1]
+  )
+);
 ```
 
 ---
+
 layout: center
 class: text-center
+
 ---
 
 # Learn More
