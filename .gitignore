@@ -1,6 +1,7 @@
 node_modules
 .DS_Store
 dist
+.next
 *.local
 .vite-inspect
 .remote-assets
@@ -25,6 +26,4 @@ events/**/.DS_Store
 # events/**/*.mp4
 # events/**/*.avi
 
-# Backup files
-events/**/*.bak
-events/**/*.backup
+
