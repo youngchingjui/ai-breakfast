@@ -46,7 +46,7 @@
 
 Attendees shared favorites for long-form content:
 
-- Tech-focused: [_Machine Learning Street Talk_](https://www.mlst.ai/), [_Hardcore_](https://www.dancarlin.com/hardcore-history-series/)
+- Tech-focused: [_Machine Learning Street Talk_](https://open.spotify.com/show/02e6PZeIOdpmBGT9THuzwR?si=OyNOnDbHR8yh1CGoZ2C6WQ), [_Hardcore_](https://www.dancarlin.com/hardcore-history-series/)
 - Business/psychology: [_Diary of a CEO_](https://podcasts.apple.com/us/podcast/the-diary-of-a-ceo-with-steven-bartlett/id1291423644), [_Where Should We Begin?_](https://www.estherperel.com/podcast)
 - Comedy: [_Fly on the Wall_](https://podcasts.apple.com/us/podcast/fly-on-the-wall-with-dana-carvey-and-david-spade/id1603639502) (David Spade/Dana Carvey)
 - Niche: [_Cocaine & Rhinestones_](https://cocaineandrhinestones.com/) (country music history)
