@@ -23,7 +23,7 @@ export default function Home() {
 
           <aside className="rounded-lg border border-white/10 p-4 bg-white/5 space-y-2">
             <div className="text-sm text-gray-300">Next meetup</div>
-            <div className="text-lg font-semibold">Thu Oct 30 | 8–9am</div>
+            <div className="text-lg font-semibold">Thu Nov 13 | 8–9am</div>
             <div className="space-y-1">
               <div className="font-medium">BAKER&SPICE</div>
               <div>1717 West Nanjing Road, Wheelock Square</div>
