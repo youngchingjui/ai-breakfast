@@ -6,8 +6,10 @@ export async function generateStaticParams() {
   return getAllNotes().map((n) => ({ slug: n.slug }))
 }
 
-export default function NotePage({ params }: { params: { slug: string[] } }) {
-  const data = readNote(params.slug)
+export default async function NotePage({ params }: { params: Promise<{ slug: string[] }> }) {
+
+  const { slug } = await params;
+  const data = readNote(slug)
   if (!data) {
     return (
       <div className="space-y-4">
