@@ -22,7 +22,7 @@ An interesting finding was that despite AI’s advancement in creative tasks, pa
 ### AI-Powered Video Production Tools
 
 - Startup founder used [Descript](https://www.descript.com) to shorten demo video from 1 minute 3 seconds to exactly 1 minute
-  - Tool automatically transcribes video content and [removes filler words](https://www.descript.com/features/remove-filler-words) (ums, ahs)
+  - Tool automatically transcribes video content and [removes filler words](https://www.descript.com/tools/remove-filler-from-video) (ums, ahs)
   - Users can select text segments to delete corresponding video portions
   - Saves hours of manual video editing work that traditionally requires professional editors
 - University professor explored creating 25-30 minute lecture videos to replace in-person teaching
