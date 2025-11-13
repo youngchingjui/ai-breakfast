@@ -3,6 +3,10 @@ import { getAllNotes } from '@/lib/notes'
 
 export const dynamic = 'force-static'
 
+export const metadata = {
+  title: 'Notes',
+}
+
 export default function NotesIndex() {
   const notes = getAllNotes()
   return (

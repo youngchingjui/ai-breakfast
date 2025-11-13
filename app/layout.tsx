@@ -2,7 +2,10 @@ import './globals.css'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'AI Breakfast Shanghai',
+  title: {
+    default: 'AI Breakfast | Shanghai',
+    template: '%s | AI Breakfast',
+  },
   description: 'Weekly AI Breakfast meetup in Shanghai — every Thursday at Baker & Spice, Wheelock Square.',
 }
 
