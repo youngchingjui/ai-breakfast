@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
+import rehypeSlug from 'rehype-slug'
 import { getAllNotes, readNote } from '@/lib/notes'
 
 export async function generateStaticParams() {
@@ -25,7 +26,7 @@ export default async function NotePage({ params }: { params: Promise<{ slug: str
         <Link href="/notes" className="button">← Back to Notes</Link>
       </div>
       <div className="container-prose">
-        <ReactMarkdown>{data.content}</ReactMarkdown>
+        <ReactMarkdown rehypePlugins={[rehypeSlug]}>{data.content}</ReactMarkdown>
       </div>
       <div>
         <Link href="/notes" className="button">← Back to Notes</Link>
