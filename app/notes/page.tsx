@@ -16,9 +16,12 @@ export default function NotesIndex() {
             const href = `/notes/${n.slug.join('/')}`
             return (
               <li key={href} className="p-4 hover:bg-muted transition-colors">
-                <Link href={href} className="flex items-center justify-between">
-                  <span className="font-medium">{n.display}</span>
-                  <span className="text-sm text-muted-foreground">View →</span>
+                <Link href={href} className="flex items-center justify-between gap-4">
+                  <div className="min-w-0">
+                    <div className="truncate font-semibold text-base">{n.title ?? n.display}</div>
+                    <div className="text-sm text-muted-foreground truncate">{n.dateDisplay ?? n.display}</div>
+                  </div>
+                  <span className="text-sm text-muted-foreground shrink-0">View →</span>
                 </Link>
               </li>
             )

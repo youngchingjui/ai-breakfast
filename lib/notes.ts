@@ -7,6 +7,8 @@ export type NoteItem = {
   slug: string[]
   path: string
   display: string
+  title?: string
+  dateDisplay?: string
 }
 
 function isDir(p: string) {
@@ -22,36 +24,63 @@ export function getAllNotes(): NoteItem[] {
   if (!isDir(NOTES_ROOT)) return results
 
   // Recursively find any notes.md files
-  function walk(current: string, parts: string[]) {
+  function walk(current: string) {
     const entries = fs.readdirSync(current)
     for (const entry of entries) {
       const full = path.join(current, entry)
       if (isDir(full)) {
-        walk(full, [...parts, entry])
+        walk(full)
       } else if (entry.toLowerCase() === 'notes.md') {
         const rel = path.relative(NOTES_ROOT, full)
         const rawParts = rel.split(path.sep)
         const slug = rawParts.slice(0, -1) // drop filename
 
-        // Build a display label, e.g., 2025-11-06 if parts look like dates
+        // Default display is slug joined by '-'
         let display = slug.join('-')
+        let dateDisplay: string | undefined
+
+        // If slug contains YYYY/MM/DD, build ISO display and a pretty date
         if (slug.length >= 3) {
           const [y, m, d] = slug
           if (/^\d{4}$/.test(y) && /^\d{2}$/.test(m) && /^\d{2}$/.test(d)) {
             display = `${y}-${m}-${d}`
+            const date = new Date(`${y}-${m}-${d}T00:00:00`)
+            if (!Number.isNaN(date.getTime())) {
+              dateDisplay = date.toLocaleDateString(undefined, {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })
+            }
           }
         }
+
+        // Try to extract the first H1 as the note title
+        let title: string | undefined
+        try {
+          const content = fs.readFileSync(full, 'utf8')
+          const lines = content.split(/\r?\n/)
+          for (const line of lines) {
+            const m = /^#\s+(.+)/.exec(line.trim())
+            if (m) {
+              title = m[1].trim()
+              break
+            }
+          }
+        } catch {}
 
         results.push({
           slug,
           path: full,
           display,
+          title,
+          dateDisplay,
         })
       }
     }
   }
 
-  walk(NOTES_ROOT, [])
+  walk(NOTES_ROOT)
 
   // Sort newest first by display if ISO date, otherwise by path
   results.sort((a, b) => b.display.localeCompare(a.display))
