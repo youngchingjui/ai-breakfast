@@ -1,10 +1,50 @@
-# Guidelines for writing notes
+# Guidelines for Writing Notes
 
-- Avoid using personal details like names or companies they work for. Instead, provide descriptions of the people and companies.
-- For project showcases, make sure to include the name of the project if provided.
-- For section headers or titles, generally avoid grouping topics together with "and" or "&". We should be definitive about what the topic is.
-- Each notes document should include an **Executive Summary** section immediately after any group photo and before the longer table of contents.
+## Privacy & Anonymization
+
+- Avoid using personal details like names or companies people work for. Instead, provide descriptions of the people and companies.
+- For project showcases, include the name of the project if provided.
+
+## Document Structure
+
+### Executive Summary
+
+- Each notes document must include an **Executive Summary** section immediately after any group photo and before the longer table of contents.
 - The Executive Summary should be a short paragraph (about 1–3 sentences) written in simple, straightforward language (around a 5th-grade reading level) with no marketing or promotional wording.
-- The first sentence of the Executive Summary should generally follow this pattern (adjusted for each event): `At our <event name>, our group of <short list of attendee roles> discussed topics ranging from <topic 1 with markdown link to its section>, <topic 2 with link>, etc. The attendees also shared the latest on their work and projects, including <project 1 with link>, <project 2 with link>, etc.`
-- In the Executive Summary, always link topics and projects to their detailed sections in the same document using markdown anchor links.
-- For last section, we should just call it "Resources". We should include a bullet list of all the resources mentioned in the transcripts, and do an online search to provide links to those resources. Each resource should have a concise, single-sentence description that combines: (1) a brief description of what the resource is, and (2) how attendees used it and their feedback/impressions. Format: "Brief description. Usage and feedback summary in one sentence." Example: "Framework for building LLM applications. Some members found it to be too cumbersome to use, 1 member started with it but ended up scrapping it."
+- The first sentence should generally follow this pattern (adjusted for each event):
+  ```
+  At our <event name>, our group of <short list of attendee roles> discussed topics ranging from <topic 1 with markdown link to its section>, <topic 2 with link>, etc. The attendees also shared the latest on their work and projects, including <project 1 with link>, <project 2 with link>, etc.
+  ```
+- Always link topics and projects to their detailed sections in the same document using markdown anchor links.
+
+### Section Headers
+
+- Do not use numbers to number chapters or sections. The document should flow like a story, not a numbered outline.
+- Generally avoid grouping topics together with "and" or "&" in section headers or titles. Be definitive about what the topic is.
+- Use descriptive section titles that read naturally, such as "Executive Summary", "Member Introductions", "Group Discussions", "Side Topics", and "Resources".
+
+### Member Work Section
+
+- The section about member work (typically titled "Member Introductions" or similar) should focus on projects and works that members shared, not member introductions themselves. This section is about celebrating and highlighting our members' work.
+
+### Resources Section
+
+- The last section should be titled "Resources".
+- Include a bullet list of all the resources mentioned in the transcripts.
+- Do an online search to provide links to those resources.
+- Each resource should have a concise, single-sentence description that combines:
+  1. A brief description of what the resource is
+  2. How attendees used it and their feedback/impressions
+- Format: "Brief description. Usage and feedback summary in one sentence."
+- Example: "Framework for building LLM applications. Some members found it to be too cumbersome to use, 1 member started with it but ended up scrapping it."
+
+## Writing Style
+
+- Write in a journalistic style at a 5th-grade reading level.
+- Use descriptive, narrative prose that captures the conversation and members' insights. The document should flow like a story, with sections that transition naturally from one topic to the next.
+- Avoid bullet points with headers—instead, write flowing paragraphs that describe what was discussed and what members shared.
+- Avoid numbered sections or chapters—let the content flow organically without numerical structure.
+
+## Content Organization
+
+- The volume of each section should generally reflect the volume of discussion in the transcripts. Topics or projects that were discussed more extensively should have correspondingly longer sections, while brief mentions should be shorter.
