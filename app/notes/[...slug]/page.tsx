@@ -14,7 +14,7 @@ export default async function NotePage({ params }: { params: Promise<{ slug: str
     return (
       <div className="space-y-4">
         <Link href="/notes" className="button">← Back to Notes</Link>
-        <p className="text-red-300">Note not found.</p>
+        <p className="text-destructive">Note not found.</p>
       </div>
     )
   }

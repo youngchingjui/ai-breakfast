@@ -1,0 +1,10 @@
+# Guidelines for writing notes
+
+- Avoid using personal details like names or companies they work for. Instead, provide descriptions of the people and companies.
+- For project showcases, make sure to include the name of the project if provided.
+- For section headers or titles, generally avoid grouping topics together with "and" or "&". We should be definitive about what the topic is.
+- Each notes document should include an **Executive Summary** section immediately after any group photo and before the longer table of contents.
+- The Executive Summary should be a short paragraph (about 1–3 sentences) written in simple, straightforward language (around a 5th-grade reading level) with no marketing or promotional wording.
+- The first sentence of the Executive Summary should generally follow this pattern (adjusted for each event): `At our <event name>, our group of <short list of attendee roles> discussed topics ranging from <topic 1 with markdown link to its section>, <topic 2 with link>, etc. The attendees also shared the latest on their work and projects, including <project 1 with link>, <project 2 with link>, etc.`
+- In the Executive Summary, always link topics and projects to their detailed sections in the same document using markdown anchor links.
+- For last section, we should just call it "Resources". We should include a bullet list of all the resources mentioned in the transcripts, and do an online search to provide links to those resources. Each resource should have a concise, single-sentence description that combines: (1) a brief description of what the resource is, and (2) how attendees used it and their feedback/impressions. Format: "Brief description. Usage and feedback summary in one sentence." Example: "Framework for building LLM applications. Some members found it to be too cumbersome to use, 1 member started with it but ended up scrapping it."

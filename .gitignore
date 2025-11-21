@@ -7,6 +7,10 @@ dist
 .remote-assets
 components.d.ts
 
+# You can save our transcript locally as `.transcript` to avoid uploading to repo
+# This way, you can use Cursor or local models to reference the raw transcript when writing notes.
+*.transcript
+
 # Logs
 logs
 *.log
