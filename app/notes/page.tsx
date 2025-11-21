@@ -17,7 +17,12 @@ export default function NotesIndex() {
             return (
               <li key={href} className="p-4 hover:bg-muted transition-colors">
                 <Link href={href} className="flex items-center justify-between">
-                  <span className="font-medium">{n.display}</span>
+                  <div className="flex flex-col">
+                    <span className="font-semibold text-base">{n.title}</span>
+                    {n.dateDisplay && (
+                      <span className="text-sm text-muted-foreground">{n.dateDisplay}</span>
+                    )}
+                  </div>
                   <span className="text-sm text-muted-foreground">View →</span>
                 </Link>
               </li>
