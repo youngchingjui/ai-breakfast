@@ -4,6 +4,7 @@
 
 - Avoid using personal details like names or companies people work for. Instead, provide descriptions of the people and companies.
 - For project showcases, include the name of the project if provided.
+- Use varied, context-relevant descriptions instead of repeating "member" for every person. For example, refer to people by their role, background, or what they shared (e.g., "a full‑stack developer building an MBTI chat app") while still keeping them anonymous.
 
 ## Document Structure
 
@@ -27,10 +28,10 @@
 
 - The section about member work (typically titled "Member Introductions" or similar) should focus on projects and works that members shared, not member introductions themselves. This section is about celebrating and highlighting our members' work.
 
-### Resources Section
+### Other Resources Section
 
-- The last section should be titled "Resources".
-- Include a bullet list of all the resources mentioned in the transcripts.
+- The last section should be titled "Other Resources".
+- Include a bullet list of all the resources mentioned in the transcripts, especially smaller tools, links, or references that were not covered in detail in the main write‑up.
 - Do an online search to provide links to those resources.
 - Each resource should have a concise, single-sentence description that combines:
   1. A brief description of what the resource is
@@ -44,7 +45,10 @@
 - Use descriptive, narrative prose that captures the conversation and members' insights. The document should flow like a story, with sections that transition naturally from one topic to the next.
 - Avoid bullet points with headers—instead, write flowing paragraphs that describe what was discussed and what members shared.
 - Avoid numbered sections or chapters—let the content flow organically without numerical structure.
+- When you mention a tool, app, service, or website that can be found online, include a markdown link the first time it appears in the main text (as news articles do). Later mentions of the same thing do not need to be linked again.
 
 ## Content Organization
 
 - The volume of each section should generally reflect the volume of discussion in the transcripts. Topics or projects that were discussed more extensively should have correspondingly longer sections, while brief mentions should be shorter.
+- Aim for no more than about three short paragraphs per major section so that each topic stays focused and easy to skim.
+- Keep the overall document to roughly a 5‑minute read. Prioritize the most important insights and examples rather than capturing every detail from the transcript.
