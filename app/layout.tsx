@@ -24,7 +24,10 @@ const ubuntuMono = Ubuntu_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'AI Breakfast Shanghai',
+  title: {
+    default: 'AI Breakfast | Shanghai',
+    template: '%s | AI Breakfast',
+  },
   description: 'Weekly AI Breakfast meetup in Shanghai — every Thursday at Baker & Spice, Wheelock Square.',
 }
 
