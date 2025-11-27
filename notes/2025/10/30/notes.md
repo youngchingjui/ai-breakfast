@@ -1,3 +1,7 @@
+---
+Date: October 30, 2025
+---
+
 ### Overview
 
 In today’s breakfast, we covered topics such as advanced AI coding tools like Kilo code and MCP servers, vector databases versus traditional search for education platforms, AI-assisted hiring challenges and the growing complexity of social media distribution, and hands-on testing of tools like Figma AI, Canva, and video editing automation. An interesting finding was that vector databases, despite their popularity in 2023, often prove more complicated than traditional search solutions like Elasticsearch for most practical applications, with one educator switching away from his initial vector store setup after discovering simpler alternatives worked better.
@@ -101,3 +105,4 @@ In today’s breakfast, we covered topics such as advanced AI coding tools like 
   - Alpha School combines 2-hour AI curriculum with experiential learning
   - Outdoor and hands-on learning environments like Green School in Bali create positive associations with education
   - Traditional Chinese education system may not prepare students for uncertain technological future
+

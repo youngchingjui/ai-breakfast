@@ -1,3 +1,8 @@
+---
+Title: AI Breakfast #17 Notes
+Date: November 20, 2025
+---
+
 # AI Breakfast #17 Notes
 
 Thursday, November 20, 2025
@@ -103,8 +108,6 @@ The conversation revealed several technical challenges. Group chats have continu
 
 Design considerations include making the AI feel human with natural timing rather than walls of text. There may be a delay mechanism that waits for human responses before the AI chimes in. Potential use cases include information retrieval, mediation, and context-aware suggestions.
 
-Privacy and data concerns emerged around questions of data collection, including friend networks and preferences. Members speculated this may be an experimental feature to compete with specialized group chat AI companies.
-
 ### Speech Recognition for Language Learning
 
 Members explored the [Azure Speech API](https://azure.microsoft.com/en-us/products/cognitive-services/speech-services/), which offers a free tier with approximately 5 hours of transcription. The API provides pronunciation scoring and supports reference text for accuracy comparison. It includes multiple language support for German, Chinese variants, English accents, and more.
@@ -175,7 +178,7 @@ The discussion touched on sibling dynamics and whether siblings help offload par
 
 Screen time philosophy varies, with some parents fighting against screens entirely. There's an opportunity for hardware devices for reading practice that don't use screens, which could appeal to parents willing to pay for screen-free solutions.
 
-Educational technology adoption is happening rapidly in some regions. Chinese schools are using AI reading assessment through the Ding Ding platform, where parents can review reports and teachers may review them as well. Parents may not be aware of these implementations until they see their children using them.
+Educational technology adoption is happening rapidly in some regions. Chinese schools are using AI reading assessment through the Ding Ding platform, where parents can review pronunciation reports, teachers may review them as well. Parents may not be aware of these implementations until they see their children using them.
 
 ### Prior Art Research
 
@@ -240,3 +243,4 @@ The implications are that many ideas have already been attempted, but execution 
 ---
 
 *Notes compiled from meeting transcript. Some details may be paraphrased for clarity and brevity.*
+

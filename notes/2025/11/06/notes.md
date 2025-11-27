@@ -1,3 +1,8 @@
+---
+Title: AI Breakfast #15 - November 6th Meeting Recap
+Date: November 6, 2025
+---
+
 # AI Breakfast #15 - November 6th Meeting Recap
 
 ## 💰 **AI Subscriptions & Workarounds**
@@ -57,3 +62,4 @@ Attendees shared favorites for long-form content:
   - Agents vote each other off based on interactions
   - Token limits to force strategic communication
   - Existing "Elimination Game" benchmark study ([GitHub](https://github.com/lechmazur/elimination_game))
+

@@ -1,3 +1,8 @@
+---
+Title: AI Breakfast #16
+Date: November 13, 2025
+---
+
 # AI Breakfast #16
 
 Thu, 13 Nov 25
@@ -91,3 +96,4 @@ An interesting finding was that despite AI’s advancement in creative tasks, pa
 
 - [fal.ai](https://fal.ai): Hosted inference and real-time APIs for building generative apps (images, video, audio, 3D) without managing GPUs.
 - [Replicate](https://replicate.com): Run open-source AI models via a simple HTTP API and deploy fine-tuned versions in the cloud.
+
