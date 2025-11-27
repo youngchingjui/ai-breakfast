@@ -1,7 +1,12 @@
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import { getAllNotes } from '@/lib/notes'
 
 export const dynamic = 'force-static'
+
+export const metadata: Metadata = {
+  title: 'Notes',
+}
 
 export default function NotesIndex() {
   const notes = getAllNotes()
