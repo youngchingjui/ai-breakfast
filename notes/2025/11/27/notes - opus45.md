@@ -1,0 +1,116 @@
+# AI Breakfast #18
+
+**Date:** November 27, 2025
+
+## Executive Summary
+
+At our eighteenth AI Breakfast, held on American Thanksgiving, our group of developers, entrepreneurs, educators, and AI engineers shared what AI technologies they are most grateful for. The conversation covered topics ranging from [voice-to-text and real-time translation](#gratitude-for-voice-and-language-ai), [AI-assisted coding and design tools](#coding-assistants-and-design-tools), to [OCR and document processing](#ocr-and-document-processing), and [the challenges of building cross-border startups](#fundraising-and-cross-border-challenges). Attendees also showcased their latest projects, including [Lumi, a German reading practice app for children](#lumi-reading-app-for-language-practice), and a [speech assessment platform for K-12 students](#speech-assessment-platform-for-schools).
+
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [Member Introductions](#member-introductions)
+- [Gratitude for Voice and Language AI](#gratitude-for-voice-and-language-ai)
+- [Coding Assistants and Design Tools](#coding-assistants-and-design-tools)
+- [Lumi: Reading App for Language Practice](#lumi-reading-app-for-language-practice)
+- [Speech Assessment Platform for Schools](#speech-assessment-platform-for-schools)
+- [OCR and Document Processing](#ocr-and-document-processing)
+- [Speed Reading and Internal Vocalization](#speed-reading-and-internal-vocalization)
+- [Information Quality and Wikipedia](#information-quality-and-wikipedia)
+- [Fundraising and Cross-Border Challenges](#fundraising-and-cross-border-challenges)
+- [Other Resources](#other-resources)
+
+## Member Introductions
+
+The breakfast brought together a diverse group. One attendee is building a no-code software platform on the cloud. Another works as a consultant and entrepreneur focused on spatial UI for AR and VR glasses. A data scientist working in finance joined alongside someone who founded a company helping businesses automate go-to-market operations. An AI engineer with experience in project management also attended, hoping to learn more about AI development in different regions. A longtime AI enthusiast who does "all kinds of random stuff" in AI was present, as was a full-stack developer working on both client projects and personal ventures. An educator who teaches test preparation and built his own learning app also joined, along with a founder who runs a company making AI agents for schools to assess students' speaking abilities.
+
+## Gratitude for Voice and Language AI
+
+Since the breakfast fell on American Thanksgiving, each attendee shared an AI technology they feel grateful for. Voice-to-text came up multiple times. One member said it has been a huge unlock for him—from setting phone alarms to dictating messages. He uses it constantly and finds it simple but powerful.
+
+Real-time translation drew praise from someone who recently visited the [Rokid](https://www.rokid.com/) office in Shanghai. The company makes smart glasses with dual OLED screens and a microphone array. He wore them during a meeting and watched as Chinese speech was subtitled in real time with impressive accuracy. The glasses can focus on the speaker's voice and ignore background noise, making conversations in a foreign language much easier to follow.
+
+The discussion touched on a contradiction that one attendee noticed: AI makes language learning faster and more efficient, but if real-time translation glasses become good enough, why bother learning a language at all? He also pointed out that AI can help you build schedules and stay disciplined, but at some point you find yourself taking orders from a machine. The benefits are clear, but so are the trade-offs.
+
+## Coding Assistants and Design Tools
+
+AI-assisted coding drew the most enthusiasm. One member said he probably would not be at the breakfast if not for tools like [GitHub Copilot](https://github.com/features/copilot), which he called a magical moment when he first tried it. Another attendee credited him for changing her life by convincing her to try coding tools last year at a different event. She had been reluctant, worried that AI would make her "stupid," but once she tried it she never looked back.
+
+For design help, one developer praised [Vercel's V0](https://v0.dev/), which generates UI and UX from short text prompts. She described giving it a three-sentence description of her product and watching it pick an appropriate color scheme with reasoning behind each choice. The result gave her a solid starting point, which matters because she considers herself more logical than artistic.
+
+Image generation also came up. One attendee said he recently found new appreciation for tools like Google's Imagen 3 (accessed through [Vertex AI](https://cloud.google.com/vertex-ai)). He has no artistic ability but sometimes needs visuals, and image generation lets him express what he sees in his mind even when he cannot draw it himself.
+
+## Lumi: Reading App for Language Practice
+
+One attendee demoed Lumi, a reading app he is building to help his son practice reading German aloud. The app displays short stories and uses Microsoft's speech-to-text API to analyze pronunciation as the child reads. After each session, Lumi shows scores for speed, accuracy, and completeness. Users can tap individual words to hear how they pronounced them versus how the word should sound.
+
+The creator explained that German has declination and conjugation that really matter for proper reading. His son tends to skip word endings or invent them, which you can still understand but is not correct. Without someone listening and correcting him, the child just reads over his mistakes. Lumi gives him a way to self-check even when a parent is not available.
+
+Other attendees discussed whether this trains reading or speaking. The creator believes both: reading aloud practices the tongue muscles, and vocalizing helps catch errors that your mind might skip over when reading silently. The next step is adding OCR so the child can scan any book he wants to read and get feedback on that text as well.
+
+The group noted that Microsoft's speech API stands out because it provides pronunciation-level feedback, not just transcribed text. You could use [OpenAI's Whisper](https://openai.com/research/whisper) for speech-to-text, but you would need a separate tool like the [Montreal Forced Aligner](https://montreal-forced-aligner.readthedocs.io/) to get phoneme-level scores. Microsoft bundles that functionality into one service.
+
+## Speech Assessment Platform for Schools
+
+Another attendee showed a platform his company built to assess K-12 students' speaking skills. A student records a video of a presentation or speech, and the system breaks it down across 28 skill markers organized into buckets like content, organization, English proficiency, voice, and body language.
+
+For content, the AI tags moments when the student uses evidence, analysis, or explains impact. For voice, it measures pace, volume, pitch, and enunciation. For body language, it tracks eye contact, gestures, and movement. Each skill gets a score from one to five, and the system generates an optimization pathway that highlights strengths, areas for growth, and priority actions.
+
+The team built their own rubric based on years of coaching competitive debate. They trained the system on tagged video data from real student speeches. Scoring logic remains the hardest part—knowing when speaking faster or louder is good depends heavily on context.
+
+The platform has signed three schools in North America and one English-teaching institution in Vietnam. In China, the team is running pilots with two schools. The founder explained that once schools trust a tool like this, they rarely switch, so he sees the legal and technical hurdles as worth the effort.
+
+## OCR and Document Processing
+
+A longtime educator who processes PDFs for his teaching work shared his experiences with OCR. He said the key challenge is that PDFs were designed to look the same on every screen and printer, not to make data extraction easy. Some PDFs have text layers that OCR handles well, but others are pure image layers with charts and graphs that confuse models.
+
+He has been using an open-source OCR tool from Xiaohongshu that excels at segmenting pages. It finds the coordinates of images, identifies latex, separates text, and processes each chunk appropriately. The output is a zip file with individual images and markdown files for each page. He runs it on [Hugging Face](https://huggingface.co/) Spaces, which costs about five dollars for the processing time he needs. Speed is about 50 seconds per page, which is slow but acceptable since he only needs to process documents once.
+
+Someone asked whether a commercial version exists. The educator found a Mac app on the App Store for about three dollars, but it lacks API endpoints, so it cannot connect to automation workflows like [n8n](https://n8n.io/). For now, he sets up his own Hugging Face endpoint whenever he needs to process a batch.
+
+## Speed Reading and Internal Vocalization
+
+The conversation drifted into speed reading. One member mentioned he used to teach speed reading and studied under the creator of mind maps. He explained that trying to vocalize text as you read will slow you down once you reach a certain level. You can train yourself to parse text directly through the visual cortex, grouping words and scanning for exceptions rather than reading every word aloud in your head. Speed readers often use a finger or stick to pull their eyes down the page.
+
+Another attendee brought up people who have no internal monologue at all. They never think in words inside their head, which lets them read much faster. When they need to articulate a thought, they have to say it out loud. Several members found this hard to imagine.
+
+The educator admitted to mispronouncing words he learned only from reading. He read all the Harry Potter books before the movies came out and pronounced Hermione as "Hermi-won" in his head because he had never heard the name spoken.
+
+## Information Quality and Wikipedia
+
+A question about misinformation led to a broader discussion of information quality. One attendee noted that social media generates enormous noise, much of it from bots and AI. Another raised concerns about institutions planting false information in training data so that models repeat it as fact.
+
+Someone mentioned Grokipedia, an attempt by [Grok](https://grok.x.ai/) to rebuild Wikipedia using AI. The idea is to invest the same editorial rigor that Wikipedia uses but run it at scale across topics that human editors might never cover. Traditional Wikipedia depends on volunteer contributors whose coverage is uneven, and certain policies exclude sources that some consider reliable.
+
+A history teacher pushed back, saying Wikipedia's strength is that real people with genuine passion wrote its articles for free. He has used it for years as a starting point for historical research and trusts the process even if individual sentences might be imperfect. He doubted that an AI could improve on topics like the Israel-Palestine conflict, where the issue is not more information but which sources to trust and how to frame the narrative.
+
+The discussion concluded with observations about how much human knowledge still exists only on paper in archives around the world. One attendee noted that German archives hold enormous collections from the World Wars that individual researchers spend entire careers exploring. AI could theoretically process that material at scale, but someone still has to digitize it first.
+
+## Fundraising and Cross-Border Challenges
+
+The founder of the speech assessment platform shared his fundraising experience. His company is a U.S.-registered entity with most of the founding team based in China. They are raising a pre-seed round and have secured about four hundred thousand dollars from investors in the U.S. and Singapore, but they are struggling to find the rest.
+
+Chinese investors typically want to see more revenue before committing, and most seed-stage funds focus on outbound deals—helping Chinese companies expand overseas—rather than inbound investments. U.S. investors hesitate because the founding team lives in China. The geopolitical tension makes both sides nervous.
+
+One attendee advised that early-stage investors expect most of their bets to fail and need a few to become very large. A pitch focused on Chinese international schools may not sound big enough. The story has to promise a path to all U.S. schools or all schools worldwide for investors to see the return they need.
+
+Another member pointed out that the company's value lies in its relationships with Chinese schools, but an outside investor cannot verify those relationships. Revenue is the only proof. Until the company converts a few more schools into paying customers, the structural disadvantages will be hard to overcome.
+
+The conversation touched on practical challenges of operating in China: VPNs that stop working, Docker getting blocked, services like Google AI Studio that detect your location regardless of proxy settings. One longtime resident joked that China taxes your time every day you try to work online. Several attendees exchanged tips on VPN configurations and terminal proxy settings that bypass default system behavior.
+
+## Other Resources
+
+- [Rokid AR Glasses](https://www.rokid.com/) – Chinese smart glasses with dual OLED screens and real-time speech subtitling. One attendee tried them at the company's Shanghai office and found the translation accuracy impressive.
+- [GitHub Copilot](https://github.com/features/copilot) – AI coding assistant integrated into code editors. Multiple members credited it with transforming how they write code.
+- [Vercel V0](https://v0.dev/) – AI-powered UI generator that creates interfaces from text prompts. One developer used it to generate a color scheme and layout for her product.
+- [Google Vertex AI / Imagen](https://cloud.google.com/vertex-ai) – Google's cloud platform for AI, including the Imagen image generation model. One attendee uses it for generating visuals without needing artistic skills.
+- [Claude](https://claude.ai/) – Anthropic's AI assistant. One educator described being so dependent on it that a brief outage made him panic about losing access to his saved conversations and artifacts.
+- [OpenAI Whisper](https://openai.com/research/whisper) – Open-source speech-to-text model. Discussed as an alternative to Microsoft's speech API, though it requires additional tools for pronunciation scoring.
+- [Montreal Forced Aligner](https://montreal-forced-aligner.readthedocs.io/) – Open-source tool for aligning speech audio with transcripts at the phoneme level. Mentioned as a way to get pronunciation feedback when using Whisper.
+- [Microsoft Azure Speech Services](https://azure.microsoft.com/en-us/products/ai-services/speech-services) – Microsoft's speech-to-text API with built-in pronunciation assessment. Used by the Lumi reading app for its feedback features.
+- [Hugging Face](https://huggingface.co/) – Platform for hosting and running machine learning models. One member runs OCR models there at low cost.
+- [n8n](https://n8n.io/) – Open-source workflow automation tool. Mentioned as a way to connect OCR outputs to other processes.
+- [Cursor](https://cursor.sh/) – AI-powered code editor. Several attendees discussed using its Composer mode with different models.
+- [NotebookLM](https://notebooklm.google.com/) – Google's AI notebook tool. Some attendees had trouble accessing it from China due to location blocking.
+- [Grokipedia](https://grok.x.ai/) – Grok's attempt to create an AI-generated alternative to Wikipedia with broader coverage.
+
