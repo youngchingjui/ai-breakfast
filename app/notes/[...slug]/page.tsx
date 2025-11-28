@@ -20,6 +20,18 @@ function deriveDateDisplayFromSlug(slug: string[]): string | undefined {
   return undefined
 }
 
+function stripFrontMatter(input: string): string {
+  let s = input
+  // strip BOM if present
+  if (s.charCodeAt(0) === 0xFEFF) s = s.slice(1)
+  // if content starts with a YAML front matter block, remove it
+  if (/^---\s*\r?\n/.test(s)) {
+    const m = s.match(/^---\s*\r?\n[\s\S]*?\r?\n---\s*(?:\r?\n)?/)
+    if (m) return s.slice(m[0].length)
+  }
+  return s
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> {
   const { slug } = await params
   const data = readNote(slug)
@@ -59,13 +71,15 @@ export default async function NotePage({ params }: { params: Promise<{ slug: str
     )
   }
 
+  const content = stripFrontMatter(data.content)
+
   return (
     <article className="space-y-6">
       <div>
         <Link href="/notes" className="button">← Back to Notes</Link>
       </div>
       <div className="container-prose">
-        <ReactMarkdown rehypePlugins={[rehypeSlug]}>{data.content}</ReactMarkdown>
+        <ReactMarkdown rehypePlugins={[rehypeSlug]}>{content}</ReactMarkdown>
       </div>
       <div>
         <Link href="/notes" className="button">← Back to Notes</Link>
