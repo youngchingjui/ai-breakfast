@@ -11,6 +11,21 @@ export type NoteItem = {
   dateDisplay?: string
 }
 
+export type NoteVersion = {
+  name: string // version folder name (e.g., gpt51) or 'default'
+  slug: string[] // full slug to the concrete notes.md
+  path: string // absolute file path to notes.md
+  title?: string
+}
+
+export type MeetingItem = {
+  slug: [string, string, string] // [yyyy, mm, dd]
+  dateISO?: string
+  dateDisplay?: string
+  title: string
+  versions: NoteVersion[]
+}
+
 function isDir(p: string) {
   try { return fs.statSync(p).isDirectory() } catch { return false }
 }
@@ -160,6 +175,48 @@ export function getAllNotes(): NoteItem[] {
   return results
 }
 
+export function getAllMeetings(): MeetingItem[] {
+  const notes = getAllNotes()
+  // Group by date (yyyy-mm-dd) using first three slug segments
+  const grouped = new Map<string, NoteItem[]>()
+  for (const n of notes) {
+    if (n.slug.length >= 3) {
+      const key = n.slug.slice(0, 3).join('-')
+      const arr = grouped.get(key)
+      if (arr) arr.push(n); else grouped.set(key, [n])
+    }
+  }
+
+  const meetings: MeetingItem[] = []
+  for (const [key, items] of grouped.entries()) {
+    // Determine date parts from key
+    const [y, m, d] = key.split('-') as [string, string, string]
+    const dateISO = `${y}-${m}-${d}`
+    const dateDisplay = new Date(`${dateISO}T00:00:00Z`).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+
+    // Build versions: if slug has exactly 3 parts -> name 'default'; if >3 -> name is part[3]
+    const versions: NoteVersion[] = items.map((it) => {
+      const name = it.slug.length > 3 ? it.slug[3]! : 'default'
+      return { name, slug: it.slug, path: it.path, title: it.title }
+    })
+
+    // Prefer a clean title from any version; use the first one's title
+    const title = items[0]?.title || `Notes for ${dateDisplay}`
+
+    meetings.push({ slug: [y, m, d], dateISO, dateDisplay, title, versions })
+  }
+
+  // Sort by date desc (key already yyyy-mm-dd)
+  meetings.sort((a, b) => {
+    if (a.dateISO && b.dateISO) return b.dateISO.localeCompare(a.dateISO)
+    if (a.dateISO) return -1
+    if (b.dateISO) return 1
+    return b.slug.join('/').localeCompare(a.slug.join('/'))
+  })
+
+  return meetings
+}
+
 export function readNote(slug: string[]): { content: string, absolutePath: string } | null {
   const possible = [
     path.join(NOTES_ROOT, ...slug, 'notes.md'),
@@ -172,5 +229,39 @@ export function readNote(slug: string[]): { content: string, absolutePath: strin
     }
   }
   return null
+}
+
+export function listMeetingVersions(dateSlug: [string, string, string]): NoteVersion[] {
+  const [y, m, d] = dateSlug
+  const baseDir = path.join(NOTES_ROOT, y, m, d)
+  const versions: NoteVersion[] = []
+
+  // Versionless case
+  const direct = path.join(baseDir, 'notes.md')
+  if (isFile(direct)) {
+    const { title } = parseFrontMatterTitleAndDate(direct)
+    versions.push({ name: 'default', slug: [y, m, d], path: direct, title })
+  }
+
+  // Versioned subfolders
+  if (isDir(baseDir)) {
+    const entries = fs.readdirSync(baseDir)
+    for (const entry of entries) {
+      const candidate = path.join(baseDir, entry, 'notes.md')
+      if (isFile(candidate)) {
+        const { title } = parseFrontMatterTitleAndDate(candidate)
+        versions.push({ name: entry, slug: [y, m, d, entry], path: candidate, title })
+      }
+    }
+  }
+
+  // Sort versions by name, but keep 'default' first if present
+  versions.sort((a, b) => {
+    if (a.name === 'default') return -1
+    if (b.name === 'default') return 1
+    return a.name.localeCompare(b.name)
+  })
+
+  return versions
 }
 

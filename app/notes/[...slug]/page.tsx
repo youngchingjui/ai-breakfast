@@ -2,10 +2,10 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import ReactMarkdown from 'react-markdown'
 import rehypeSlug from 'rehype-slug'
-import { getAllNotes, readNote } from '@/lib/notes'
+import { getAllMeetings, listMeetingVersions, readNote } from '@/lib/notes'
 
 export async function generateStaticParams() {
-  return getAllNotes().map((n) => ({ slug: n.slug }))
+  return getAllMeetings().map((n) => ({ slug: n.slug }))
 }
 
 function deriveDateDisplayFromSlug(slug: string[]): string | undefined {
@@ -22,34 +22,31 @@ function deriveDateDisplayFromSlug(slug: string[]): string | undefined {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> {
   const { slug } = await params
-  const data = readNote(slug)
-
-  let title: string | undefined
-  if (data) {
-    const firstHeading = data.content.split(/\r?\n/).find((line) => /^\s*#\s+/.test(line))
-    if (firstHeading) {
-      const m = firstHeading.replace(/^\s*#\s+/, '').trim()
-      const numMatch = m.match(/#\s*(\d+)/)
-      if (numMatch) {
-        title = `Notes for Breakfast #${numMatch[1]}`
-      } else {
-        title = m
-      }
-    }
-  }
-
-  if (!title) {
-    const dateDisplay = deriveDateDisplayFromSlug(slug)
-    title = dateDisplay ? `Notes for ${dateDisplay}` : 'Notes'
-  }
-
+  // Meeting-level title
+  const dateDisplay = deriveDateDisplayFromSlug(slug)
+  const title = dateDisplay ? `Notes for ${dateDisplay}` : 'Notes'
   return { title }
 }
 
-export default async function NotePage({ params }: { params: Promise<{ slug: string[] }> }) {
+export default async function NotePage({ params, searchParams }: { params: Promise<{ slug: string[] }>, searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
+  const { slug } = await params
+  const query = (await (searchParams || Promise.resolve({}))) || {}
 
-  const { slug } = await params;
-  const data = readNote(slug)
+  // Ensure we only use date slug [y,m,d]
+  const dateSlug = slug.slice(0, 3) as [string, string, string]
+  const versions = listMeetingVersions(dateSlug)
+
+  // Decide selected version
+  const versionParamRaw = query.version
+  const versionParam = Array.isArray(versionParamRaw) ? versionParamRaw[0] : versionParamRaw
+  let selected = versions[0]
+  if (typeof versionParam === 'string') {
+    const found = versions.find(v => v.name === versionParam)
+    if (found) selected = found
+  }
+
+  const data = selected ? readNote(selected.slug) : null
+
   if (!data) {
     return (
       <div className="space-y-4">
@@ -59,11 +56,33 @@ export default async function NotePage({ params }: { params: Promise<{ slug: str
     )
   }
 
+  const showTabs = versions.length > 1
+  const baseHref = `/notes/${dateSlug.join('/')}`
+
   return (
     <article className="space-y-6">
       <div>
         <Link href="/notes" className="button">← Back to Notes</Link>
       </div>
+
+      {showTabs && (
+        <div className="flex gap-2 border-b border-border pb-2">
+          {versions.map((v) => {
+            const href = `${baseHref}?version=${encodeURIComponent(v.name)}`
+            const isActive = v.name === selected.name
+            return (
+              <Link
+                key={v.name}
+                href={href}
+                className={`px-3 py-1 rounded-t text-sm ${isActive ? 'bg-primary text-primary-foreground' : 'bg-muted text-foreground hover:bg-muted/80'}`}
+              >
+                {v.name}
+              </Link>
+            )
+          })}
+        </div>
+      )}
+
       <div className="container-prose">
         <ReactMarkdown rehypePlugins={[rehypeSlug]}>{data.content}</ReactMarkdown>
       </div>
