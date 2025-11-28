@@ -11,6 +11,14 @@ export type NoteItem = {
   dateDisplay?: string
 }
 
+export type MeetingGroup = {
+  baseSlug: string[]
+  title: string
+  dateISO?: string
+  dateDisplay?: string
+  versions: NoteItem[]
+}
+
 function isDir(p: string) {
   try { return fs.statSync(p).isDirectory() } catch { return false }
 }
@@ -160,6 +168,54 @@ export function getAllNotes(): NoteItem[] {
   return results
 }
 
+export function getMeetings(): MeetingGroup[] {
+  const all = getAllNotes()
+  const map = new Map<string, MeetingGroup>()
+
+  for (const n of all) {
+    const base = n.slug.slice(0, 3)
+    const key = base.join('/')
+    let g = map.get(key)
+    if (!g) {
+      const { iso, display } = deriveDateFromSlug(base)
+      g = {
+        baseSlug: base,
+        title: n.title,
+        dateISO: n.dateISO || iso,
+        dateDisplay: n.dateDisplay || display,
+        versions: [],
+      }
+      map.set(key, g)
+    }
+    g.versions.push(n)
+    // Prefer a non-empty title; keep the first one encountered otherwise
+    if (!g.title && n.title) g.title = n.title
+  }
+
+  const groups = Array.from(map.values())
+  // Sort groups by date ISO desc
+  groups.sort((a, b) => {
+    if (a.dateISO && b.dateISO) return b.dateISO.localeCompare(a.dateISO)
+    if (a.dateISO) return -1
+    if (b.dateISO) return 1
+    return b.title.localeCompare(a.title)
+  })
+
+  // For each group, sort versions by version label (the 4th slug segment) then by path
+  for (const g of groups) {
+    g.versions.sort((a, b) => {
+      const av = a.slug[3] || ''
+      const bv = b.slug[3] || ''
+      if (av && bv) return av.localeCompare(bv)
+      if (av) return 1 // put explicit versions after base note
+      if (bv) return -1
+      return a.path.localeCompare(b.path)
+    })
+  }
+
+  return groups
+}
+
 export function readNote(slug: string[]): { content: string, absolutePath: string } | null {
   const possible = [
     path.join(NOTES_ROOT, ...slug, 'notes.md'),
@@ -171,6 +227,25 @@ export function readNote(slug: string[]): { content: string, absolutePath: strin
       return { content, absolutePath: p }
     }
   }
+
+  // Fallback: if slug looks like a meeting (YYYY/MM/DD), try first version folder
+  if (slug.length === 3) {
+    const baseDir = path.join(NOTES_ROOT, ...slug)
+    if (isDir(baseDir)) {
+      try {
+        const entries = fs.readdirSync(baseDir).filter((e) => isDir(path.join(baseDir, e)))
+        entries.sort()
+        for (const dir of entries) {
+          const p = path.join(baseDir, dir, 'notes.md')
+          if (isFile(p)) {
+            const content = fs.readFileSync(p, 'utf8')
+            return { content, absolutePath: p }
+          }
+        }
+      } catch {}
+    }
+  }
+
   return null
 }
 
