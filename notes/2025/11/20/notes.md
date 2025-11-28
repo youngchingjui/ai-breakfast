@@ -1,4 +1,11 @@
-# AI Breakfast #17 Notes
+---
+Title: AI Breakfast #17
+Date: November 20, 2025
+Time: 9:30 AM - 11:00 AM
+Author: Ching Jui Young
+---
+
+# AI Breakfast #17
 
 Thursday, November 20, 2025
 
@@ -12,7 +19,7 @@ At our AI Breakfast #17, our group of developers, entrepreneurs, teachers, paren
 
 ## Table of Contents
 
-- [AI Breakfast #17 Notes](#ai-breakfast-17-notes)
+- [AI Breakfast #17](#ai-breakfast-17)
 	- [Executive Summary](#executive-summary)
 	- [Table of Contents](#table-of-contents)
 	- [Member Introductions](#member-introductions)

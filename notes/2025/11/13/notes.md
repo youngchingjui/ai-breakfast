@@ -1,3 +1,10 @@
+---
+Title: AI Breakfast #16
+Date: November 13, 2025
+Time: 8:00 AM - 9:30 AM
+Author: Ching Jui Young
+---
+
 # AI Breakfast #16
 
 Thu, 13 Nov 25

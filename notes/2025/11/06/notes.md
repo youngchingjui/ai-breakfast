@@ -1,4 +1,11 @@
-# AI Breakfast #15 - November 6th Meeting Recap
+---
+Title: AI Breakfast #15
+Date: November 6, 2025
+Time: 8:00 AM - 9:30 AM
+Author: Ching Jui Young
+---
+
+# AI Breakfast #15
 
 ## 💰 **AI Subscriptions & Workarounds**
 
