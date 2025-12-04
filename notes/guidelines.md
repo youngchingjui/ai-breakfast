@@ -32,7 +32,7 @@
 
 - The last section should be titled "Other Resources".
 - Include a bullet list of all the resources mentioned in the transcripts, especially smaller tools, links, or references that were not covered in detail in the main write‑up.
-- Do an online search to provide links to those resources.
+- Do an online search to find **direct, specific links** to these resources (e.g., the actual product page, not a company homepage). If a specific link cannot be found, omit the link rather than linking to a generic page.
 - Each resource should have a concise, single-sentence description that combines:
   1. A brief description of what the resource is
   2. How attendees used it and their feedback/impressions
@@ -45,7 +45,12 @@
 - Use descriptive, narrative prose that captures the conversation and members' insights. The document should flow like a story, with sections that transition naturally from one topic to the next.
 - Avoid bullet points with headers—instead, write flowing paragraphs that describe what was discussed and what members shared.
 - Avoid numbered sections or chapters—let the content flow organically without numerical structure.
-- When you mention a tool, app, service, or website that can be found online, include a markdown link the first time it appears in the main text (as news articles do). Later mentions of the same thing do not need to be linked again.
+- When you mention a tool, app, service, or website, include a markdown link only if it adds genuine value for readers. Follow these principles:
+  - **Link to specific resources**, not generic homepages. For example, link to a specific documentary on YouTube, a specific product page, or a specific API reference—not the company's main website.
+  - **Don't link to well-known brands** like OpenAI, Google, or Meta. Readers can find these easily.
+  - **Do link to specific, harder-to-find things** discussed in the conversation: a particular video, article, tool feature, or niche product.
+  - The goal is to help readers access the exact thing being discussed with one click.
+- Later mentions of the same resource do not need to be linked again.
 
 ## Content Organization
 
