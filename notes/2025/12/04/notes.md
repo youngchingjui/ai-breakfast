@@ -11,7 +11,7 @@ Author: Ching Jui Young
 December 4, 2025
 
 
-At our nineteenth AI Breakfast, our group of developers, entrepreneurs, data scientists, educators, and healthcare consultants discussed topics ranging from [AI-assisted stock trading](#ai-assisted-stock-trading), [browser automation agents](#browser-automation-agents), [AI chat architecture decisions](#ai-chat-architecture-for-education-apps), to [AI in drug appraisal and healthcare](#ai-in-drug-appraisal-and-healthcare). The group also watched [The Thinking Game documentary](#the-thinking-game-documentary) and debated the future of [personal websites](#the-future-of-personal-websites-and-social-media) and [how AI changes the way we consume information](#ai-and-information-consumption). Attendees shared their latest work, including [HTTPR, a voice-based website builder](#httpr-voice-based-development), an [AI chat feature for education apps](#ai-chat-architecture-for-education-apps), and a [drug appraisal platform using AI](#ai-in-drug-appraisal-and-healthcare).
+At our nineteenth AI Breakfast, our group of developers, entrepreneurs, data scientists, educators, and healthcare consultants discussed topics ranging from [AI-assisted stock trading](#ai-assisted-stock-trading), [browser automation agents](#browser-automation-agents), [AI chat architecture decisions](#ai-chat-architecture-for-education-apps), to [AI in drug appraisal and healthcare](#ai-in-drug-appraisal-and-healthcare). The group also watched [The Thinking Game documentary](#the-thinking-game-documentary) and debated the future of [personal websites](#the-future-of-personal-websites-and-social-media) and [how AI changes the way we consume information](#ai-and-information-consumption). Attendees shared their latest work, including Issue to PR, a voice-based website builder, an [AI chat feature for education apps](#ai-chat-architecture-for-education-apps), and a [drug appraisal platform using AI](#ai-in-drug-appraisal-and-healthcare).
 
 
 ![Group Photo 1](/images/notes/2025/12/04/group%20photo%201.jpeg) 
@@ -159,3 +159,4 @@ No conclusions were reached, but the conversation reflected a shared unease abou
 - [Dassault Systèmes Living Heart](https://www.3ds.com/3dexperiencelab/portfolio/living-heart) – Engineering software company's digital heart simulation project. One member mentioned their simulated heart being used for drug trials accepted by the FDA.
 - [Fotor](https://www.fotor.com/) – Online design tool with integrated AI image generation. One member recommended it for generating high-resolution images and QR codes that actually work.
 - [Manus](https://manus.im/) – AI agent platform. One member used it to generate diagrams from economics papers but found it expensive when left running.
+
