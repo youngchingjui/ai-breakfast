@@ -52,7 +52,11 @@ export default function RootLayout({
           {children}
         </main>
         <footer className="mx-auto max-w-3xl px-4 py-8 text-sm text-muted-foreground">
-          <p>Hosted every Thursday at Baker & Spice — Wheelock Square, 1717 West Nanjing Road. 南京西路1717号 会德丰国际广场南院首层101号商铺</p>
+          <nav className="flex items-center gap-3">
+            <Link href="/" className="hover:underline hover:text-foreground">Home</Link>
+            <span aria-hidden="true">•</span>
+            <Link href="/notes" className="hover:underline hover:text-foreground">Notes</Link>
+          </nav>
         </footer>
       </body>
     </html>
