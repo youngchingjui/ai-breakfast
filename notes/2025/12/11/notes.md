@@ -8,6 +8,8 @@ Author: Ching Jui Young
 
 # AI Breakfast #20
 
+![Group Photo](/images/notes/2025/12/11/group%20photo.jpeg) 
+
 ## Executive Summary
 
 At our twentieth AI Breakfast, a group of developers, entrepreneurs, consultants, and content creators discussed topics ranging from the problem of AI slop in generated content, context optimization for AI workflows, advances in AI image generation, and AR glasses bringing information into the physical world. Attendees also shared their latest work, including a healthcare research platform for pharmaceutical analysis, an internal AI platform at an international school, spatial UI development for AR/VR glasses, and a recipe digitization project for Chinese audiences.
