@@ -1,0 +1,64 @@
+# AI Breakfast #20
+
+## Executive Summary
+
+At our twentieth AI Breakfast, a group of developers, entrepreneurs, consultants, and content creators discussed topics ranging from the problem of AI slop in generated content, context optimization for AI workflows, advances in AI image generation, and AR glasses bringing information into the physical world. Attendees also shared their latest work, including a healthcare research platform for pharmaceutical analysis, an internal AI platform at an international school, spatial UI development for AR/VR glasses, and a recipe digitization project for Chinese audiences.
+
+## Member Work
+
+A consultant-turned-entrepreneur shared their newly launched healthcare research platform. The tool helps researchers and investors in the pharmaceutical industry evaluate new treatments. Users can upload clinical trial papers, and the platform extracts structured data, runs cost-effectiveness simulations, and generates reports. The platform uses Monte Carlo simulations to show the probability of a treatment being cost-effective for different payers around the world. The founder noted that health economics is a small field with only about 25,000 practitioners globally, making it a promising niche for specialized AI tools.
+
+An IT manager at an international school described their internal AI platform called AI Space. The platform offers AI chat, image generation, translation, and workflow automation for non-academic staff. One key feature is a contract review agent that automatically analyzes documents against predefined rules. The team is cautious about data privacy and currently advises staff not to upload personal information. They are exploring ways to differentiate their internal tools from external AI services by building in specialized terminology databases for translation.
+
+A consultant focused on spatial interfaces for AR and VR glasses presented their work. With several Chinese companies releasing AI-powered glasses in recent weeks, the consultant sees an opportunity to bring information locked in phones and computers up into a heads-up display. The work involves summarizing and visualizing data from various sources into spatial UI that users can see while keeping their hands free. The consultant also demonstrated Gemini's voice mode, which now includes multiple Australian voice options and can annotate live video with visual markers.
+
+One attendee shared plans to digitize their mother's handwritten recipe collection for a Chinese social media channel. The project involves using AI to perform OCR on hundreds of recipe cards, categorize them, and verify the recipes against online sources. The goal is to share classic American home cooking with Chinese audiences, possibly with both English and Chinese versions. The group discussed the challenges of handwriting recognition and maintaining ingredient accuracy given changes in package sizes over time.
+
+A software architect at a 3D printing company explained how their team uses AI for complex problem-solving. When service interruptions occur, they use MCP-enabled agents connected to observability tools to quickly identify issues. The architect noted that AI is much faster at navigating complexity across multiple systems than humans. Their company developed a physics-based simulation platform that predicts printing problems and optimizes print jobs at the GPU kernel level.
+
+## The Problem of AI Slop
+
+The group spent time discussing "AI slop," the term for AI-generated content that feels empty or careless. One attendee suggested that slop is not about the content being bad, but about receivers sensing a lack of care or effort. When people notice content was generated without thought, they feel no need to engage with it themselves.
+
+Another perspective focused on information density. The problem with much AI-generated content is that it is verbose and bloated without delivering key insights. Comment sections on professional networking sites are now filled with AI-generated responses that add no value to the original post. This creates a noise problem where genuine signal gets buried.
+
+The group noted that we are in a brief window where humans can still detect AI-generated content. As models improve, that window will close. The proliferation of AI-generated content presents real risks, particularly for older generations who may be more susceptible to believing realistic but fabricated content.
+
+## Context Optimization for AI Workflows
+
+Several attendees had independently watched the same video on context optimization by a developer from a company building tools in this space. The key insight is that reducing noise in the context given to AI leads to better results. The framework presented different zones of complexity and conditions under which AI agents can help effectively with coding tasks.
+
+One takeaway was the advice not to outsource high-level thinking to AI. Attendees who maintained detailed understanding of their software architecture found they ran into fewer problems when using AI for coding. The video provided a useful framework for evaluating personal coding workflows with AI assistance.
+
+## Advances in Image Generation
+
+The conversation turned to Nano Banana Pro, an image generation model that has impressed users with both visual realism and prompt adherence. One attendee demonstrated generating food photography that looked remarkably realistic. The model excels at following specific prompts even for unusual requests, like adding green sauce to a hamburger.
+
+The technical discussion explored how Nano Banana Pro differs from traditional diffusion models. It appears to combine approaches, allowing it to solve math problems in images and match handwriting styles. This represents a significant leap from earlier models that could generate realistic images but struggled with prompt accuracy.
+
+One attendee who previously built recipe image generation tools explained the legal complexities around AI-generated images. No jurisdiction currently assigns intellectual property rights to AI-generated content, [including the U.S.](https://www.copyright.gov/ai/ai_policy_guidance.pdf). This creates challenges for companies that need to prove ownership of marketing materials. The workaround involves demonstrating sufficient human input in the generation process, but the industry is still working out these standards.
+
+## AI in Education
+
+The international school IT manager shared observations about shifting attitudes toward AI in education. At a major education technology conference, the focus changed dramatically in one year from preventing students from using AI to promoting productive AI use in classrooms. Schools are beginning to accept that AI is a tool that cannot be blocked entirely.
+
+The school's approach is to position AI as helping staff focus on human-centered work rather than replacing teachers. Video generation tools, for example, could help teachers create engaging materials while freeing them to spend more time on personal interactions with students. One example showed [a rural school using AI to generate videos of students' future dream jobs](https://www.youtube.com/watch?v=WCVYiApOMpo), making career aspirations feel more real and tangible.
+
+## Infrastructure Challenges with GPUs
+
+The software architect discussed infrastructure challenges around GPU usage. At a recent cloud-native conference, about 70 percent of presentations focused on GPU management and optimization. The problem is that LLMs do not fully utilize GPU capacity, leading companies to explore partitioning strategies to improve cost-effectiveness. Indeed, [Alibaba says their new pooling system cut Nvidia GPU use by 82%](https://www.tomshardware.com/tech-industry/semiconductors/alibaba-says-new-pooling-system-cut-nvidia-gpu-use-by-82-percent?utm_source=openai).
+
+The architect's company faces different challenges since their physics simulations consume 100 percent of GPU compute. They manage cold start times and job queuing carefully to balance cost and user experience. The conversation touched on differences between consumer and enterprise GPU cards, with some Chinese providers offering modified gaming cards with expanded memory despite licensing restrictions.
+
+## Other Resources
+
+- [Nano Banana Pro](https://nano-banana2.app/blog/nano-banana-pro-getting-started): An image generation model praised for combining visual realism with strong prompt adherence. Attendees found it particularly good for food photography.
+- [Dex Horton's context optimization talk](https://youtu.be/rmvDxxNubIg?si=-tD_F3TrIRZgj75q): A video on context engineering that provides a framework for evaluating AI coding workflows. Multiple attendees found it independently and recommended it.
+- [How Diffusion Models Work](https://www.deeplearning.ai/short-courses/how-diffusion-models-work/) (deeplearning.ai short course): A short course recommended by a group member for understanding the denoising process in diffusion models.
+- [Teacher uses AI to show students their dream jobs](https://www.youtube.com/watch?v=bebN3441q4Q): A short video of a teacher using AI video generation to visualize students' future careers.
+- [Eleven Labs](https://elevenlabs.io/): A voice synthesis platform that integrates with custom agent builds. Attendees mentioned it as an option for creating custom AI voices.
+- [AI Dungeon](https://aidungeon.com/): A text-based interactive storytelling platform that now uses LLMs. Mentioned as a potential model for educational apps for children.
+- [Dify](https://dify.ai/) (referred to as "Diffy" in discussion): A workflow automation platform used by the international school to build internal agents for contract review and other tasks.
+- [Cloud Native Postgres](https://cloudnativepg.io/): A Kubernetes-native database solution with built-in replication and archiving features that simplifies database management.
+- [K Agent](https://kagent.dev/): A tool with MCP plugins for interfacing with databases and observability services like Grafana and Prometheus.
+- [Metabase](https://www.metabase.com/): A business intelligence tool used for creating dashboards, mentioned in the context of combining traditional dashboards with LLM-based data exploration.
