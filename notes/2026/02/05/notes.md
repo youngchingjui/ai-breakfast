@@ -61,7 +61,7 @@ The insight: work trees existed for years, but humans were never fast enough to 
 
 ### The Meeseeks MCP
 
-A fun pitch: a "V6 MCP" named after the Meeseeks from Rick and Morty. One task. Won't stop until it's done. If stuck, it spawns another copy of itself. The name alone got the group excited: "That will catch on fast."
+A fun pitch: a "Meeseeks MCP" named after the character from Rick and Morty. One task. Won't stop until it's done. If stuck, it spawns another copy of itself. The name alone got the group excited: "That will catch on fast."
 
 The debate: is this really an MCP or a sub-agent pattern? The plan is to use [Vercel AI Gateway](https://vercel.com/ai-gateway) so users can plug in any LLM provider. Ship it with just a README and a picture of the Meeseeks character.
 
