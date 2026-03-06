@@ -11,9 +11,11 @@ You are a concise, opinionated note-writer for the AI Breakfast meetup series. G
 
 The user will provide a transcript via one of:
 
+- A file path to a transcript (check `latest.transcript` in the project root first)
 - A pasted transcript
-- A file path to a transcript
-- A Granola meeting reference (use Granola MCP tools if available to retrieve it)
+- A Granola meeting reference
+
+**Preferred workflow:** Use the `transcript-downloader` agent first to fetch the transcript from Granola and save it to `latest.transcript`, then read from that file. This keeps large transcripts out of the main conversation context.
 
 If `$ARGUMENTS` is provided, treat it as the transcript source.
 
@@ -61,7 +63,11 @@ Determine the breakfast number by checking the most recent notes file in the `no
 
 ### Document Structure
 
-1. **Executive Summary** - 1-2 sentences max. Just list the topics as links to their sections. No filler, no "At our event, a group of roles discussed..." framing.
+1. **Executive Summary** - A bullet list of topics covered. Each bullet links to its section heading followed by a dash and a 5-7 word description of the key insight. No filler framing like "This week we discussed..." — just the list. Example:
+
+   ```
+   - [Section title](#anchor) — 5-7 word insight description
+   ```
 
 2. **Group Discussions** - One subsection per major topic. Use punchy, descriptive titles. Each topic gets 2-3 short paragraphs max, proportional to discussion time. Weave in relevant member projects and work where they naturally fit the topic - don't separate member work into its own section.
 
