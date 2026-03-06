@@ -42,7 +42,7 @@ A data team lead at a major beauty company raised the core question: how should 
 
 ### Self-Hosted Hardware and Networking
 
-An AI consultant spent five weeks driving across Australia while hardening a [Proxmox](https://www.proxmox.com/) server on an N100 mini PC — coding through [Happy](https://happy.engineering/) on his phone while belaying his daughters at rock climbing. The setup: five LXC containers, one security box holding all keys, and an [OpenCode](https://opencode.ai/) instance with zero direct access to secrets.
+An AI consultant spent five weeks driving across Australia while hardening a [Proxmox](https://www.proxmox.com/) server on an N100 mini PC — coding through [Happy](https://happy.engineering/) on his phone while belaying his daughters at rock climbing. The setup: five LXC containers, one security box holding all keys, and an [OpenClaw](https://openclaw.ai/) instance with zero direct access to secrets.
 
 [Tailscale](https://tailscale.com/) works beautifully for mesh networking — until you're in China where it's blocked. The workaround: tunnel Tailscale through a separate VPN. Several people compared router-based VPN services from Chinese providers on WeChat, ranging from $260 to $1,600/year.
 
@@ -71,7 +71,7 @@ A software architect takes a different approach: weekly workshops, every Friday,
 - [Arize](https://arize.com/): LLM observability and evaluation. Mentioned alongside AgentOps for agent quality monitoring.
 - [Tailscale](https://tailscale.com/): WireGuard-based mesh VPN. Makes any device feel like it's on LAN — works everywhere except China.
 - [Proxmox](https://www.proxmox.com/): Open-source virtualization platform. Running LXC containers on an N100 mini PC for self-hosted AI development.
-- [OpenCode](https://opencode.ai/): Open-source AI coding agent for the terminal. Self-hosted on hardened hardware with no direct access to secrets.
+- [OpenClaw](https://openclaw.ai/): Open-source personal AI assistant (formerly Clawdbot) that runs on your own hardware. Talk to it through iMessage, Telegram, WhatsApp, and other messaging platforms. Self-hosted on hardened hardware with no direct access to secrets.
 - [Helix](https://helix.ml/): Agent orchestration platform with desktop sandboxes and a single orchestration plane.
 - [Rokid Glasses](https://global.rokid.com/): AR glasses with built-in display screens. Demoed at the breakfast.
 - [Ray-Ban Meta Glasses](https://www.ray-ban.com/usa/ray-ban-meta-ai-glasses): Smart glasses with camera and audio — better build quality than Rokid but no screen. Used hands-free for filming rock climbing.
