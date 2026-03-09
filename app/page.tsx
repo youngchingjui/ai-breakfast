@@ -1,5 +1,7 @@
 import Link from "next/link"
 
+const GOOGLE_CALENDAR_URL = "https://calendar.google.com/calendar/embed?src=c_c4644bf2c1238c621372c1f3f24b313d3092cabc9d2dd88351592d1d04dad8b2%40group.calendar.google.com&ctz=Asia%2FShanghai"
+
 export default function Home() {
   return (
     <div className="space-y-8">
@@ -15,8 +17,8 @@ export default function Home() {
             <h2 className="text-xl font-semibold">What to expect</h2>
             <ul className="list-disc pl-5 text-foreground space-y-2">
               <li>
-                Short lightning updates — "Here's what I'm trying / struggling
-                with in AI"
+                Short lightning updates — &quot;Here&apos;s what I&apos;m trying / struggling
+                with in AI&quot;
               </li>
               <li>Peer discussion & troubleshooting</li>
               <li>Exploring interesting AI workflows, tools and hacks</li>
@@ -28,16 +30,23 @@ export default function Home() {
             </p>
           </div>
 
-          <aside className="rounded-lg border border-border p-4 bg-card space-y-2">
+          <aside className="rounded-lg border border-border p-4 bg-card space-y-3">
             <div className="text-sm text-muted-foreground">Next meetup</div>
-            <div className="text-lg font-semibold">Thu Mar 5 | 9–10:30am</div>
+            <div className="text-lg font-semibold">Thu Mar 12 | 9–10:30am</div>
             <div className="space-y-1 text-foreground">
               <div className="font-medium">BAKER&SPICE</div>
               <div>1717 West Nanjing Road, Wheelock Square</div>
-              <div>南京西路1717号 会德丰国际广场南院首层101号商铺</div>
-              <div className="text-muted-foreground">
+              <div className="text-sm text-muted-foreground">
+                南京西路1717号 会德丰国际广场南院首层101号商铺
+              </div>
+              <div className="text-muted-foreground text-sm">
                 (Look for room in back)
               </div>
+            </div>
+            <div className="flex flex-wrap gap-2 pt-1">
+              <a href={GOOGLE_CALENDAR_URL} target="_blank" rel="noopener noreferrer" className="button text-sm">
+                View Calendar
+              </a>
             </div>
           </aside>
         </div>
