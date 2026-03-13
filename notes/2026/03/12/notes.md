@@ -9,12 +9,12 @@ Author: Ching Jui Young
 
 ## Executive Summary
 
-- [OpenClaw: The Promise and Pain of Personal AI Agents](#openclaw-the-promise-and-pain-of-personal-ai-agents) — Powerful but will spam your friends at 3am
-- [Coding Agents and Workflow Tools](#coding-agents-and-workflow-tools) — Kanban boards for your AI workforce
-- [Voice-First Computing](#voice-first-computing) — Apple TV remotes as Star Trek communicators
-- [AI Meeting Notes Done Right](#ai-meeting-notes-done-right) — Granola quietly ignores your political rants
-- [Smart Glasses as Daily Drivers](#smart-glasses-as-daily-drivers) — Real-time translation and rock climbing cameras
-- [StudyFit: Build the Tool You Actually Want](#studyfit-build-the-tool-you-actually-want) — QR-coded worksheets bridge digital and physical
+- [OpenClaw: The Promise and Pain of Personal AI Agents](#openclaw-the-promise-and-pain-of-personal-ai-agents) — Personal AI agent that automates email and messaging; powerful but needs strict guardrails to avoid runaway costs
+- [Coding Agents and Workflow Tools](#coding-agents-and-workflow-tools) — Visual tools like Vibe Kanban for managing coding agents; group split on when autonomous agents actually help
+- [Voice-First Computing](#voice-first-computing) — Whisper-based dictation replacing keyboards for prompts and commands; one member controls his Mac with a Siri Remote on a lanyard
+- [AI Meeting Notes Done Right](#ai-meeting-notes-done-right) — Granola intelligently filters out tangents and banter; Fathom dominates Western sales teams
+- [Smart Glasses as Daily Drivers](#smart-glasses-as-daily-drivers) — Meta Ray-Bans for hands-free recording; Rokid AR glasses for real-time translation in 89 languages
+- [StudyFit: Build the Tool You Actually Want](#studyfit-build-the-tool-you-actually-want) — Education app using QR-coded worksheets to bridge offline and digital learning with individualized follow-ups
 
 ## Group Discussions
 
@@ -38,7 +38,7 @@ On the model side, [Z AI's](https://www.zhipuai.cn/en) GLM-5 impressed as a surp
 
 Nobody writes code by hand anymore -- that much was unanimous. But the group is increasingly split between keyboard and voice for everything around the code: prompts, terminal commands, thinking out loud.
 
-One member uses an Apple TV Siri Remote on a lanyard as a voice-command device via [GoatRemote](https://goatremote.com/), a $10 app that turns the remote into a mouse, keyboard, and microphone for Mac. He uses it on the treadmill like a Star Trek communicator. The trackpad ring handles scrolling, and the mic handles voice commands through Whisper.
+One member uses an Apple TV Siri Remote on a lanyard as a voice-command device via [GoatRemote](https://goatremote.com/), a $10 (now $20) app that turns the remote into a mouse, keyboard, and microphone for Mac. He uses it on the treadmill like a Star Trek communicator. The trackpad ring handles scrolling, and the mic handles voice commands through Whisper.
 
 The consensus: once you switch to Whisper-based dictation, Apple's native dictation feels broken. [Granola](https://www.granola.ai/) runs on Whisper for its transcription backend, and one member now uses it as a general-purpose voice notes tool rather than just a meeting recorder.
 
@@ -62,6 +62,13 @@ A teacher in the group built StudyFit, an education app born from watching a Kor
 
 The key innovation is bridging offline and digital learning. Worksheets get printed with unique QR codes encoding the course, student, and question IDs. Anyone -- teacher, student, parent, TA -- can scan to upload answers. The system then generates individualized follow-up worksheets based on each student's performance. Teachers who've seen it are already asking to sign up.
 
+## Try This Week
+
+- **[Granola](https://www.granola.ai/)** — Install it, join your next meeting, and let it auto-generate notes. It filters out small talk and tangents on its own.
+- **[Fathom](https://fathom.ai/)** — If you're in sales, connect it to your next Zoom or Google Meet call. It records, transcribes, and syncs highlights to your CRM automatically.
+- **[Rokid AR Glasses](https://global.rokid.com/pages/rokid-glasses)** — If you regularly speak with people in another language, try the real-time translation subtitles. Works with 89 languages out of the box.
+- **[GoatRemote](https://goatremote.com/)** — Got a spare Apple TV Siri Remote? Install the app and use it as a voice-command controller for your Mac — great for hands-free use on a treadmill or across the room.
+
 ## Other Resources
 
 - [OpenClaw](https://openclaw.ai/): Open-source personal AI agent that connects to WhatsApp, Telegram, email, and 50+ integrations. The star of this week's discussion -- and cautionary tales.
@@ -70,8 +77,6 @@ The key innovation is bridging offline and digital learning. Worksheets get prin
 - [Vibe Kanban](https://www.vibekanban.com/): Visual Kanban board for orchestrating AI coding agents. Drag tasks, agents work in isolated branches.
 - [Happy Coder](https://happy.engineering/): Mobile client for Claude Code with end-to-end encryption and voice coding support.
 - [Z AI (Zhipu)](https://www.zhipuai.cn/en): Chinese AI platform running GLM-5. Extremely generous pricing -- one member pays ~5 RMB/month.
-- [GoatRemote](https://goatremote.com/): $10 Mac app that turns an Apple TV Siri Remote into a mouse, keyboard, and voice controller.
-- [Granola](https://www.granola.ai/): AI meeting notepad that transcribes and intelligently summarizes, filtering out tangents and banter.
-- [Fathom](https://fathom.ai/): AI meeting recorder for sales teams with CRM sync, call library, and real-time coaching.
+- [GoatRemote](https://goatremote.com/): $10 (now $20) Mac app that turns an Apple TV Siri Remote into a mouse, keyboard, and voice controller.
+
 - Meta Ray-Ban Smart Glasses: Camera glasses with 12MP, voice commands, and Bluetooth audio. Great for hands-free recording.
-- [Rokid AR Glasses](https://global.rokid.com/pages/rokid-glasses): Lightweight AR glasses with real-time translation in 89 languages. Runs Qwen locally in China.
