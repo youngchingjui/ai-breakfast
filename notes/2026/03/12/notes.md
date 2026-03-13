@@ -50,7 +50,7 @@ For sales teams, [Fathom](https://fathom.ai/) is the tool of choice. It records 
 
 ### Smart Glasses as Daily Drivers
 
-The [Meta Ray-Ban](https://www.meta.com/ai-glasses/) glasses made an appearance, with one member wearing them daily in Australia for rock climbing and hands-free recording. First-person video while climbing with both hands occupied was the "one perfect use case." The glasses record 3-minute clips to 128GB onboard storage, then trickle-transfer via Bluetooth or bulk-download over a Wi-Fi hotspot.
+The Meta Ray-Ban glasses made an appearance, with one member wearing them daily in Australia for rock climbing and hands-free recording. First-person video while climbing with both hands occupied was the "one perfect use case." The glasses record 3-minute clips to 128GB onboard storage, then trickle-transfer via Bluetooth or bulk-download over a Wi-Fi hotspot.
 
 Privacy hacking is already a thing -- online guides show how to Dremel out the recording indicator LED while keeping the sensor intact, and one-way stickers are available on Taobao.
 
@@ -73,5 +73,5 @@ The key innovation is bridging offline and digital learning. Worksheets get prin
 - [GoatRemote](https://goatremote.com/): $10 Mac app that turns an Apple TV Siri Remote into a mouse, keyboard, and voice controller.
 - [Granola](https://www.granola.ai/): AI meeting notepad that transcribes and intelligently summarizes, filtering out tangents and banter.
 - [Fathom](https://fathom.ai/): AI meeting recorder for sales teams with CRM sync, call library, and real-time coaching.
-- [Meta Ray-Ban Smart Glasses](https://www.meta.com/ai-glasses/): Camera glasses with 12MP, voice commands, and Bluetooth audio. Great for hands-free recording.
+- Meta Ray-Ban Smart Glasses: Camera glasses with 12MP, voice commands, and Bluetooth audio. Great for hands-free recording.
 - [Rokid AR Glasses](https://global.rokid.com/pages/rokid-glasses): Lightweight AR glasses with real-time translation in 89 languages. Runs Qwen locally in China.
