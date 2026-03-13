@@ -77,6 +77,4 @@ The key innovation is bridging offline and digital learning. Worksheets get prin
 - [Vibe Kanban](https://www.vibekanban.com/): Visual Kanban board for orchestrating AI coding agents. Drag tasks, agents work in isolated branches.
 - [Happy Coder](https://happy.engineering/): Mobile client for Claude Code with end-to-end encryption and voice coding support.
 - [Z AI (Zhipu)](https://www.zhipuai.cn/en): Chinese AI platform running GLM-5. Extremely generous pricing -- one member pays ~5 RMB/month.
-- [GoatRemote](https://goatremote.com/): $10 (now $20) Mac app that turns an Apple TV Siri Remote into a mouse, keyboard, and voice controller.
-
-- Meta Ray-Ban Smart Glasses: Camera glasses with 12MP, voice commands, and Bluetooth audio. Great for hands-free recording.
+- [Meta Ray-Ban Smart Glasses](https://www.meta.com/smart-glasses/): Camera glasses with 12MP, voice commands, and Bluetooth audio. Great for hands-free recording.
