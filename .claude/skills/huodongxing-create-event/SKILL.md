@@ -148,7 +148,7 @@ agent-browser snapshot -i  # find the capacity/名额 input
 
 ### 9. Form Submission Behavior
 
-After clicking "创建活动" (Create Event), **the page stays on the create form**. It may show an error toast if validation fails (e.g., missing ticket type). If successful, the page stays but the event IS created — verify by checking the listings page at `https://www.huodongxing.com/console/eventadmin`.
+After clicking "创建活动" (Create Event), if successful **the URL changes** to `https://www.huodongxing.com/myevent/home?id=NEW_EVENT_ID`. Extract the event ID from the URL with `agent-browser get url`. If validation fails (e.g., missing ticket type), the page stays on the create form and may show an error toast.
 
 ### 10. Miniprogram-Created Events
 
@@ -157,6 +157,63 @@ Events created via the WeChat miniprogram **cannot be fully edited in the browse
 ### 11. `agent-browser click @ref` Sometimes Fails
 
 Element UI components can cause `Failed to read: Resource temporarily unavailable (os error 35)` errors with ref-based clicks. **Workaround:** Use `agent-browser find text "..." click` or `agent-browser eval` with direct DOM manipulation instead.
+
+### 12. Reliable Dropdown Selection via JS (Preferred Method)
+
+The `agent-browser eval` approach with `.el-select-dropdown` selectors is fragile due to **smart quote corruption** — single-quoted JS strings get mangled by the shell/tool. The most reliable pattern is to use `document.querySelectorAll(".el-select")` with an index:
+
+```bash
+# First, enumerate all selects to find which index is which:
+agent-browser eval 'Array.from(document.querySelectorAll(".el-select")).map(function(s,i){return i+":"+s.textContent.trim().substring(0,20)}).join("|")'
+# Output: "0:公开发布|1:09:00|2:10:30|3:线下场地举办|4:中国|5:上海|6:徐汇"
+
+# Then click to open the dropdown by index:
+agent-browser eval 'document.querySelectorAll(".el-select")[6].querySelector("input").click(); "clicked"'
+
+# Wait for dropdown to appear:
+agent-browser wait 500
+
+# Select the option from the visible dropdown:
+agent-browser eval 'var dd = Array.from(document.querySelectorAll(".el-select-dropdown")).filter(function(d){return d.offsetHeight > 0})[0]; var spans = dd.querySelectorAll(".el-select-dropdown__item span"); var t = Array.from(spans).find(function(s){return s.textContent.trim() === "\u9759\u5b89"}); if(t){t.click();"clicked"}else{"not found"}'
+```
+
+**Why this works better:** Opening the dropdown by `.el-select` index is deterministic. The `.el-select-dropdown` selector for the option list still works once the dropdown is open. Use `\uXXXX` unicode escapes for Chinese characters to avoid encoding issues.
+
+### 13. Agreement Checkbox
+
+The `agent-browser check @ref` command often fails on this checkbox. Use `find text` instead:
+
+```bash
+agent-browser find text "已阅读并同意" click
+```
+
+### 14. TinyMCE Image Upload — "上传" Button Ambiguity
+
+The "上传" button text matches both the banner upload button and the TinyMCE image dialog button. `agent-browser find role button click --name "上传"` will fail with a strict mode violation. Use eval instead:
+
+```bash
+agent-browser eval 'var btns = Array.from(document.querySelectorAll("button.el-button--success")); var btn = btns.find(function(b){return b.textContent.trim() === "\u4e0a\u4f20"}); if(btn){btn.click();"clicked"}else{"not found"}'
+```
+
+### 15. Edit Page vs Create Page
+
+The edit page (`/myevent/edit?id=XXX`) differs from the create page:
+
+- **Save button:** "保存活动信息" (not "创建活动")
+- **Submit button:** "提交" (to resubmit for review after edits)
+- **Banner upload:** No crop dialog — banner is accepted directly (unlike create page which shows a crop dialog)
+- **Layout:** Uses a left sidebar navigation instead of a single scrolling form
+- **File inputs:** Same pattern — `input[type=file][0]` is banner, `[1]` is TinyMCE
+
+### 16. Use Named Sessions
+
+Always use `--session hdx` with agent-browser to maintain state across commands:
+
+```bash
+agent-browser --session hdx open https://www.huodongxing.com/login
+# ... all subsequent commands use --session hdx
+agent-browser --session hdx close  # when done
+```
 
 ## Step-by-Step: Create a New Event
 
@@ -306,10 +363,17 @@ agent-browser wait 3000
 
 ### 11. Verify Creation
 
+After successful submission, the URL changes to `/myevent/home?id=NEW_EVENT_ID`. Extract the event ID:
+
 ```bash
+agent-browser get url
+# https://www.huodongxing.com/myevent/home?id=6851867032100
+# The event ID is: 6851867032100
+
+# Also verify on listings page
 agent-browser open https://www.huodongxing.com/console/eventadmin
 agent-browser screenshot /tmp/hdx-verify.png
-# Event should appear at top of list in 草稿 (draft) status
+# Event should appear at top of list
 ```
 
 ## File Organization
