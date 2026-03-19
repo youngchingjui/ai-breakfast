@@ -42,7 +42,7 @@ A veteran CTO reframed it: the highest-value first step is process documentation
 
 ### The Software Factory Dream
 
-Two attendees independently chasing the same idea: write tickets, have agents resolve them into PRs. One built [IssuePR](https://github.com/youngchingjui/issue-to-pr) — install it on a repo and issues auto-generate PRs. The shared discovery: tickets are never well-formed enough for one-shot execution. You need the back-and-forth.
+Two attendees independently chasing the same idea: write tickets, have agents resolve them into PRs. One built [Issue To PR](https://github.com/youngchingjui/issue-to-pr) — install it on a repo and issues auto-generate PRs. The shared discovery: tickets are never well-formed enough for one-shot execution. You need the back-and-forth.
 
 [OpenAI's Symphony](https://github.com/openai/symphony) just dropped, using [Linear](https://linear.app/) for orchestration with agent communication flowing through Linear's comments. [Vibe Kanban](https://vibekanban.com/) takes a similar approach with parallel agents in isolated git worktrees. One attendee tried [Plane](https://plane.so/) for its module structure but couldn't get the agent loop stable.
 
