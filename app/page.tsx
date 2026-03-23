@@ -9,7 +9,8 @@ export default function Home() {
         <h1 className="text-3xl font-bold">AI Breakfast — Shanghai</h1>
         <p className="text-muted-foreground max-w-prose">
           Join us for a casual roundtable meetup over breakfast to discuss the
-          latest in AI.
+          latest in AI. This week: <strong>Demo your work</strong> — show off
+          something you&apos;ve built, with or without AI.
         </p>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -17,12 +18,14 @@ export default function Home() {
             <h2 className="text-xl font-semibold">What to expect</h2>
             <ul className="list-disc pl-5 text-foreground space-y-2">
               <li>
-                Short lightning updates — &quot;Here&apos;s what I&apos;m trying / struggling
-                with in AI&quot;
+                <strong>9:00–9:30</strong> — Introductions & lightning updates
               </li>
-              <li>Peer discussion & troubleshooting</li>
+              <li>
+                <strong>9:30+</strong> — Demos and open discussion
+              </li>
+              <li>Show off something you&apos;ve built (with or without AI)</li>
+              <li>Peer feedback, troubleshooting & collaboration</li>
               <li>Exploring interesting AI workflows, tools and hacks</li>
-              <li>Open time for co-working, collaborating, networking</li>
             </ul>
             <p className="text-muted-foreground">
               <strong>Ideal for</strong>: managers, practitioners, enthusiasts,
@@ -32,7 +35,7 @@ export default function Home() {
 
           <aside className="rounded-lg border border-border p-4 bg-card space-y-3">
             <div className="text-sm text-muted-foreground">Next meetup</div>
-            <div className="text-lg font-semibold">Thu Mar 12 | 9–10:30am</div>
+            <div className="text-lg font-semibold">Thu Mar 26 | 9–10:30am</div>
             <div className="space-y-1 text-foreground">
               <div className="font-medium">BAKER&SPICE</div>
               <div>1717 West Nanjing Road, Wheelock Square</div>
