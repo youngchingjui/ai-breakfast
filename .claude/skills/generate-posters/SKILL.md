@@ -156,6 +156,16 @@ Open them to visually confirm:
 open ~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-NUM/images/graphics/*.png
 ```
 
+## Step 7: Import Poster with QR into Apple Photos
+
+Import the poster-with-qr into Apple Photos so it's readily available for sharing via WeChat/social media:
+
+```bash
+osascript -e 'tell application "Photos" to import POSIX file "/Users/youngchingjui/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-NUM/images/graphics/poster-with-qr.png"'
+```
+
+Returns a media item ID on success. The image will appear in the Photos library's Recents album.
+
 ## File Organization
 
 ```
