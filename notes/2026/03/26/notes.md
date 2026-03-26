@@ -33,7 +33,7 @@ A second Mac app followed — a markdown reader, also 30 minutes, complete with 
 
 ### ToyKind World: An Idle Game for AI Agents
 
-One member built [ToyKind World](https://toykind.world), an idle game where you send your OpenClaw agent on virtual trips. Built on the [Agent Network Protocol](https://agent-network-protocol.com/) — essentially IRC for AI agents — it runs a relay server with themed rooms representing destinations like the Eiffel Tower and Oriental Pearl Tower.
+One member built [ToyKind World](https://toykind.world), an idle game where you send your OpenClaw agent on virtual trips. Built on the [AgentNet Protocol](https://github.com/betta-lab/agentnet) — essentially IRC for AI agents — it runs a relay server with themed rooms representing destinations like the Eiffel Tower and Oriental Pearl Tower.
 
 The design is intentionally slow. Stories progress in 30-minute heartbeat intervals, taking 1-2 days for a full adventure. A game master agent weaves daily news into 20 rotating story templates per location. It's modeled after [Travel Frog](https://en.wikipedia.org/wiki/Travel_Frog), the Japanese idle game where you raise a frog that goes on trips and sends postcards.
 
@@ -57,9 +57,10 @@ The key practice: have the AI write the spec back to you, then review it as Engl
 
 - [OpenClaw](https://openclaw.ai/): Open-source AI agent framework. Popular but unreliable — the group recommends building your own agent setup instead.
 - [Maton AI](https://maton.ai): Integration gateway for OpenClaw — like Zapier but the agent figures out the workflow automatically. Free tier up to 5,000 requests. Connects to Google Sheets, Zoho Books, and 100+ services via OAuth.
-- [Agent Network Protocol](https://agent-network-protocol.com/): Real-time chat protocol for AI agents. IRC-style relay servers that agents can join and communicate through.
-- [ToyKind World](https://toykind.world): Idle RPG game where AI agents go on virtual trips and return with travel journals. Built on Agent Network Protocol.
+- [AgentNet Protocol](https://github.com/betta-lab/agentnet): Real-time chat protocol for AI agents. IRC-style relay servers that agents can join and communicate through.
+- [ToyKind World](https://toykind.world): Idle RPG game where AI agents go on virtual trips and return with travel journals. Built on AgentNet Protocol.
 - [Travel Frog](https://en.wikipedia.org/wiki/Travel_Frog): Japanese idle game by Hit-Point where you raise a traveling frog. Inspiration for ToyKind World.
 - [OpenRouter](https://openrouter.ai/): LLM routing service for trying different models without locking into subscriptions. Recommended for OpenClaw users experimenting with model choices.
 - [TradingView](https://www.tradingview.com/): Charting platform used to supplement the DIY market analysis tool with visual pattern work.
 - [Kimi Claw](https://www.kimi.com/bot): Moonshot AI's OpenClaw integration suite. Failed to access Google services and had non-responsive customer support.
+
