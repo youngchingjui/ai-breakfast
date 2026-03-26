@@ -55,11 +55,44 @@ function stripFrontMatter(input: string): string {
   return s
 }
 
+function extractDescription(content: string): string {
+  const stripped = stripFrontMatter(content)
+  const lines = stripped.split(/\r?\n/)
+
+  // Try to find summary bullets (lines starting with "- " after "## Summary")
+  const summaryIdx = lines.findIndex((l) => /^##\s+Summary/i.test(l))
+  if (summaryIdx !== -1) {
+    const bullets: string[] = []
+    for (let i = summaryIdx + 1; i < lines.length && bullets.length < 4; i++) {
+      const line = lines[i].trim()
+      if (/^##\s+/.test(line)) break // next section
+      if (line.startsWith('- ')) {
+        // Strip markdown links and formatting
+        const clean = line.slice(2).replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/[*_`#]/g, '').trim()
+        // Take text before the em dash if present
+        const short = clean.split('—')[0].trim()
+        if (short) bullets.push(short)
+      }
+    }
+    if (bullets.length) return bullets.join(' · ')
+  }
+
+  // Fallback: first non-empty paragraph
+  for (const line of lines) {
+    const trimmed = line.trim()
+    if (trimmed && !trimmed.startsWith('#') && !trimmed.startsWith('---')) {
+      return trimmed.slice(0, 160)
+    }
+  }
+  return 'Meeting notes from AI Breakfast Shanghai'
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> {
   const { slug } = await params
   const data = readNote(slug)
 
   let title: string | undefined
+  let description: string | undefined
   if (data) {
     const firstHeading = data.content.split(/\r?\n/).find((line) => /^\s*#\s+/.test(line))
     if (firstHeading) {
@@ -71,6 +104,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         title = m
       }
     }
+    description = extractDescription(data.content)
   }
 
   if (!title) {
@@ -78,7 +112,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title = dateDisplay ? `Notes for ${dateDisplay}` : 'Notes'
   }
 
-  return { title }
+  return {
+    title,
+    description,
+    openGraph: {
+      title: `${title} | AI Breakfast`,
+      description: description || 'Meeting notes from AI Breakfast Shanghai',
+      type: 'article',
+    },
+  }
 }
 
 export default async function NotePage({ params }: { params: Promise<{ slug: string[] }> }) {
