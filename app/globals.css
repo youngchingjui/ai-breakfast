@@ -4,40 +4,40 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #FFFBF5;
-  --foreground: #2D2A26;
+  --background: #FFFAF5;
+  --foreground: #292524;
   --card: #FFFFFF;
-  --card-foreground: #2D2A26;
+  --card-foreground: #292524;
   --popover: #FFFFFF;
-  --popover-foreground: #2D2A26;
-  --primary: #B45309;
+  --popover-foreground: #292524;
+  --primary: #C2410C;
   --primary-foreground: #FFFFFF;
-  --secondary: #FEF3C7;
-  --secondary-foreground: #92400E;
-  --muted: #F5F0EA;
+  --secondary: #FFF1E6;
+  --secondary-foreground: #9A3412;
+  --muted: #F5EDE6;
   --muted-foreground: #78716C;
-  --accent: #D97706;
+  --accent: #EA580C;
   --accent-foreground: #FFFFFF;
   --destructive: #DC2626;
   --destructive-foreground: #FFFFFF;
-  --border: #E7E0D8;
-  --input: #E7E0D8;
-  --ring: #B45309;
-  --chart-1: #B45309;
-  --chart-2: #D97706;
-  --chart-3: #F59E0B;
-  --chart-4: #FBBF24;
-  --chart-5: #92400E;
-  --sidebar: #F5F0EA;
-  --sidebar-foreground: #2D2A26;
-  --sidebar-primary: #B45309;
+  --border: #E7DDD4;
+  --input: #E7DDD4;
+  --ring: #C2410C;
+  --chart-1: #C2410C;
+  --chart-2: #EA580C;
+  --chart-3: #FB923C;
+  --chart-4: #FDBA74;
+  --chart-5: #9A3412;
+  --sidebar: #F5EDE6;
+  --sidebar-foreground: #292524;
+  --sidebar-primary: #C2410C;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #D97706;
+  --sidebar-accent: #EA580C;
   --sidebar-accent-foreground: #FFFFFF;
-  --sidebar-border: #E7E0D8;
-  --sidebar-ring: #B45309;
-  --font-sans: Montserrat, sans-serif;
-  --font-serif: Merriweather, serif;
+  --sidebar-border: #E7DDD4;
+  --sidebar-ring: #C2410C;
+  --font-display: Playfair Display, serif;
+  --font-sans: Inter, sans-serif;
   --font-mono: Ubuntu Mono, monospace;
   --radius: 0.625rem;
   --shadow-x: 0px;
@@ -60,39 +60,39 @@
 
 .dark {
   --background: #1C1917;
-  --foreground: #F5F0EA;
+  --foreground: #F5EDE6;
   --card: #292524;
-  --card-foreground: #F5F0EA;
+  --card-foreground: #F5EDE6;
   --popover: #292524;
-  --popover-foreground: #F5F0EA;
-  --primary: #F59E0B;
+  --popover-foreground: #F5EDE6;
+  --primary: #FB923C;
   --primary-foreground: #1C1917;
   --secondary: #44403C;
-  --secondary-foreground: #FDE68A;
+  --secondary-foreground: #FDBA74;
   --muted: #292524;
   --muted-foreground: #A8A29E;
-  --accent: #D97706;
+  --accent: #EA580C;
   --accent-foreground: #1C1917;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
   --border: #44403C;
   --input: #44403C;
-  --ring: #F59E0B;
-  --chart-1: #F59E0B;
-  --chart-2: #D97706;
-  --chart-3: #FBBF24;
-  --chart-4: #FDE68A;
-  --chart-5: #B45309;
+  --ring: #FB923C;
+  --chart-1: #FB923C;
+  --chart-2: #EA580C;
+  --chart-3: #FDBA74;
+  --chart-4: #FED7AA;
+  --chart-5: #C2410C;
   --sidebar: #1C1917;
-  --sidebar-foreground: #F5F0EA;
-  --sidebar-primary: #F59E0B;
+  --sidebar-foreground: #F5EDE6;
+  --sidebar-primary: #FB923C;
   --sidebar-primary-foreground: #1C1917;
-  --sidebar-accent: #D97706;
+  --sidebar-accent: #EA580C;
   --sidebar-accent-foreground: #1C1917;
   --sidebar-border: #44403C;
-  --sidebar-ring: #F59E0B;
-  --font-sans: Montserrat, sans-serif;
-  --font-serif: Merriweather, serif;
+  --sidebar-ring: #FB923C;
+  --font-display: Playfair Display, serif;
+  --font-sans: Inter, sans-serif;
   --font-mono: Ubuntu Mono, monospace;
   --radius: 0.625rem;
   --shadow-x: 0px;
@@ -146,7 +146,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
-  --font-serif: var(--font-serif);
+  --font-display: var(--font-display);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -184,7 +184,7 @@ body {
 
 /* Prose: editorial reading experience */
 .container-prose {
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 1.0625rem;
   line-height: 1.8;
   color: var(--foreground);
@@ -203,7 +203,7 @@ body {
 }
 
 .container-prose h1 {
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-display), Georgia, serif;
   font-size: 1.75rem;
   font-weight: 800;
   line-height: 1.3;
@@ -213,7 +213,7 @@ body {
 }
 
 .container-prose h2 {
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-display), Georgia, serif;
   font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.4;
@@ -225,7 +225,7 @@ body {
 }
 
 .container-prose h3 {
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-display), Georgia, serif;
   font-size: 1.1rem;
   font-weight: 700;
   line-height: 1.4;

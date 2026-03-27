@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <!-- Square logo: AI Breakfast stacked, Shanghai below -->
+  <rect width="300" height="300" rx="20" fill="#FFFAF5"/>
+
+  <!-- AI BREAKFAST -->
+  <text x="150" y="128" text-anchor="middle"
+        font-family="'Playfair Display', Georgia, serif"
+        font-weight="800" font-size="72" fill="#C2410C"
+        letter-spacing="-0.02em">AI</text>
+  <text x="150" y="178" text-anchor="middle"
+        font-family="'Playfair Display', Georgia, serif"
+        font-weight="700" font-size="40" fill="#292524"
+        letter-spacing="0.01em">Breakfast</text>
+
+  <!-- Thin terracotta divider -->
+  <line x1="90" y1="198" x2="210" y2="198" stroke="#C2410C" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- SHANGHAI -->
+  <text x="150" y="224" text-anchor="middle"
+        font-family="'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-weight="500" font-size="16" fill="#78716C"
+        letter-spacing="0.25em">SHANGHAI</text>
+</svg>

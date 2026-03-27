@@ -1,18 +1,17 @@
 import './globals.css'
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { Montserrat, Merriweather, Ubuntu_Mono } from 'next/font/google'
+import { Playfair_Display, Inter, Ubuntu_Mono } from 'next/font/google'
 
-const montserrat = Montserrat({
+const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
-  variable: '--font-sans',
+  variable: '--font-display',
   display: 'swap',
 })
 
-const merriweather = Merriweather({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['300', '400', '700', '900'],
-  variable: '--font-serif',
+  variable: '--font-sans',
   display: 'swap',
 })
 
@@ -44,11 +43,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${merriweather.variable} ${ubuntuMono.variable}`}>
+    <html lang="en" className={`${playfairDisplay.variable} ${inter.variable} ${ubuntuMono.variable}`}>
       <body className="min-h-screen">
         <header className="border-b border-border">
           <div className="mx-auto max-w-2xl px-5 py-4 flex items-center justify-between">
-            <Link href="/" className="text-lg font-semibold tracking-tight">AI Breakfast Shanghai</Link>
+            <Link href="/" className="text-lg font-semibold tracking-tight" style={{ fontFamily: 'var(--font-display), Georgia, serif' }}>AI Breakfast Shanghai</Link>
             <nav className="flex items-center gap-4 text-sm text-muted-foreground">
               <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
               <Link href="/notes" className="hover:text-foreground transition-colors">Notes</Link>
