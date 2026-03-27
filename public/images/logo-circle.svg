@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <!-- Circle logo: text centered inside circle -->
+  <defs>
+    <clipPath id="circle-clip">
+      <circle cx="150" cy="150" r="140"/>
+    </clipPath>
+  </defs>
+
+  <!-- Circle background -->
+  <circle cx="150" cy="150" r="140" fill="#FFFAF5"/>
+  <circle cx="150" cy="150" r="140" fill="none" stroke="#C2410C" stroke-width="3" opacity="0.3"/>
+
+  <!-- AI BREAKFAST -->
+  <text x="150" y="140" text-anchor="middle"
+        font-family="'Playfair Display', Georgia, serif"
+        font-weight="800" font-size="68" fill="#C2410C"
+        letter-spacing="-0.02em">AI</text>
+  <text x="150" y="186" text-anchor="middle"
+        font-family="'Playfair Display', Georgia, serif"
+        font-weight="700" font-size="36" fill="#292524"
+        letter-spacing="0.01em">Breakfast</text>
+
+  <!-- SHANGHAI -->
+  <text x="150" y="222" text-anchor="middle"
+        font-family="'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-weight="500" font-size="14" fill="#78716C"
+        letter-spacing="0.25em">SHANGHAI</text>
+</svg>
