@@ -2,6 +2,13 @@
 
 Meeting notes repo for the AI Breakfast meetup series.
 
+## LinkedIn Page
+
+- **Page type:** Showcase page (org ID `112352855`)
+- **Dashboard:** https://www.linkedin.com/showcase/112352855/admin/dashboard/
+- **Posting:** Use the `api-gateway` skill with Maton to post as `urn:li:organization:112352855`
+- **Ching's person ID:** `Yl90NMv7Fs`
+
 ## Transcript Workflow
 
 Granola meeting transcripts are large and should NOT be loaded directly into the main agent's context. Use this two-step workflow:
