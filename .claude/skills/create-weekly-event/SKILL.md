@@ -45,16 +45,11 @@ Huodongxing's server needs time to generate the WeChat mini-program QR code afte
 
 Before starting, confirm with Ching:
 
-- **Event number** (e.g. #39)
-- **Date** (e.g. Thursday, March 20, 2026)
-- **Theme/tagline** (e.g. "OpenClaw demo • AI agents • open discussion")
+- **Event number** — check the most recent event folder in `events/` to determine the next number
+- **Date** — AI Breakfast is typically on Thursdays
+- **Theme/tagline** — what topics or format this week
 
-Default values (rarely change):
-
-- Time: 9:00 – 10:30 AM
-- Venue: BAKER&SPICE
-- Location: 静安区, 南京西路 1717 号 会德丰国际广场南院首层 101 号商铺
-- Capacity: 25 attendees, free ticket
+For defaults (time, venue, location, capacity), check the most recent event's posters and huodongxing listing. These occasionally change — don't assume.
 
 ---
 
@@ -108,26 +103,11 @@ mkdir -p ~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-${EVENT_
 mkdir -p ~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-${EVENT_NUM}/images/graphics
 ```
 
-### 2c. Generate the banner (doesn't need QR)
+### 2c. Generate banner and poster without QR
 
-```bash
-DATE="Thursday, Mar 20"
-DEST=~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-${EVENT_NUM}/images/graphics
+Use the `generate-posters` skill. Check the most recent event's posters for current parameter values (time, tagline, venue, etc.).
 
-curl -s -o "${DEST}/banner-1080x640.png" \
-  "http://localhost:3000/api/og-banner?width=1080&height=640&eventName=AI+Breakfast+%23${EVENT_NUM}&city=Shanghai&date=$(python3 -c "import urllib.parse; print(urllib.parse.quote('${DATE}'))")&location=BAKER%26SPICE,+Wheelock+Square"
-```
-
-### 2d. Generate the poster WITHOUT QR (doesn't need QR)
-
-```bash
-TAGLINE="OpenClaw demo • AI agents • open discussion"
-
-curl -s -o "${DEST}/poster-no-qr.png" \
-  "http://localhost:3000/api/og-poster?eventName=AI+Breakfast+%23${EVENT_NUM}&city=Shanghai&date=$(python3 -c "import urllib.parse; print(urllib.parse.quote('${DATE}'))")&time=9:00+%E2%80%93+10:30+AM&tagline=$(python3 -c "import urllib.parse; print(urllib.parse.quote('${TAGLINE}'))")&venue=BAKER%26SPICE&location=1717+West+Nanjing+Road,+Wheelock+Square%0A南京西路1717号+会德丰国际广场南院首层101号商铺%0A(Look+for+long+table+in+the+back)&showQr=false"
-```
-
-### 2e. Go back to huodongxing and fill in remaining event details
+### 2d. Go back to huodongxing and fill in remaining event details
 
 While still waiting for QR, navigate to the event edit page and fill in:
 
@@ -179,19 +159,7 @@ file ~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-${EVENT_NUM}
 
 **Skill:** `generate-posters`
 
-Now that the QR is downloaded, upload it to Vercel Blob and generate the final poster:
-
-```bash
-# Upload QR to get a public URL
-QR_PATH=~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-${EVENT_NUM}/images/qr-codes/wechat-mini-program.png
-BLOB_URL=$(curl -s -X POST "http://localhost:3000/api/upload" -F "file=@${QR_PATH}" | python3 -c "import sys,json; print(json.load(sys.stdin)['url'])")
-
-echo "Blob URL: ${BLOB_URL}"
-
-# Generate poster with QR
-curl -s -o "${DEST}/poster-with-qr.png" \
-  "http://localhost:3000/api/og-poster?eventName=AI+Breakfast+%23${EVENT_NUM}&city=Shanghai&date=$(python3 -c "import urllib.parse; print(urllib.parse.quote('${DATE}'))")&time=9:00+%E2%80%93+10:30+AM&tagline=$(python3 -c "import urllib.parse; print(urllib.parse.quote('${TAGLINE}'))")&venue=BAKER%26SPICE&location=1717+West+Nanjing+Road,+Wheelock+Square%0A南京西路1717号+会德丰国际广场南院首层101号商铺%0A(Look+for+long+table+in+the+back)&showQr=true&qrCodeSrc=$(python3 -c "import urllib.parse; print(urllib.parse.quote('${BLOB_URL}', safe=''))")"
-```
+Now that the QR is downloaded, generate the poster with QR using the `generate-posters` skill. The QR code needs to be served at a public URL — either upload to Vercel Blob via the app's `/api/upload` endpoint, or copy to the poster website's `public/` directory and reference via `http://localhost:3000/filename.png`.
 
 ---
 
@@ -226,21 +194,6 @@ Event should appear in the listings with all details filled in.
 - [ ] Poster (no QR): `events/2026/ai-breakfast-NUM/images/graphics/poster-no-qr.png`
 - [ ] Poster (with QR): `events/2026/ai-breakfast-NUM/images/graphics/poster-with-qr.png`
 - [ ] Share poster-with-qr.png with Ching for WeChat/social distribution
-
-## Quick Reference: Known Event IDs
-
-| Event | ID            | Date         | CDN Prefix |
-| ----- | ------------- | ------------ | ---------- |
-| #29   | 1845336251400 | Feb 12, 2026 | —          |
-| #30   | 9845336352200 | —            | —          |
-| #31   | 5851274891300 | Mar 12, 2026 | 202603     |
-| #32   | 8851274990600 | Mar 19, 2026 | 202603     |
-| #33   | 7851275092400 | Mar 26, 2026 | 202603     |
-| #34   | 2851275193500 | Apr 2, 2026  | 202603     |
-| #35   | 5851275395900 | Apr 9, 2026  | 202603     |
-| #36   | 7851275699300 | Apr 16, 2026 | 202603     |
-| #37   | 8851275798600 | Apr 23, 2026 | 202603     |
-| #38   | 1851275802300 | Apr 30, 2026 | 202603     |
 
 ## Notes
 
