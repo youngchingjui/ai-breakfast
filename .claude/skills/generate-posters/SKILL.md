@@ -34,30 +34,29 @@ cd ~/Projects/youngchingjui/event-poster-website && bun dev
 
 ## Step 2: Generate Banner (1080x640)
 
-For the huodongxing event header. Includes the stock background photo on the right side automatically.
+For the huodongxing event header. Check a recent event's banner URL (in the `generate-posters` curl history or the poster API code) for current parameter values.
 
 ```bash
 curl -s -o banner.png \
-  "http://localhost:3000/api/og-banner?width=1080&height=640&eventName=AI+Breakfast+%23NUM&city=Shanghai&date=Thursday,+DATE&location=BAKER%26SPICE,+Wheelock+Square"
+  "http://localhost:3000/api/og-banner?width=1080&height=640&eventName=AI+Breakfast+%23NUM&city=Shanghai&date=Thursday,+DATE+%7C+TIME&location=BAKER%26SPICE,+Wheelock+Square"
 ```
 
 **Banner API parameters:**
 
-| Param                | Description                                             | Default                                         |
-| -------------------- | ------------------------------------------------------- | ----------------------------------------------- |
-| `eventName`          | Event title (e.g. "AI Breakfast #31")                   | "AI Breakfast"                                  |
-| `date`               | Date + time string (e.g. "Thursday, Mar 12 \| 9:00 AM") | "Thursday, Jan 1 \| 9:00 AM"                    |
-| `location`           | Venue shortname (e.g. "BAKER&SPICE, Wheelock Square")   | "BAKER&SPICE"                                   |
-| `city`               | City name                                               | "Shanghai"                                      |
-| `width`              | Image width in px                                       | 1080                                            |
-| `height`             | Image height in px                                      | 640                                             |
-| `backgroundImageSrc` | Background photo URL                                    | Stock coffee shop photo from Vercel Blob (auto) |
+| Param                | Description                                   | Notes                                    |
+| -------------------- | --------------------------------------------- | ---------------------------------------- |
+| `eventName`          | Event title                                   | e.g. "AI Breakfast #35"                  |
+| `date`               | Date + time string                            | e.g. "Thursday, Apr 9 \| 8:00 AM"       |
+| `location`           | Venue shortname                               | Check `.claude/skills/PREFERENCES.md` for current venue    |
+| `city`               | City name                                     | "Shanghai"                               |
+| `width` / `height`   | Image dimensions in px                        | 1080 x 640                               |
+| `backgroundImageSrc` | Background photo URL                          | Defaults to stock photo from Vercel Blob |
 
-**Important:** The default stock background image (`luisa-fournier-hMjyyBqCRIs-unsplash.jpg`) is loaded from Vercel Blob automatically via `NEXT_PUBLIC_BLOB_BASE_URL`. Always include it — banners look much nicer with it. If the background isn't showing, check that `NEXT_PUBLIC_BLOB_BASE_URL` is set in the `.env` file.
+**Important:** The default stock background image is loaded from Vercel Blob automatically via `NEXT_PUBLIC_BLOB_BASE_URL`. If the background isn't showing, check that `NEXT_PUBLIC_BLOB_BASE_URL` is set in the `.env` file. You can also pass a custom image URL (e.g. an Unsplash URL).
 
 ## Step 3: Generate Poster WITHOUT QR (1080x1920)
 
-For huodongxing event details section and general social sharing.
+For huodongxing event details section and general social sharing. Check recent events for current parameter values (time, venue, location).
 
 ```bash
 curl -s -o poster-no-qr.png \
@@ -65,10 +64,10 @@ curl -s -o poster-no-qr.png \
 eventName=AI+Breakfast+%23NUM\
 &city=Shanghai\
 &date=Thursday,+DATE\
-&time=9:00+%E2%80%93+10:30+AM\
+&time=TIME_RANGE\
 &tagline=TAGLINE+HERE\
-&venue=BAKER%26SPICE\
-&location=1717+West+Nanjing+Road,+Wheelock+Square%0A南京西路1717号+会德丰国际广场南院首层101号商铺%0A(Look+for+long+table+in+the+back)\
+&venue=VENUE\
+&location=LOCATION_WITH_%0A_LINEBREAKS\
 &showQr=false"
 ```
 
@@ -78,58 +77,26 @@ eventName=AI+Breakfast+%23NUM\
 
 For WeChat and social media sharing with a scannable registration QR.
 
-### 4a. Upload QR Code to Vercel Blob
+The QR code image needs to be at a public URL for the poster API to fetch it. Options:
+- Copy the QR to the poster website's `public/` dir and reference `http://localhost:3000/filename.png`
+- Upload via the app's `/api/upload` endpoint (requires `@vercel/blob` to be installed)
 
-The QR code image needs to be at a public URL for the poster API to fetch it. Upload via the app's upload endpoint:
-
-```bash
-curl -s -X POST "http://localhost:3000/api/upload" \
-  -F "file=@~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-NUM/images/qr-codes/wechat-mini-program.png"
-```
-
-Returns JSON with the public URL:
-
-```json
-{
-  "url": "https://xjticilwz5ezcm9j.public.blob.vercel-storage.com/filename.png",
-  "pathname": "filename.png"
-}
-```
-
-Save this URL for the next step.
-
-### 4b. Generate the Poster
-
-```bash
-curl -s -o poster-with-qr.png \
-  "http://localhost:3000/api/og-poster?\
-eventName=AI+Breakfast+%23NUM\
-&city=Shanghai\
-&date=Thursday,+DATE\
-&time=9:00+%E2%80%93+10:30+AM\
-&tagline=TAGLINE+HERE\
-&venue=BAKER%26SPICE\
-&location=1717+West+Nanjing+Road,+Wheelock+Square%0A南京西路1717号+会德丰国际广场南院首层101号商铺%0A(Look+for+long+table+in+the+back)\
-&showQr=true\
-&qrCodeSrc=BLOB_URL_FROM_STEP_4a"
-```
-
-**Important:** The `qrCodeSrc` value must be URL-encoded if it contains special characters.
+Then generate with `showQr=true&qrCodeSrc=ENCODED_URL`.
 
 ## Poster API Parameters (Full Reference)
 
-| Param                | Description                              | Default                                              |
-| -------------------- | ---------------------------------------- | ---------------------------------------------------- |
-| `eventName`          | Event title                              | "AI Breakfast #21"                                   |
-| `city`               | City label (top of poster)               | "Shanghai"                                           |
-| `date`               | Display date                             | "Thursday, Jan 1"                                    |
-| `time`               | Display time                             | "9:00 – 10:30 AM"                                    |
-| `tagline`            | Theme/topic line (use `•` as separator)  | "AI workflows • 2025 reflections • 2026 predictions" |
-| `venue`              | Venue name (bold)                        | "BAKER&SPICE"                                        |
-| `location`           | Full address (use `%0A` for line breaks) | Wheelock Square full address                         |
-| `showQr`             | Show QR code overlay                     | "true" (set "false" to hide)                         |
-| `qrCodeSrc`          | QR code image URL (must be public)       | Default from Vercel Blob                             |
-| `backgroundImageSrc` | Background photo URL                     | Stock coffee shop photo (auto)                       |
+| Param                | Description                              | Notes                                       |
+| -------------------- | ---------------------------------------- | ------------------------------------------- |
+| `eventName`          | Event title                              | e.g. "AI Breakfast #35"                      |
+| `city`               | City label (top of poster)               | "Shanghai"                                   |
+| `date`               | Display date                             | e.g. "Thursday, Apr 9"                       |
+| `time`               | Display time                             | Check `.claude/skills/PREFERENCES.md` for current time         |
+| `tagline`            | Theme/topic line (use `•` as separator)  | Describe this week's format/topics           |
+| `venue`              | Venue name (bold)                        | Check recent events                          |
+| `location`           | Full address (use `%0A` for line breaks) | Check `.claude/skills/PREFERENCES.md` for current address      |
+| `showQr`             | Show QR code overlay                     | "true" (set "false" to hide)                 |
+| `qrCodeSrc`          | QR code image URL (must be public)       | See Step 4 for how to serve                  |
+| `backgroundImageSrc` | Background photo URL                     | Defaults to stock photo; can pass custom URL |
 
 ## Step 5: Save to Event Folder
 

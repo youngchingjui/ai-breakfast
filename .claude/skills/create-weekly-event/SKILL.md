@@ -49,7 +49,7 @@ Before starting, confirm with Ching:
 - **Date** — AI Breakfast is typically on Thursdays
 - **Theme/tagline** — what topics or format this week
 
-For defaults (time, venue, location, capacity), check the most recent event's posters and huodongxing listing. These occasionally change — don't assume.
+For defaults (time, venue, location, capacity), check `.claude/skills/PREFERENCES.md` in the project root. These occasionally change.
 
 ---
 

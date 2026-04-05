@@ -76,7 +76,7 @@ curl -sf -H "Referer: https://www.huodongxing.com/" \
 Download in batch for multiple events:
 
 ```bash
-for pair in "32:8851274990600" "33:7851275092400" "34:2851275193500"; do
+for pair in "NUM1:EVENT_ID1" "NUM2:EVENT_ID2"; do
   NUM="${pair%%:*}"
   ID="${pair##*:}"
   curl -sf -H "Referer: https://www.huodongxing.com/" \
@@ -85,6 +85,8 @@ for pair in "32:8851274990600" "33:7851275092400" "34:2851275193500"; do
   echo "#${NUM} done"
 done
 ```
+
+Look up event IDs from the huodongxing console or the event's promote page.
 
 ## Troubleshooting
 

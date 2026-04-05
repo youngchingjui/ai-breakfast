@@ -144,7 +144,7 @@ agent-browser snapshot -i  # find the capacity/名额 input
 # Fill the capacity field (look for input near 总名额)
 ```
 
-**Standard settings:** Free ticket, 25 attendees max.
+Check `.claude/skills/PREFERENCES.md` for current ticket settings (type, capacity).
 
 ### 9. Form Submission Behavior
 
@@ -252,26 +252,21 @@ agent-browser wait 2000
 
 ### 5. Set Date and Time
 
+Check `.claude/skills/PREFERENCES.md` for the current start/end time.
+
 ```bash
-# Snapshot to identify combobox refs
+# Snapshot to identify combobox refs (they shift between sessions)
 agent-browser snapshot -i | grep combobox
 
-# Start date — click the first date combobox and navigate the date picker
-agent-browser click @e37
+# Enumerate selects to find which index is which:
+agent-browser eval 'Array.from(document.querySelectorAll(".el-select")).map(function(s,i){return i+":"+s.textContent.trim().substring(0,30)}).join("|")'
 
-# Start time — click time combobox, select from dropdown
-agent-browser click @e38
-agent-browser eval 'var items = Array.from(document.querySelectorAll(".el-select-dropdown")).filter(function(d) { return d.offsetHeight > 0; })[0].querySelectorAll(".el-select-dropdown__item span"); var target = Array.from(items).find(function(s) { return s.textContent === "09:00"; }); if (target) { target.click(); "clicked"; } else { "not found"; }'
-
-# End date — click the second date combobox
-agent-browser click @e39
-
-# End time
-agent-browser click @e40
-agent-browser eval 'var items = Array.from(document.querySelectorAll(".el-select-dropdown")).filter(function(d) { return d.offsetHeight > 0; })[0].querySelectorAll(".el-select-dropdown__item span"); var target = Array.from(items).find(function(s) { return s.textContent === "10:30"; }); if (target) { target.click(); "clicked"; } else { "not found"; }'
+# Start date — click the date combobox, navigate calendar, click the day
+# Start time — open the time select by index, click the target time from the dropdown
+# End date/time — same pattern
 ```
 
-**Note:** Combobox refs may shift between sessions. Always `snapshot -i` first and identify by position/context.
+**Note:** Combobox refs shift between sessions. Always `snapshot -i` first and use the `el-select` index pattern (see #12 below) for reliable selection.
 
 ### 6. Set Location
 
@@ -288,40 +283,34 @@ agent-browser eval 'var items = Array.from(document.querySelectorAll(".el-select
 agent-browser fill @e46 "BAKER&SPICE \u5357\u4eac\u897f\u8def1717\u53f7 \u4f1a\u5fb7\u4e30\u56fd\u9645\u5e7f\u573a\u5357\u9662\u9996\u5c42101\u53f7\u5546\u94fa"
 ```
 
-**AI Breakfast default location:** BAKER&SPICE, 静安区 (Jing'an), 南京西路 1717 号 会德丰国际广场南院首层 101 号商铺
+Check `.claude/skills/PREFERENCES.md` for the current venue and address details.
 
 ### 7. Fill Event Highlights (活动亮点)
 
-Max **150 characters**. Keep it bilingual and concise.
-
-```bash
-agent-browser fill @e49 "上海每周AI早餐会。本周：[THEME_CN]。自由交流AI工具与应用。免费，欢迎参加！Weekly AI Breakfast: [THEME_EN]. Free, all welcome."
-```
+Max **150 characters**. Keep it bilingual and concise. Reference `.claude/skills/PREFERENCES.md` and recent events for the typical format.
 
 ### 8. Fill Event Details (活动详情)
 
+The editor may be TinyMCE or UEditor depending on the page. Check which one is loaded:
+
 ```bash
-# Click into the editor area first to activate TinyMCE toolbar
-agent-browser eval "var editor = document.querySelector('.tinymce-wrap.mce-content-body'); editor.focus(); editor.click(); 'focused'"
+agent-browser eval 'typeof tinymce !== "undefined" ? "tinymce" : typeof UE !== "undefined" ? "UEditor" : "unknown"'
+```
 
-# Set HTML content
-agent-browser eval "var editor = document.querySelector('.tinymce-wrap.mce-content-body'); editor.innerHTML = '<h2>AI Breakfast #XX</h2><p>Weekly AI Breakfast meetup in Shanghai</p><p><strong>Theme:</strong> [THEME]</p><p><strong>Date:</strong> Thursday, [DATE]</p><p><strong>Time:</strong> 9:00 - 10:30 AM</p><p><strong>Venue:</strong> BAKER&SPICE, Wheelock Square</p><p><strong>Address:</strong> \u5357\u4eac\u897f\u8def1717\u53f7 \u4f1a\u5fb7\u4e30\u56fd\u9645\u5e7f\u573a\u5357\u9662\u9996\u5c42101\u53f7\u5546\u94fa</p><br/><p>[DESCRIPTION_EN]</p><p>Free event. All welcome!</p><hr/><p>\u6bcf\u5468AI\u65e9\u9910\u4f1a #XX</p><p>\u672c\u5468\u4e3b\u9898\uff1a[THEME_CN]</p><p>\u514d\u8d39\u6d3b\u52a8\uff0c\u6b22\u8fce\u53c2\u52a0\uff01</p>'; 'done'"
-
-# Upload poster image into the details
-agent-browser find role button click --name "\u56fe\u7247"  # 图片 button in toolbar
-agent-browser wait 1000
-agent-browser eval 'var input = document.querySelectorAll("input[type=file]")[1]; input.id = "poster-upload-input"; "set id"'
-agent-browser upload "#poster-upload-input" "~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-XX/images/graphics/poster-no-qr.png"
-agent-browser wait 2000
-# Click 上传 button in the upload dialog
-agent-browser find role button click --name "\u4e0a\u4f20"  # 上传
-
-# Restructure: put image first, then text
-agent-browser eval "var editor = document.querySelector('.tinymce-wrap.mce-content-body'); var img = editor.querySelector('img'); var imgHtml = img ? img.outerHTML : ''; editor.innerHTML = imgHtml + '<br/>' + '[REST_OF_HTML]'; 'restructured'"
-
-# Sync TinyMCE
+**For TinyMCE:**
+```bash
+agent-browser eval "var editor = document.querySelector('.tinymce-wrap.mce-content-body'); editor.innerHTML = 'YOUR_HTML_HERE'; 'done'"
 agent-browser eval "tinymce.activeEditor.save(); 'saved'"
 ```
+
+**For UEditor:**
+```bash
+agent-browser eval 'var editor = UE.instants[Object.keys(UE.instants)[0]]; editor.body.innerHTML = "YOUR_HTML_HERE"; "done"'
+```
+
+Build the HTML content with: event title, date, time, venue, address, agenda/theme (bilingual), and "free event" note. Check recent events for the typical structure.
+
+**Tip:** Use `\uXXXX` unicode escapes for Chinese characters in eval strings to avoid encoding issues.
 
 ### 9. Set Ticket Type (REQUIRED)
 
@@ -392,24 +381,7 @@ Generated images are stored at:
 
 ## Poster Generation
 
-Use the event-poster-website (local or deployed):
-
-```bash
-# Start locally
-cd ~/Projects/youngchingjui/event-poster-website && bun dev
-
-# Generate poster (1080x1920)
-curl -s -o poster.png "http://localhost:3000/api/og-poster?eventName=AI+Breakfast+%23XX&city=Shanghai&date=Thursday,+Mar+12&time=9:00+%E2%80%93+10:30+AM&tagline=THEME&venue=BAKER%26SPICE&location=Wheelock+Square&showQr=false"
-
-# Generate banner (1080x640) — NOTE: include the default stock background image for a nicer look
-# The backgroundImageSrc param defaults to the stock image from Vercel Blob, so just omit it
-# or explicitly pass it if the default isn't working:
-curl -s -o banner.png "http://localhost:3000/api/og-banner?width=1080&height=640&eventName=AI+Breakfast+%23XX&city=Shanghai&date=Thursday,+Mar+12&time=9:00+%E2%80%93+10:30+AM&tagline=THEME&venue=BAKER%26SPICE&location=Wheelock+Square"
-# The API automatically includes the stock background photo (luisa-fournier-hMjyyBqCRIs-unsplash.jpg)
-# If it's not showing, explicitly add: &backgroundImageSrc=URL_TO_STOCK_IMAGE
-
-# For poster with QR, upload QR to Vercel Blob first, then add &showQr=true&qrCodeSrc=ENCODED_BLOB_URL
-```
+Use the `generate-posters` skill for full instructions. Check `.claude/skills/PREFERENCES.md` for current defaults.
 
 ## Troubleshooting
 
@@ -420,3 +392,7 @@ curl -s -o banner.png "http://localhost:3000/api/og-banner?width=1080&height=640
 - **Event created but page didn't change:** This is normal. Check listings page to confirm.
 - **Can't edit miniprogram event:** Events created in WeChat miniprogram have limited browser editability. Create new events via browser instead.
 - **Wrong district:** BAKER&SPICE Wheelock Square is in 静安 (Jing'an), NOT 徐汇 (Xuhui).
+- **Edit page `node-Address` error:** The edit page sometimes throws `找不到对应ID的元素: node-Address` in the console, which silently blocks submission. This happens when the address component fails to render. Creating via the create page (`/createv3#/`) instead of editing can avoid this.
+- **Edit page rich text editor is UEditor, not TinyMCE:** The create page uses TinyMCE but the edit page uses UEditor. Check with `typeof UE` vs `typeof tinymce`. UEditor instances are at `UE.instants`.
+- **Vue data manipulation:** For stubborn Element UI fields (dates, times, addresses), you can sometimes set values via the parent Vue component's `$data` and `$forceUpdate()`. Walk the `__vue__.$parent` chain to find the form data model. This is a last resort — prefer UI interactions first.
+- **Flatpickr on edit page:** Date inputs use flatpickr. Access via `el.__vue__.$data.fp` and use `fp.setDate("2026-04-09 08:00", true)` to set programmatically.
