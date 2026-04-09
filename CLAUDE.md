@@ -15,7 +15,7 @@ Granola meeting transcripts are large and should NOT be loaded directly into the
 
 ### Step 1: Download the transcript
 
-Use the `transcript-downloader` agent to fetch from Granola MCP and save locally:
+Use the `transcript-downloader` agent to fetch from the Granola API and save locally:
 
 ```
 Use the transcript-downloader agent to download the latest AI Breakfast transcript.
