@@ -1,7 +1,7 @@
 ---
 Title: AI Breakfast #35
 Date: April 9, 2026
-Time: 9:00 AM - 10:30 AM
+Time: 8:00 AM - 10:30 AM
 Author: Ching Jui Young
 ---
 

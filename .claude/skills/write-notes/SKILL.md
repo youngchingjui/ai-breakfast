@@ -42,9 +42,11 @@ Determine the breakfast number by checking the most recent notes file in the `no
 
 ### Privacy & Anonymization
 
-- Never use personal names or specific company names. Describe people by role, background, or what they shared (e.g., "a software architect at a 3D printing company").
-- Use varied descriptions - don't repeat "member" or "attendee" for every person.
+- **No names in the body.** Never use personal names — including the organizer's — anywhere in the notes body. Describe people by role, background, or what they shared (e.g., "a software architect at a 3D printing company", "the organizer"). Frontmatter (Author field) is the only exception.
+- Use varied descriptions — don't repeat "member" or "attendee" for every person.
 - Include project names if they were explicitly shared.
+- **No identifying personal details.** Specific medical situations, injuries, or personal circumstances that could identify an attendee should be kept vague or cut ("recovering from an injury", not "recovering from hip surgery").
+- **No stale stories.** Check the most recent 2–3 notes files before writing. If a story or anecdote has already appeared in a previous session's notes, don't repeat it unless there's meaningful new development. Flag recurring examples and either update them with new context or drop them.
 
 ### Writing Style
 
