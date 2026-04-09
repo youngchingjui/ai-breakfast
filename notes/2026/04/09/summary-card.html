@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Breakfast #35 – Recap Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #ddd5c8;
+      width: 420px;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+
+    .card {
+      width: 420px;
+      background: #fdf8f2;
+      overflow: hidden;
+    }
+
+    /* ── Photo ── */
+    .photo-wrap {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      overflow: hidden;
+    }
+
+    .photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 42%;
+      display: block;
+      filter: brightness(1.08) contrast(1.05) saturate(1.3) sepia(0.12);
+    }
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(20,10,5,0.04) 0%,
+        rgba(20,10,5,0.58) 100%
+      );
+    }
+
+    /* stamp */
+    .stamp {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.8);
+      background: rgba(200,129,58,0.92);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      transform: rotate(14deg);
+    }
+    .stamp-top { font-size: 7px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .stamp-num { font-size: 21px; font-weight: 800; line-height: 1; margin: 1px 0; }
+    .stamp-bot { font-size: 6px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.85; }
+
+    .photo-text {
+      position: absolute;
+      bottom: 20px;
+      left: 24px;
+      right: 92px;
+    }
+
+    .recap-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #f4be7a;
+      margin-bottom: 5px;
+    }
+
+    .event-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+    }
+
+    .event-meta {
+      margin-top: 6px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.72);
+    }
+
+    /* ── Pull quote ── */
+    .quote-section {
+      padding: 26px 28px 22px;
+      border-bottom: 1px solid #ede4d5;
+      border-left: 5px solid #c8813a;
+      background: #fffbf2;
+    }
+
+    .big-quote-mark {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 70px;
+      color: #c8813a;
+      line-height: 0.65;
+      display: block;
+      margin-bottom: 10px;
+      opacity: 0.45;
+    }
+
+    .quote-text {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 20px;
+      font-style: italic;
+      color: #2b1f14;
+      line-height: 1.5;
+    }
+
+    /* ── Insights ── */
+    .insights-section {
+      padding: 20px 26px 18px;
+      border-bottom: 1px solid #ede4d5;
+    }
+
+    .insights-label {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #b09070;
+      margin-bottom: 14px;
+    }
+
+    .insight {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      margin-bottom: 12px;
+    }
+
+    .insight:last-child { margin-bottom: 0; }
+
+    .insight-arrow {
+      color: #c8813a;
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+      line-height: 1.5;
+    }
+
+    .insight-text {
+      font-size: 13px;
+      color: #2b1f14;
+      line-height: 1.52;
+    }
+
+    .insight-text strong {
+      font-weight: 700;
+      color: #1a0f08;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 14px 26px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .qr-wrap {
+      width: 58px;
+      height: 58px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+      padding: 3px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+    .qr-wrap img { width: 100%; height: 100%; display: block; }
+
+    .footer-text { flex: 1; }
+
+    .footer-cta {
+      font-size: 12px;
+      font-weight: 700;
+      color: #4a3828;
+      margin-bottom: 2px;
+    }
+
+    .footer-url {
+      font-size: 9.5px;
+      color: #c8813a;
+      font-weight: 500;
+    }
+
+    .footer-next {
+      margin-top: 7px;
+      font-size: 10.5px;
+      color: #9a8070;
+    }
+
+    .footer-next strong { color: #4a3828; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <!-- Photo -->
+    <div class="photo-wrap">
+      <img class="photo" src="group-photo.jpg" alt="AI Breakfast #35">
+      <div class="photo-overlay"></div>
+
+      <div class="stamp">
+        <span class="stamp-top">AI</span>
+        <span class="stamp-num">#35</span>
+        <span class="stamp-bot">Breakfast</span>
+      </div>
+
+      <div class="photo-text">
+        <div class="recap-label">Recap · April 9, 2026</div>
+        <div class="event-title">AI Breakfast<br>Shanghai</div>
+        <div class="event-meta">8:00 – 10:30 AM</div>
+      </div>
+    </div>
+
+    <!-- Pull quote -->
+    <div class="quote-section">
+      <span class="big-quote-mark">"</span>
+      <div class="quote-text">I use ChatGPT when I know what I want. I use Claude when I'm not sure yet.</div>
+    </div>
+
+    <!-- Insights -->
+    <div class="insights-section">
+      <div class="insights-label">What we learned</div>
+
+      <div class="insight">
+        <span class="insight-arrow">→</span>
+        <div class="insight-text"><strong>Same data, different depth.</strong> Claude returned 19 pages of nuanced analysis. ChatGPT returned a summary. Both saw the same transcripts.</div>
+      </div>
+
+      <div class="insight">
+        <span class="insight-arrow">→</span>
+        <div class="insight-text"><strong>Agents find what humans don't look for.</strong> One member probed their company's APIs and surfaced a security gap the IT team had missed entirely.</div>
+      </div>
+
+      <div class="insight">
+        <span class="insight-arrow">→</span>
+        <div class="insight-text"><strong>An app was pitched and built in the same session.</strong> Memoir-recording idea → working prototype in about 10 minutes with Claude Code.</div>
+      </div>
+
+      <div class="insight">
+        <span class="insight-arrow">→</span>
+        <div class="insight-text"><strong>Local Whisper: 100hrs of audio for ~$1.</strong> The same transcription via API costs $36. The math changes everything about what you can afford to automate.</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="qr-wrap">
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=116x116&data=https%3A%2F%2Fai-breakfast.youngandai.com%2Fnotes%2F2026%2F04%2F09&margin=2"
+          alt="QR"
+        >
+      </div>
+      <div class="footer-text">
+        <div class="footer-cta">Read the full notes</div>
+        <div class="footer-url">ai-breakfast.youngandai.com</div>
+        <div class="footer-next">Next: <strong>Thursday, April 16 · 8 AM</strong></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
