@@ -11,10 +11,10 @@ At AI Breakfast #36, our group of engineers, founders, and tech enthusiasts disc
 
 ## Summary
 
-- [AI Tax Filing: Close But Not Careful](#ai-tax-filing-close-but-not-careful) — saved $150 on taxes, nearly reported the wrong numbers
+- [AI Tax Filing: Close But Not Careful](#ai-tax-filing-close-but-not-careful) — saved $150 by skipping TurboTax, nearly reported the wrong numbers
 - [The Agent Shakeout: OpenClaw vs Hermes](#the-agent-shakeout-openclaw-vs-hermes) — nobody got OpenClaw working properly, and Hermes Agent is more reliable
 - [Gemma 4 and the 1-Bit Frontier](#gemma-4-and-the-1-bit-frontier) — laptop-class open models and an LLM running in your browser tab
-- [Autonomous Driving's $300 Hardware Stack](#autonomous-drivings-300-hardware-stack) — China's modular approach vs Tesla's $15,000 software unlock
+- [Autonomous Driving's $300 Hardware Stack](#autonomous-drivings-300-hardware-stack) — China's modular approach vs Tesla's subscription model
 - [OmniClaude: Build Software From Your Phone](#omniclaude-build-software-from-your-phone) — a mobile-first agent workspace for orchestrating AI coding agents
 - [AI Coding Without a Safety Net](#ai-coding-without-a-safety-net) — when the backend goes down, nobody remembers how to code by hand
 
@@ -22,7 +22,7 @@ At AI Breakfast #36, our group of engineers, founders, and tech enthusiasts disc
 
 ### AI Tax Filing: Close But Not Careful
 
-One attendee used an AI tool to file US taxes and saved roughly $150 over TurboTax. The catch: it pulled the wrong standard deduction amount ($15,000 instead of the current $15,267) and generated an incorrect mailing address, which had already been sent to family members to post. Small errors, but the kind that compound when nobody double-checks.
+One attendee used an AI tool to file US taxes instead of TurboTax, saving roughly $150 in filing fees. The catch: it used an outdated standard deduction figure and generated an incorrect mailing address, which had already been sent to family members to post. Small errors, but the kind that compound when nobody double-checks.
 
 The group's broader frustration: the US tax system feels deliberately complex, propped up by lobbying from companies like Intuit that profit from the confusion. Singapore auto-files your taxes and even says "thank you for your contribution to nation building" on the notice. The US form leads with fines. AI can navigate the complexity, but it still trips on the details that matter most.
 
@@ -30,7 +30,7 @@ The group's broader frustration: the US tax system feels deliberately complex, p
 
 OpenClaw frustration continues, but this week it was first-hand. One attendee spent days trying to get it running to auto-generate Douyin videos -- got through step three of the setup before hitting token issues and permission requests that felt dangerously broad. They stopped when they heard something better was coming.
 
-That something is [Hermes Agent](https://hermes-agent.org/), a self-improving AI agent from Nous Research. It's currently #2 on [OpenRouter's app rankings](https://openrouter.ai/apps) behind OpenClaw, but the group's consensus was that it's significantly more reliable. One attendee who spent three days fighting OpenClaw's setup recommended Hermes as the first thing to try. Another suggested [Claude's desktop app](https://claude.ai/) with computer use as a safer alternative that doesn't require CLI setup at all -- particularly for non-technical users who just want task automation.
+That something is [Hermes Agent](https://hermes-agent.org/), a self-improving AI agent from Nous Research. It's currently [#2 in OpenRouter's personal agents category](https://openrouter.ai/apps) behind OpenClaw, but the group's consensus was that it's significantly more reliable. One attendee who spent three days fighting OpenClaw's setup recommended Hermes as the first thing to try. Another suggested [Claude's desktop app](https://claude.ai/) with computer use as a safer alternative that doesn't require CLI setup at all -- particularly for non-technical users who just want task automation.
 
 ### Gemma 4 and the 1-Bit Frontier
 
@@ -42,13 +42,13 @@ Even more striking: [Bonsai](https://prismml.com/news/bonsai-8b) from PrismML, a
 
 An engineer working in autonomous driving broke down how China's EV ecosystem actually works. It's modular, like building a PC. Car manufacturers buy chips from compute providers (Nvidia, Qualcomm, Horizon, Huawei), cameras from sensor suppliers, and software from companies like [Momenta](https://www.momenta.ai/). A software provider handles integration, and the car rolls off the line.
 
-The jaw-dropping number: the full sensor suite, compute platform, and cabling for a mid-range Chinese car costs under $300. Tesla charges consumers $15,000 to unlock the same capabilities in software -- on hardware that ships in every car regardless. China has 20-50% of new car brands shipping with some level of autonomous capability, versus essentially just Tesla and Waymo in the US. The sheer volume creates a data flywheel: more cars, more data, cheaper sensors, better models.
+The jaw-dropping number: the attendee claimed a full sensor suite, compute platform, and cabling for a mid-range Chinese car costs under $300 -- though [public estimates for systems like BYD's "God's Eye"](https://www.claimsjournal.com/news/national/2025/06/11/331081.htm) put the figure closer to $2,100. Either way, it's a fraction of what Tesla charges: [$99/month for FSD](https://www.notateslaapp.com/tesla-reference/958/tesla-fsd-price-increase-history) on hardware that ships in every car regardless. [Over 55% of new cars sold in China](https://counterpointresearch.com/en/insights/adas-market-china-shifting-gears-level3) now ship with some level of autonomous capability, versus essentially just Tesla and Waymo in the US. The sheer volume creates a data flywheel: more cars, more data, cheaper sensors, better models.
 
-The Xiaomi car illustrates the model. They didn't build a car -- they designed one, handed manufacturing to Magna (an Austrian contract manufacturer), bought sensors from Continental and Sony, chips from Nvidia, and software from Momenta. Three years from concept to road.
+The Xiaomi car came up as an example of this modular approach, though the details are more nuanced than the table discussion suggested. Xiaomi actually [built its own factory in Beijing](https://emag.directindustry.com/2024/07/29/inside-xiaomis-ev-factory-where-the-company-produces-an-electric-car-every-76-seconds/) and develops its autonomous driving software in-house. They do source internationally -- [Nvidia's Drive Orin X chip](https://en.wikipedia.org/wiki/Xiaomi_SU7) for compute, Continental for some sensor components -- but the picture of a pure assembler doesn't quite fit. Three years from concept to road is accurate.
 
 ### OmniClaude: Build Software From Your Phone
 
-An attendee returned with a live demo of OmniClaude, a workspace for dispatching and monitoring Claude Code agents from any device -- phone, tablet, or laptop. Each project gets a manifest, phased plans, and the ability to spin up parallel agents on separate git worktrees.
+An attendee returned with a live demo of [OmniClaude](https://omni-claude.com), a workspace for dispatching and monitoring Claude Code agents from any device -- phone, tablet, or laptop. Each project gets a manifest, phased plans, and the ability to spin up parallel agents on separate git worktrees.
 
 The key insight from building it: existing tools assume you're at a laptop. OmniClaude's mobile-first design turns dead time -- metro rides, waiting rooms -- into productive sessions. You plan work, dispatch agents, and review results. The agents run on a US-based VPS, so there are no VPN issues and work continues even when the phone disconnects.
 
@@ -67,9 +67,9 @@ AI code review is following the same curve. [CodeRabbit](https://www.coderabbit.
 - [Hermes Agent](https://hermes-agent.org/): Self-improving AI agent from Nous Research with 40+ built-in tools, multi-platform messaging support, and persistent memory. Group's recommended alternative to OpenClaw.
 - [Gemma 4](https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/): Google's open-source model family under Apache 2.0 license. The 31B dense model fits on a laptop and ranks among the top open-source models.
 - [Bonsai](https://prismml.com/news/bonsai-8b): PrismML's 1-bit trained 8B model (1.15GB). Runs in the browser via WebGPU and produces working code despite being 1/14th the size of full-precision equivalents.
-- OmniClaude: Mobile-first workspace for orchestrating Claude Code agents across devices. Manages git worktrees, parallel agents, and project planning from your phone. Currently in early access with a waitlist.
+- [OmniClaude](https://omni-claude.com): Mobile-first workspace for orchestrating Claude Code agents across devices. Manages git worktrees, parallel agents, and project planning from your phone. Currently in early access with a waitlist.
 - [CodeRabbit](https://www.coderabbit.ai/): AI code review tool that comments on pull requests. Quality has improved significantly -- now roughly half of comments are actionable.
-- [Momenta](https://www.momenta.ai/): Chinese autonomous driving software provider powering vehicles for Mercedes-Benz, BMW, and Xiaomi. The integration layer between chips, sensors, and car manufacturers.
+- [Momenta](https://www.momenta.ai/): Chinese autonomous driving software provider [powering vehicles for Mercedes-Benz and BMW](https://www.autonews.com/technology/ane-mercedes-bmw-momenta-autonomous-china-1030/). The integration layer between chips, sensors, and car manufacturers.
 - [Neon](https://neon.com/): Serverless Postgres database. Mentioned as a lighter alternative to Supabase -- more bare-metal, fewer wrapper features.
-- [Sam Altman New Yorker Profile](https://www.newyorker.com/magazine/2026/04/13/sam-altman-may-control-our-future-can-he-be-trusted): Ronan Farrow's 16,000-word investigation. The group discussed the pattern of misrepresentation documented across 100+ interviews.
+- [Sam Altman New Yorker Profile](https://www.newyorker.com/magazine/2026/04/13/sam-altman-may-control-our-future-can-he-be-trusted): Ronan Farrow and Andrew Marantz's 16,000-word investigation based on 100+ interviews. The group discussed the pattern of misrepresentation it documents.
 - [Xianyu](https://www.trip.com/guide/info/xianyu.html): China's largest secondhand marketplace (Alibaba). One attendee is building an app to make it accessible to foreigners -- described it as "Craigslist of China" where knowing the right search terms unlocks anything.
