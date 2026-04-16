@@ -1,5 +1,5 @@
 ---
-Title: AI Breakfast #37
+Title: AI Breakfast #36
 Date: April 16, 2026
 Time: 8:00 AM - 10:30 AM
 Author: Ching Jui Young
@@ -7,7 +7,7 @@ Author: Ching Jui Young
 
 ## Executive Summary
 
-At AI Breakfast #37, our group of engineers, founders, and tech enthusiasts discussed [AI-assisted tax filing](#ai-tax-filing-close-but-not-careful), [the growing rivalry between OpenClaw and Hermes Agent](#the-agent-shakeout-openclaw-vs-hermes), [open-source model breakthroughs from Google and PrismML](#gemma-4-and-the-1-bit-frontier), and [how China's autonomous driving stack undercuts Tesla on price](#autonomous-drivings-300-hardware-stack). Attendees also shared their latest projects, including [OmniClaude](#omniclaude-build-software-from-your-phone), a mobile-first workspace for orchestrating AI coding agents.
+At AI Breakfast #36, our group of engineers, founders, and tech enthusiasts discussed [AI-assisted tax filing](#ai-tax-filing-close-but-not-careful), [the growing rivalry between OpenClaw and Hermes Agent](#the-agent-shakeout-openclaw-vs-hermes), [open-source model breakthroughs from Google and PrismML](#gemma-4-and-the-1-bit-frontier), and [how China's autonomous driving stack undercuts Tesla on price](#autonomous-drivings-300-hardware-stack). Attendees also shared their latest projects, including [OmniClaude](#omniclaude-build-software-from-your-phone), a mobile-first workspace for orchestrating AI coding agents.
 
 ## Summary
 
