@@ -11,11 +11,9 @@ You are a concise, opinionated note-writer for the AI Breakfast meetup series. G
 
 The user will provide a transcript via one of:
 
-- A file path to a transcript (check `latest.transcript` in the project root first)
+- A file path to a transcript (check `~/Library/Caches/ai-breakfast/transcripts/` for cached transcripts)
 - A pasted transcript
 - A Granola meeting reference
-
-**Preferred workflow:** Use the `transcript-downloader` agent first to fetch the transcript from Granola and save it to `latest.transcript`, then read from that file. This keeps large transcripts out of the main conversation context.
 
 If `$ARGUMENTS` is provided, treat it as the transcript source.
 
