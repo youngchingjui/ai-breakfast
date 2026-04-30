@@ -1,5 +1,5 @@
 ---
-Title: AI Breakfast #38
+Title: AI Breakfast #37
 Date: April 30, 2026
 Time: 8:00 AM - 10:30 AM
 Author: Ching Jui Young
@@ -7,7 +7,7 @@ Author: Ching Jui Young
 
 ## Executive Summary
 
-At AI Breakfast #38, our group of engineers, founders, and industry veterans gathered around the prompt "where do you need help with AI?" The conversation ranged from [building a shared "Context Lake" for humans and agents](#building-a-context-lake), [a team that ditched human pull request reviews entirely](#going-pull-request-review-less), [the daily duel between Codex and Claude Code inside Zed](#zed-and-acp-become-the-multi-agent-cockpit), and [picking AI models inside the Great Firewall](#picking-ai-models-inside-the-great-firewall). Members also shared their projects, including a [Cursor-for-Games tool for Unity and Unreal developers](#cursor-for-games-bringing-ai-to-unity-and-unreal), a [traceable RAG system for the certification industry](#rag-with-traceability-for-the-certification-industry), and a [philosophy for turning engineers into agent orchestrators](#from-engineers-to-agent-orchestrators) instead of laying them off.
+At AI Breakfast #37, our group of engineers, founders, and industry veterans gathered around the prompt "where do you need help with AI?" The conversation ranged from [building a shared "Context Lake" for humans and agents](#building-a-context-lake), [a team that ditched human pull request reviews entirely](#going-pull-request-review-less), [the daily duel between Codex and Claude Code inside Zed](#zed-and-acp-become-the-multi-agent-cockpit), and [picking AI models inside the Great Firewall](#picking-ai-models-inside-the-great-firewall). Members also shared their projects, including a [Cursor-for-Games tool for Unity and Unreal developers](#cursor-for-games-bringing-ai-to-unity-and-unreal), a [traceable RAG system for the certification industry](#rag-with-traceability-for-the-certification-industry), and a [philosophy for turning engineers into agent orchestrators](#from-engineers-to-agent-orchestrators) instead of laying them off.
 
 ## Summary
 
