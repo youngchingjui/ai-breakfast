@@ -26,7 +26,7 @@ At AI Breakfast #37, our group of software architects, founders, engineers, and 
 
 The biggest workflow shift at the table came from [Zed's parallel agents](https://zed.dev/parallel-agents) running over the [Agent Client Protocol](https://zed.dev/acp). One software architect described it as a step-change: bring your own Claude or Codex subscription, route it through Zed's agent panel, and dispatch threads across multiple codebases at once. Each thread keeps its own persistent terminal, file explorer, git, and profiler — none of the rot you get juggling tmux tabs against the desktop apps.
 
-The same architect tried [Claude's desktop app](https://claude.ai/) but kept hitting crashes and non-sticky terminals. Codex got higher marks for stability but felt verbose — one attendee cited reports that [Codex burns roughly 4x more tokens than Claude for equivalent work](https://www.anthropic.com/news/claude-code-token-efficiency). The compromise: stay in the IDE, push out parallel agents, and only context-switch when you genuinely need to write code by hand. Some changes are still 30 seconds of human typing — faster than any agent can boot.
+The same architect tried [Claude's desktop app](https://claude.com/download) but kept hitting crashes and non-sticky terminals. Codex got higher marks for stability but felt verbose — one attendee cited reports that [Codex burns roughly 4x more tokens than Claude for equivalent work](https://www.morphllm.com/comparisons/codex-vs-claude-code). The compromise: stay in the IDE, push out parallel agents, and only context-switch when you genuinely need to write code by hand. Some changes are still 30 seconds of human typing — faster than any agent can boot.
 
 ### The Context Lake Pattern
 
