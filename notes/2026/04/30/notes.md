@@ -26,7 +26,7 @@ At AI Breakfast #37, our group of software architects, founders, engineers, and 
 
 The biggest workflow shift at the table came from [Zed's parallel agents](https://zed.dev/parallel-agents) running over the [Agent Client Protocol](https://zed.dev/acp). One software architect described it as a step-change: bring your own Claude or Codex subscription, route it through Zed's agent panel, and dispatch threads across multiple codebases at once. Each thread keeps its own persistent terminal, file explorer, git, and profiler — none of the rot you get juggling tmux tabs against the desktop apps.
 
-The same architect tried [Claude's desktop app](https://claude.com/download) but kept hitting crashes and non-sticky terminals. Codex got higher marks for stability but felt verbose — one attendee cited reports that [Codex burns roughly 4x more tokens than Claude for equivalent work](https://www.morphllm.com/comparisons/codex-vs-claude-code). The compromise: stay in the IDE, push out parallel agents, and only context-switch when you genuinely need to write code by hand. Some changes are still 30 seconds of human typing — faster than any agent can boot.
+The same architect tried [Claude's desktop app](https://claude.com/download) but kept hitting crashes and non-sticky terminals. Codex got higher marks for stability but felt verbose — one attendee cited reports that Codex burns roughly 4x more tokens than Claude for equivalent work (though [public benchmarks](https://www.morphllm.com/comparisons/codex-vs-claude-code) actually find the inverse — Claude Code uses ~4x more tokens than Codex). The compromise: stay in the IDE, push out parallel agents, and only context-switch when you genuinely need to write code by hand. Some changes are still 30 seconds of human typing — faster than any agent can boot.
 
 ### The Context Lake Pattern
 
@@ -66,7 +66,7 @@ The visiting founder, on his first trip to mainland China after a decade in Asia
 
 Same story for EVs. Korea is the most electric country he's been to outside China. Japan still has effectively zero electric cars and was pursuing hydrogen until last year. The really shocking part wasn't the cars — it was the electric scooters, often 30 years old, hot-wired with what look like car batteries, driven by 80-year-olds through red lights with no plates and no police interest. They work. They're quiet. They're ubiquitous. None of it exists in the West.
 
-For finding things locally, the table converged on an unexpected winner: ChatGPT was "shockingly good" at Chinese restaurant recommendations, directions, and clinic searches — better than DeepSeek, far better than Gemini. The Chinese answer is different though: people don't go to a separate AI app. The AI is baked into [Dianping](https://www.dianping.com/), [Xiaohongshu](https://www.xiaohongshu.com/), and Amap. You search inside the app you're already in.
+For finding things locally, the table converged on an unexpected winner: ChatGPT was "shockingly good" at Chinese restaurant recommendations, directions, and clinic searches — better than DeepSeek, far better than Gemini. The Chinese answer is different though: people don't go to a separate AI app. The AI is baked into Dianping, Xiaohongshu, and Amap. You search inside the app you're already in.
 
 ### The Junior Engineer Becomes the Orchestrator
 
@@ -82,7 +82,7 @@ The framing: "By the middle of next year I won't think of you as engineers anymo
 - [Plain](https://www.plain.com/): Unified support inbox across Slack, Teams, Discord, and email with built-in Linear integration. Mentioned as the "radio logo" customer-support platform replacing GitHub-issues-as-helpdesk.
 - [Linear Customer Requests](https://linear.app/customer-requests): Linear's native support intake. Pulls Discord, email, and Slack into the same issue tracker engineers already live in.
 - [Langfuse](https://langfuse.com/): Open-source LLM observability and tracing platform. One attendee uses it to inspect agent behavior instead of building a custom UI.
-- [DeepSeek V4](https://www.deepseek.com/): Released April 23. The 3D-printing software team runs it for non-sensitive workloads — "infinitely better than V3, 40x cheaper than Codex per token."
+- DeepSeek V4: Released April 23. The 3D-printing software team runs it for non-sensitive workloads — "infinitely better than V3, 40x cheaper than Codex per token."
 - [Outline VPN](https://getoutline.org/): Google-developed VPN running over Shadowsocks, easy to self-host on AWS Lightsail (~$7/month). Recommended over standalone Shadowsocks setups that get detected and blocked.
 - [Playco](https://www.play.co/): Instant-games studio building HTML5 mini-program games for Line, Snap, and other messaging platforms. Their AI product for Unity/Unreal launches in May.
-- [F45](https://f45training.com/): Functional training franchise. One attendee's six-day-a-week regimen, mentioned in passing.
+- F45: Functional training franchise. One attendee's six-day-a-week regimen, mentioned in passing.
