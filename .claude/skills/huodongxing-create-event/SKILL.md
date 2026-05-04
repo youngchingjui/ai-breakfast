@@ -21,6 +21,12 @@ Create and manage AI Breakfast events on huodongxing.com using `agent-browser` (
 - Poster images should already be generated (see event-poster-website skill or manual process)
 - Images stored in `~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-{NUM}/images/graphics/`
 
+## ⚠️ Meta: Keep this skill alive
+
+Huodongxing's UI changes silently. **Every time you run this skill, watch for behavior that doesn't match these instructions** — new validation rules, refs that shift, toasts that flash and disappear, fields that don't carry over between pages. When you finish the workflow, **report any new quirks you encountered to Ching at the end** so this SKILL.md can be updated. The skill is only as good as the last person who maintained it.
+
+In particular, set up the toast watcher (see "Catching Silent Toasts" below) at the start of every session — it's the single highest-value debugging tool for this site.
+
 ## Important: Huodongxing UI Quirks
 
 These are critical lessons learned from browser automation on this site:
@@ -214,6 +220,109 @@ agent-browser --session hdx open https://www.huodongxing.com/login
 # ... all subsequent commands use --session hdx
 agent-browser --session hdx close  # when done
 ```
+
+### 17. Catching Silent Toasts (CRITICAL DEBUGGING TOOL)
+
+Huodongxing fires `el-message` error toasts for ~1 second then removes them from the DOM. Screenshots almost always miss them. When a button click "does nothing," the page is usually telling you why — but the message is gone before you can capture it.
+
+**Set up a MutationObserver on first page load and check `window._toastLog` after every action:**
+
+```bash
+agent-browser --session hdx eval 'window._toastLog = []; var observer = new MutationObserver(function(muts){muts.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1 && (n.classList?.contains("el-message") || n.classList?.contains("el-notification") || n.querySelector?.(".el-message__content"))){window._toastLog.push({time:Date.now(),text:(n.textContent||"").trim().substring(0,200),class:n.className})}})})}); observer.observe(document.body, {childList:true, subtree:true}); window._toastObserver = observer; "watching"'
+```
+
+After each action that "didn't work," check the log:
+
+```bash
+agent-browser --session hdx eval 'JSON.stringify(window._toastLog)'
+```
+
+The observer is **lost on navigation** — re-register it after `agent-browser open`.
+
+### 18. Form Validation Order (Create Page)
+
+The create form enforces field order at validation time. Clicking 免费票 or 创建活动 triggers validation of EARLIER fields and silently aborts. **Fill in this order:**
+
+1. Title
+2. Banner upload (now mandatory — toast: "请上传活动海报")
+3. Date & time
+4. Address (province + city + detailed address — toast: "请设置活动举办地址")
+5. 活动详情 (TinyMCE content — toast: "请填写活动详情")
+6. Click 免费票 → drawer opens, set quantity, click 保存
+7. Tick agreement checkbox
+8. Click 创建活动
+
+If a click silently fails, check `window._toastLog` (rule #17) for the actual reason.
+
+### 19. Free Ticket Drawer (NEW)
+
+Clicking 免费票 no longer adds an inline ticket — it opens a side drawer (`.ticket-drawer` inside `.el-overlay`). Configure the ticket inside the drawer:
+
+```bash
+# Click 免费票 (after rules 17-18 are satisfied)
+agent-browser --session hdx eval 'document.querySelectorAll(".ticket-form .btn-group button")[0].click(); "clicked"'
+agent-browser --session hdx wait 1500
+
+# Drawer is open. Inputs inside:
+# [0] = ticket name (default "免费票")
+# [1] = quantity (placeholder "不限制")
+# [2] = "needs review" checkbox
+agent-browser --session hdx eval 'var inp = document.querySelectorAll(".ticket-drawer input")[1]; inp.focus(); inp.value = "25"; inp.dispatchEvent(new Event("input",{bubbles:true})); inp.dispatchEvent(new Event("change",{bubbles:true})); inp.value'
+
+# Save
+agent-browser --session hdx eval 'var btn = Array.from(document.querySelectorAll(".ticket-drawer button")).find(function(b){return b.textContent.trim() === "保存"}); btn.click(); "saved"'
+```
+
+Verify by checking that `暂无票种` is gone:
+
+```bash
+agent-browser --session hdx eval 'Array.from(document.querySelectorAll("*")).find(function(el){return el.textContent.trim() === "暂无票种"}) ? "still empty" : "ticket added"'
+```
+
+### 20. Agreement Checkbox Toggles, Doesn't Set
+
+`agent-browser find text "已阅读并同意" click` **toggles** the checkbox state — calling it on an already-checked box unchecks it. Always verify state first:
+
+```bash
+agent-browser --session hdx eval 'document.querySelector(".el-checkbox.is-checked") ? "checked" : "not checked"'
+# Only click if "not checked"
+```
+
+### 21. Edit Page Uses Vue Multiselect (NOT Element UI)
+
+For country/province/city on the edit page, the create-page `.el-select` selectors don't apply. Use `.multiselect`:
+
+```bash
+agent-browser --session hdx eval 'var ms = document.querySelectorAll(".multiselect"); Array.from(ms).map(function(s,i){return i+":"+(s.querySelector("input")?.placeholder || "")+"|val:"+s.querySelector(".multiselect__single")?.textContent.trim()}).join("\n")'
+```
+
+The detailed-address `<input>` has placeholder `请先选择省市，然后输入详细地址` and is a regular text input — fill it normally with `inp.value = ...; dispatchEvent("input"); dispatchEvent("change")`.
+
+### 22. Fields Don't Always Carry Over from Create → Edit
+
+The detailed-address textbox came back empty on the edit page even though it was set on create (country/province/city DID persist). After every navigation between create/edit, re-verify all fields are populated.
+
+### 23. UEditor Image Insertion via Vercel Blob
+
+The edit page's UEditor `simpleupload` button (`.edui-for-simpleupload`) does not respond to programmatic clicks. To insert a poster image:
+
+1. Upload the local PNG to a public URL via the poster website's `/api/upload` endpoint:
+   ```bash
+   curl -s -X POST -F "file=@/path/to/poster-no-qr.png" -F "filename=ai-breakfast-NUM-poster-no-qr.png" http://localhost:3000/api/upload
+   # Returns: {"url":"https://...vercel-storage.com/...png", ...}
+   ```
+2. Use UEditor's API to set content with an `<img>` tag pointing at that URL:
+   ```bash
+   agent-browser --session hdx eval 'var ed = UE.instants[Object.keys(UE.instants)[0]]; ed.setContent("<p style=\"text-align:center\"><img src=\"" + posterUrl + "\" style=\"max-width:100%\"/></p>" + existingHtml); "set"'
+   ```
+
+### 24. UEditor Double-Escapes HTML Entities
+
+If you write `&middot;`, `&ndash;`, `&mdash;` etc. in HTML passed to TinyMCE on the create page, UEditor on the edit page will load them back as `&amp;middot;` — visible as literal text. **Always use the literal Unicode characters** (`·`, `–`, `—`, `'`, `"`) in your source HTML, not entity references.
+
+### 25. Crop Dialog Sometimes Crops Below 1080×640
+
+The create-page banner crop dialog may default to a smaller crop region (e.g. 972×576) even though the source is 1080×640. Verify the cropped output matches the design or manually adjust the crop handles before clicking 确认.
 
 ## Step-by-Step: Create a New Event
 
