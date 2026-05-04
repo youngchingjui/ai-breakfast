@@ -18,490 +18,318 @@ Create and manage AI Breakfast events on huodongxing.com using `agent-browser` (
 
 - `agent-browser` must be installed
 - User must log in manually (WeChat QR or SMS verification) — use `--headed` mode
-- Poster images should already be generated (see event-poster-website skill or manual process)
-- Images stored in `~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-{NUM}/images/graphics/`
+- Banner and posters generated via `generate-posters` skill — stored in `~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-{NUM}/images/graphics/`
+- Always use `--session hdx` so state persists across commands
 
 ## ⚠️ Meta: Keep this skill alive
 
 Huodongxing's UI changes silently. **Every time you run this skill, watch for behavior that doesn't match these instructions** — new validation rules, refs that shift, toasts that flash and disappear, fields that don't carry over between pages. When you finish the workflow, **report any new quirks you encountered to Ching at the end** so this SKILL.md can be updated. The skill is only as good as the last person who maintained it.
 
-In particular, set up the toast watcher (see "Catching Silent Toasts" below) at the start of every session — it's the single highest-value debugging tool for this site.
+In particular, set up the toast watcher (next section) at the start of every session — it's the single highest-value debugging tool for this site.
 
-## Important: Huodongxing UI Quirks
+---
 
-These are critical lessons learned from browser automation on this site:
-
-### 1. Element UI Components (NOT standard HTML)
-
-Huodongxing uses **Vue + Element UI**. Dropdowns, date pickers, and time pickers are NOT standard `<select>` or `<input>` elements. You cannot use `agent-browser fill` or `agent-browser select` on them.
-
-**Pattern for all Element UI dropdowns:**
-
-```bash
-# 1. Click the combobox to open the dropdown
-agent-browser find text "placeholder text" click
-
-# 2. Find the visible dropdown and click the option via JS eval
-agent-browser eval 'var items = Array.from(document.querySelectorAll(".el-select-dropdown")).filter(function(d) { return d.offsetHeight > 0; })[0].querySelectorAll(".el-select-dropdown__item span"); var target = Array.from(items).find(function(s) { return s.textContent === "TARGET_VALUE"; }); if (target) { target.click(); "clicked"; } else { "not found"; }'
-```
-
-### 2. Date Pickers
-
-Date pickers are Element UI `el-date-editor` components. To change dates:
-
-```bash
-# Click the date input (use the combobox ref from snapshot)
-agent-browser click @e37  # start date combobox
-
-# The date picker popup appears. Click on specific day cells.
-# Or use JS to set the value directly:
-agent-browser eval 'var inputs = document.querySelectorAll(".el-date-editor .el-input__inner"); inputs[0].value = "2026-03-12"; inputs[0].dispatchEvent(new Event("input", {bubbles: true})); inputs[0].dispatchEvent(new Event("change", {bubbles: true}));'
-```
-
-**Gotcha:** The click-based approach on day cells works more reliably than setting values directly. Navigate months with the arrow buttons in the picker popup.
-
-### 3. Time Pickers
-
-Time fields are Element UI select dropdowns showing times in 30-min increments (00:00, 00:30, 01:00, ..., 23:30).
-
-```bash
-# Click the time combobox (identify by position — after the date picker on same row)
-agent-browser click @e38  # start time
-
-# Select time from the visible dropdown
-agent-browser eval 'var items = Array.from(document.querySelectorAll(".el-select-dropdown")).filter(function(d) { return d.offsetHeight > 0; })[0].querySelectorAll(".el-select-dropdown__item span"); var target = Array.from(items).find(function(s) { return s.textContent === "09:00"; }); if (target) { target.click(); "clicked"; } else { "not found"; }'
-```
-
-**Gotcha:** There are ~9 comboboxes on the page. Use `agent-browser eval` to map them by position (y-coordinate) and content to identify which is which. The layout is:
-
-- Row 1 (y~385): start date, start time, [event type dropdown], [country], [province]
-- Row 2 (y~437): end date, end time, [city/district]
-
-### 4. Smart Quote Corruption in `agent-browser eval`
-
-When passing JavaScript to `agent-browser eval`, **straight quotes can get converted to curly/smart quotes** by the shell or tool, causing `SyntaxError: Invalid or unexpected token`.
-
-**Workarounds:**
-
-- Use single quotes for the outer shell string, double quotes inside JS
-- Use Unicode escapes for Chinese characters: `"\u4e0a\u6d77"` instead of `"上海"`
-- For complex JS, test simple expressions first
-
-### 5. Chinese Websites Open New Tabs
-
-Links on huodongxing frequently use `target="_blank"`. **Always run `agent-browser tab` after clicking any link** to check for new tabs and switch to them.
-
-### 6. TinyMCE Rich Text Editor (活动详情)
-
-The event details section uses **TinyMCE** (not UEditor as some Chinese sites do). The global `tinymce` object is available.
-
-```bash
-# Check if TinyMCE is loaded
-agent-browser eval "typeof tinymce"  # should return "object"
-
-# Set content
-agent-browser eval "var editor = document.querySelector('.tinymce-wrap.mce-content-body'); editor.innerHTML = '<h2>Title</h2><p>Content</p>'; 'done'"
-
-# IMPORTANT: After setting content via innerHTML, sync with TinyMCE:
-agent-browser eval "tinymce.activeEditor.save(); 'saved'"
-
-# Get current content
-agent-browser eval "tinymce.activeEditor.getContent().substring(0, 200)"
-```
-
-**Image upload in TinyMCE:**
-
-1. Click the 图片 (image) button in the toolbar
-2. An upload dialog appears with a "+" button and hidden `<input type="file">`
-3. There are 2 hidden file inputs on the page — index [0] is for banner, index [1] is for TinyMCE
-4. Set an ID on the right one, then use `agent-browser upload`:
-
-```bash
-agent-browser eval 'var input = document.querySelectorAll("input[type=file]")[1]; input.id = "poster-upload-input"; "set id"'
-agent-browser upload "#poster-upload-input" "/path/to/poster-no-qr.png"
-# Then click 上传 button in the dialog to confirm
-```
-
-**Gotcha:** Use the poster WITHOUT QR code for huodongxing (huodongxing generates its own QR codes). The poster WITH QR is for sharing on social media.
-
-**Gotcha:** The uploaded poster image renders very large in the TinyMCE editor (full 1080px width). After inserting it, you'll need **much larger scroll distances** (3000-5000px) to scroll past it and reach the ticket/submission sections below.
-
-### 7. Banner Image Upload
-
-The banner slot accepts 1080x640px images (jpg or png, max 4MB).
-
-```bash
-# The first hidden file input is for the banner
-agent-browser eval 'var input = document.querySelectorAll("input[type=file]")[0]; input.id = "banner-upload-input"; "set id"'
-agent-browser upload "#banner-upload-input" "/path/to/banner-1080x640.png"
-```
-
-### 8. Ticket Type (活动票种) — REQUIRED
-
-You **must** configure at least one ticket type or submission will fail with an error. The default form shows a "总名额" (total capacity) field set to 500, but you must explicitly click "免费票" (Free Ticket) to add a ticket type.
-
-```bash
-# Click the 免费票 button to add a free ticket
-agent-browser find role button click --name "免费票"  # or use ref from snapshot
-
-# Set capacity to 25 (our standard limit)
-# The ticket form will appear — find the capacity input and set it
-agent-browser snapshot -i  # find the capacity/名额 input
-# Fill the capacity field (look for input near 总名额)
-```
-
-Check `.claude/skills/PREFERENCES.md` for current ticket settings (type, capacity).
-
-### 9. Form Submission Behavior
-
-After clicking "创建活动" (Create Event), if successful **the URL changes** to `https://www.huodongxing.com/myevent/home?id=NEW_EVENT_ID`. Extract the event ID from the URL with `agent-browser get url`. If validation fails (e.g., missing ticket type), the page stays on the create form and may show an error toast.
-
-### 10. Miniprogram-Created Events
-
-Events created via the WeChat miniprogram **cannot be fully edited in the browser**. The browser redirects or shows limited editing. If you need full browser control, create events via the browser from the start.
-
-### 11. `agent-browser click @ref` Sometimes Fails
-
-Element UI components can cause `Failed to read: Resource temporarily unavailable (os error 35)` errors with ref-based clicks. **Workaround:** Use `agent-browser find text "..." click` or `agent-browser eval` with direct DOM manipulation instead.
-
-### 12. Reliable Dropdown Selection via JS (Preferred Method)
-
-The `agent-browser eval` approach with `.el-select-dropdown` selectors is fragile due to **smart quote corruption** — single-quoted JS strings get mangled by the shell/tool. The most reliable pattern is to use `document.querySelectorAll(".el-select")` with an index:
-
-```bash
-# First, enumerate all selects to find which index is which:
-agent-browser eval 'Array.from(document.querySelectorAll(".el-select")).map(function(s,i){return i+":"+s.textContent.trim().substring(0,20)}).join("|")'
-# Output: "0:公开发布|1:09:00|2:10:30|3:线下场地举办|4:中国|5:上海|6:徐汇"
-
-# Then click to open the dropdown by index:
-agent-browser eval 'document.querySelectorAll(".el-select")[6].querySelector("input").click(); "clicked"'
-
-# Wait for dropdown to appear:
-agent-browser wait 500
-
-# Select the option from the visible dropdown:
-agent-browser eval 'var dd = Array.from(document.querySelectorAll(".el-select-dropdown")).filter(function(d){return d.offsetHeight > 0})[0]; var spans = dd.querySelectorAll(".el-select-dropdown__item span"); var t = Array.from(spans).find(function(s){return s.textContent.trim() === "\u9759\u5b89"}); if(t){t.click();"clicked"}else{"not found"}'
-```
-
-**Why this works better:** Opening the dropdown by `.el-select` index is deterministic. The `.el-select-dropdown` selector for the option list still works once the dropdown is open. Use `\uXXXX` unicode escapes for Chinese characters to avoid encoding issues.
-
-### 13. Agreement Checkbox
-
-The `agent-browser check @ref` command often fails on this checkbox. Use `find text` instead:
-
-```bash
-agent-browser find text "已阅读并同意" click
-```
-
-### 14. TinyMCE Image Upload — "上传" Button Ambiguity
-
-The "上传" button text matches both the banner upload button and the TinyMCE image dialog button. `agent-browser find role button click --name "上传"` will fail with a strict mode violation. Use eval instead:
-
-```bash
-agent-browser eval 'var btns = Array.from(document.querySelectorAll("button.el-button--success")); var btn = btns.find(function(b){return b.textContent.trim() === "\u4e0a\u4f20"}); if(btn){btn.click();"clicked"}else{"not found"}'
-```
-
-### 15. Edit Page vs Create Page
-
-The edit page (`/myevent/edit?id=XXX`) differs from the create page:
-
-- **Save button:** "保存活动信息" (not "创建活动")
-- **Submit button:** "提交" (to resubmit for review after edits)
-- **Banner upload:** No crop dialog — banner is accepted directly (unlike create page which shows a crop dialog)
-- **Layout:** Uses a left sidebar navigation instead of a single scrolling form
-- **File inputs:** Same pattern — `input[type=file][0]` is banner, `[1]` is TinyMCE
-
-### 16. Use Named Sessions
-
-Always use `--session hdx` with agent-browser to maintain state across commands:
-
-```bash
-agent-browser --session hdx open https://www.huodongxing.com/login
-# ... all subsequent commands use --session hdx
-agent-browser --session hdx close  # when done
-```
-
-### 17. Catching Silent Toasts (CRITICAL DEBUGGING TOOL)
+## 🔍 Catching Silent Toasts (THE debugging tool)
 
 Huodongxing fires `el-message` error toasts for ~1 second then removes them from the DOM. Screenshots almost always miss them. When a button click "does nothing," the page is usually telling you why — but the message is gone before you can capture it.
 
-**Set up a MutationObserver on first page load and check `window._toastLog` after every action:**
+**Set up a MutationObserver right after every `agent-browser open`** (the observer is lost on navigation):
 
 ```bash
 agent-browser --session hdx eval 'window._toastLog = []; var observer = new MutationObserver(function(muts){muts.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1 && (n.classList?.contains("el-message") || n.classList?.contains("el-notification") || n.querySelector?.(".el-message__content"))){window._toastLog.push({time:Date.now(),text:(n.textContent||"").trim().substring(0,200),class:n.className})}})})}); observer.observe(document.body, {childList:true, subtree:true}); window._toastObserver = observer; "watching"'
 ```
 
-After each action that "didn't work," check the log:
+After any action that "didn't work," check the log:
 
 ```bash
 agent-browser --session hdx eval 'JSON.stringify(window._toastLog)'
 ```
 
-The observer is **lost on navigation** — re-register it after `agent-browser open`.
+---
 
-### 18. Form Validation Order (Create Page)
+## ⚡ Validation Order (Create Page) — THE rule
 
-The create form enforces field order at validation time. Clicking 免费票 or 创建活动 triggers validation of EARLIER fields and silently aborts. **Fill in this order:**
+The create form enforces field order at validation time. Clicking 免费票 or 创建活动 silently triggers validation on EARLIER fields and aborts the action. **Fill in this exact order:**
 
 1. Title
-2. Banner upload (now mandatory — toast: "请上传活动海报")
+2. Banner upload (mandatory — toast: `请上传活动海报`)
 3. Date & time
-4. Address (province + city + detailed address — toast: "请设置活动举办地址")
-5. 活动详情 (TinyMCE content — toast: "请填写活动详情")
+4. Address: province → city → detailed address (toast: `请设置活动举办地址`)
+5. 活动详情 / TinyMCE content (toast: `请填写活动详情`)
 6. Click 免费票 → drawer opens, set quantity, click 保存
 7. Tick agreement checkbox
 8. Click 创建活动
 
-If a click silently fails, check `window._toastLog` (rule #17) for the actual reason.
+If a click silently fails, check `window._toastLog` for the actual reason.
 
-### 19. Free Ticket Drawer (NEW)
+---
 
-Clicking 免费票 no longer adds an inline ticket — it opens a side drawer (`.ticket-drawer` inside `.el-overlay`). Configure the ticket inside the drawer:
+## Happy Path: Create a New Event
+
+### 1. Login
 
 ```bash
-# Click 免费票 (after rules 17-18 are satisfied)
+agent-browser --session hdx --headed open https://www.huodongxing.com/login
+# Wait for user to log in via WeChat QR or SMS
+```
+
+### 2. Open the create page + start toast watcher
+
+```bash
+agent-browser --session hdx open "https://www.huodongxing.com/createv3#/"
+# Then re-register the toast watcher (see "Catching Silent Toasts" above)
+```
+
+The "标准模板" (Standard Template) is selected by default — leave it.
+
+### 3. Fill title
+
+```bash
+agent-browser --session hdx snapshot -i  # find the title textbox ref
+agent-browser --session hdx fill @e35 "AI Breakfast #XX"
+```
+
+### 4. Upload banner (mandatory)
+
+```bash
+agent-browser --session hdx eval 'document.querySelectorAll("input[type=file]")[0].id = "banner-upload-input"; "set"'
+agent-browser --session hdx upload "#banner-upload-input" "/path/to/banner-1080x640.png"
+agent-browser --session hdx wait 3000
+# A crop dialog appears — confirm:
+agent-browser --session hdx eval 'var b = Array.from(document.querySelectorAll("button")).find(function(x){return x.textContent.trim() === "确认" && x.offsetHeight > 0}); if(b){b.click();"clicked"}else"not found"'
+```
+
+The crop dialog may default to a smaller region than 1080×640 (e.g. 972×576). Verify the cropped output matches the design or adjust the crop handles.
+
+### 5. Set date and time
+
+Date pickers are `el-date-editor` text inputs — set values directly:
+
+```bash
+agent-browser --session hdx eval 'var inputs = document.querySelectorAll(".el-date-editor input"); ["2026-05-07","2026-05-07"].forEach(function(d,i){inputs[i].value = d; inputs[i].dispatchEvent(new Event("input",{bubbles:true})); inputs[i].dispatchEvent(new Event("change",{bubbles:true}))}); "set"'
+```
+
+Times use Element UI selects — open by `.el-select` index, click the option (see "Element UI Selects" pattern below). Index 1 = start time, index 2 = end time.
+
+### 6. Set address
+
+Province (index 5) → city (index 6) → detailed address textbox. Use the `.el-select` index pattern. Address textbox accepts plain `inp.value = ...; dispatchEvent("input")`.
+
+**Note:** BAKER&SPICE Wheelock Square is in 静安 (Jing'an), NOT 徐汇 (Xuhui).
+
+### 7. Fill highlights (活动亮点)
+
+Plain `<textarea>`, max **150 chars**, bilingual. Find by placeholder `请简要概述活动亮点...`.
+
+### 8. Fill 活动详情 (TinyMCE)
+
+```bash
+agent-browser --session hdx eval 'var html = "<h2>...</h2><p>...</p>"; document.querySelector(".tinymce-wrap.mce-content-body").innerHTML = html; tinymce.activeEditor.save(); "saved, len:" + tinymce.activeEditor.getContent().length'
+```
+
+**Use literal Unicode characters** (`·`, `–`, `—`, `'`, `"`) in HTML, not entity references — UEditor on the edit page double-escapes `&middot;` → `&amp;middot;`.
+
+For inserting the poster image, see "UEditor Image Insertion" under Edit Page Differences. On the create page TinyMCE has its own image upload but the simpler pattern is to set `innerHTML` with an `<img src="...vercel-blob...">` directly.
+
+### 9. Add free ticket via drawer
+
+Clicking 免费票 opens a side drawer (`.ticket-drawer` inside `.el-overlay`):
+
+```bash
 agent-browser --session hdx eval 'document.querySelectorAll(".ticket-form .btn-group button")[0].click(); "clicked"'
 agent-browser --session hdx wait 1500
 
-# Drawer is open. Inputs inside:
-# [0] = ticket name (default "免费票")
-# [1] = quantity (placeholder "不限制")
-# [2] = "needs review" checkbox
+# Drawer inputs: [0]=name, [1]=quantity, [2]=needs-review checkbox
 agent-browser --session hdx eval 'var inp = document.querySelectorAll(".ticket-drawer input")[1]; inp.focus(); inp.value = "25"; inp.dispatchEvent(new Event("input",{bubbles:true})); inp.dispatchEvent(new Event("change",{bubbles:true})); inp.value'
 
-# Save
 agent-browser --session hdx eval 'var btn = Array.from(document.querySelectorAll(".ticket-drawer button")).find(function(b){return b.textContent.trim() === "保存"}); btn.click(); "saved"'
 ```
 
-Verify by checking that `暂无票种` is gone:
+Verify the placeholder is gone:
 
 ```bash
 agent-browser --session hdx eval 'Array.from(document.querySelectorAll("*")).find(function(el){return el.textContent.trim() === "暂无票种"}) ? "still empty" : "ticket added"'
 ```
 
-### 20. Agreement Checkbox Toggles, Doesn't Set
+**Also set the master 总名额 input to 25** (default is 500) — it's a separate cap from the ticket-type quantity. The listing page shows whichever is larger.
 
-`agent-browser find text "已阅读并同意" click` **toggles** the checkbox state — calling it on an already-checked box unchecks it. Always verify state first:
+### 10. Accept agreement and submit
+
+The agreement checkbox **toggles** when clicked — verify state first:
 
 ```bash
 agent-browser --session hdx eval 'document.querySelector(".el-checkbox.is-checked") ? "checked" : "not checked"'
-# Only click if "not checked"
+# Only click if "not checked":
+agent-browser --session hdx find text "已阅读并同意" click
 ```
 
-### 21. Edit Page Uses Vue Multiselect (NOT Element UI)
+Then submit:
 
-For country/province/city on the edit page, the create-page `.el-select` selectors don't apply. Use `.multiselect`:
+```bash
+agent-browser --session hdx eval 'var b = Array.from(document.querySelectorAll("button")).find(function(x){return x.textContent.trim()==="创建活动"}); b.click(); "submitted"'
+agent-browser --session hdx wait 5000
+agent-browser --session hdx get url
+# On success: https://www.huodongxing.com/myevent/home?id=NEW_EVENT_ID
+```
+
+If the URL didn't change, check `window._toastLog`.
+
+---
+
+## Form Interaction Patterns
+
+### Element UI selects (the reliable way)
+
+Element UI dropdowns are NOT real `<select>` elements. The reliable pattern is the **index method**:
+
+```bash
+# 1. Map all selects on the page to find which index is which
+agent-browser --session hdx eval 'Array.from(document.querySelectorAll(".el-select")).map(function(s,i){return i+":"+s.textContent.trim().substring(0,30)}).join("|")'
+# Output: "0:公开发布|1:09:00|2:18:00|3:线下场地举办|4:中国|5:省份/直辖市|6:城市/地区"
+
+# 2. Open the dropdown by index
+agent-browser --session hdx eval 'document.querySelectorAll(".el-select")[6].querySelector("input").click(); "clicked"'
+agent-browser --session hdx wait 500
+
+# 3. Click the option from the visible dropdown (use \uXXXX for Chinese)
+agent-browser --session hdx eval 'var dd = Array.from(document.querySelectorAll(".el-select-dropdown")).filter(function(d){return d.offsetHeight > 0})[0]; var spans = dd.querySelectorAll(".el-select-dropdown__item span"); var t = Array.from(spans).find(function(s){return s.textContent.trim() === "静安"}); if(t){t.click();"clicked"}else{"not found"}'
+```
+
+**Layout reference for the create-page row of selects:**
+- Row 1 (y~385): start date · start time · event type · country · province
+- Row 2 (y~437): end date · end time · city/district
+
+### File uploads
+
+Two hidden file inputs on the create page: `[0]` = banner, `[1]` = TinyMCE image. Tag the right one with an ID and use `agent-browser upload`:
+
+```bash
+agent-browser --session hdx eval 'document.querySelectorAll("input[type=file]")[1].id = "poster-upload-input"; "set"'
+agent-browser --session hdx upload "#poster-upload-input" "/path/to/poster-no-qr.png"
+```
+
+The "上传" button label is **ambiguous** (banner vs. TinyMCE dialog both use it). `find role button click --name "上传"` fails with strict-mode violation — use eval to scope by class:
+
+```bash
+agent-browser --session hdx eval 'var btns = Array.from(document.querySelectorAll("button.el-button--success")); var btn = btns.find(function(b){return b.textContent.trim() === "上传"}); if(btn){btn.click();"clicked"}else{"not found"}'
+```
+
+### Click handlers that won't fire
+
+If `agent-browser click @ref` returns success but nothing happens, possible causes (in order):
+1. **Silent validation toast** — check `window._toastLog`
+2. **Button is below viewport** — `agent-browser eval 'el.scrollIntoView({block:"center"})'` then click
+3. **`os error 35`** — retry, or fall back to `find text` / direct DOM `.click()`
+4. **Last resort:** Vue data manipulation via `el.__vue__.$parent` chain + `$forceUpdate()`
+
+### Smart-quote corruption in `eval`
+
+Shell can mangle straight quotes into curly quotes inside JS strings, causing `SyntaxError`. Workarounds:
+- Single-quote the outer shell string, double-quote inside JS
+- Use `\uXXXX` Unicode escapes for Chinese chars instead of literals
+- For complex JS, test simple expressions first
+
+---
+
+## Edit Page Differences
+
+The edit page (`/myevent/edit?id=XXX`) is a different React/Vue tree from the create page. Key differences:
+
+| Aspect | Create page | Edit page |
+|---|---|---|
+| Country/province/city | Element UI `.el-select` | **Vue Multiselect `.multiselect`** |
+| Rich-text editor | TinyMCE (`tinymce.activeEditor`) | **UEditor (`UE.instants[...]`)** |
+| Date inputs | `.el-date-editor` | **flatpickr (`el.__vue__.$data.fp`)** |
+| Save button | "创建活动" | "保存活动信息" / "提交" |
+| Banner upload | Crop dialog | No crop dialog |
+| Layout | Single scroll | Left sidebar nav |
+| File inputs | `[0]`=banner, `[1]`=TinyMCE | `[0]`=banner only |
+
+### Multiselect on edit page
 
 ```bash
 agent-browser --session hdx eval 'var ms = document.querySelectorAll(".multiselect"); Array.from(ms).map(function(s,i){return i+":"+(s.querySelector("input")?.placeholder || "")+"|val:"+s.querySelector(".multiselect__single")?.textContent.trim()}).join("\n")'
 ```
 
-The detailed-address `<input>` has placeholder `请先选择省市，然后输入详细地址` and is a regular text input — fill it normally with `inp.value = ...; dispatchEvent("input"); dispatchEvent("change")`.
+The detailed-address textbox (placeholder `请先选择省市，然后输入详细地址`) is a regular text input.
 
-### 22. Fields Don't Always Carry Over from Create → Edit
+### UEditor image insertion (Vercel Blob trick)
 
-The detailed-address textbox came back empty on the edit page even though it was set on create (country/province/city DID persist). After every navigation between create/edit, re-verify all fields are populated.
-
-### 23. UEditor Image Insertion via Vercel Blob
-
-The edit page's UEditor `simpleupload` button (`.edui-for-simpleupload`) does not respond to programmatic clicks. To insert a poster image:
-
-1. Upload the local PNG to a public URL via the poster website's `/api/upload` endpoint:
-   ```bash
-   curl -s -X POST -F "file=@/path/to/poster-no-qr.png" -F "filename=ai-breakfast-NUM-poster-no-qr.png" http://localhost:3000/api/upload
-   # Returns: {"url":"https://...vercel-storage.com/...png", ...}
-   ```
-2. Use UEditor's API to set content with an `<img>` tag pointing at that URL:
-   ```bash
-   agent-browser --session hdx eval 'var ed = UE.instants[Object.keys(UE.instants)[0]]; ed.setContent("<p style=\"text-align:center\"><img src=\"" + posterUrl + "\" style=\"max-width:100%\"/></p>" + existingHtml); "set"'
-   ```
-
-### 24. UEditor Double-Escapes HTML Entities
-
-If you write `&middot;`, `&ndash;`, `&mdash;` etc. in HTML passed to TinyMCE on the create page, UEditor on the edit page will load them back as `&amp;middot;` — visible as literal text. **Always use the literal Unicode characters** (`·`, `–`, `—`, `'`, `"`) in your source HTML, not entity references.
-
-### 25. Crop Dialog Sometimes Crops Below 1080×640
-
-The create-page banner crop dialog may default to a smaller crop region (e.g. 972×576) even though the source is 1080×640. Verify the cropped output matches the design or manually adjust the crop handles before clicking 确认.
-
-## Step-by-Step: Create a New Event
-
-### 1. Login
+The `.edui-for-simpleupload` button does **not** respond to programmatic clicks. Workaround: upload the local PNG to a public URL, then `setContent` with an `<img>`:
 
 ```bash
-agent-browser --headed open https://www.huodongxing.com/login
-# Wait for user to log in via WeChat QR or SMS
-# After login, verify:
-agent-browser get url  # should show logged-in state
+# 1. Upload to Vercel Blob via the poster website's /api/upload (assumes bun dev is running)
+curl -s -X POST -F "file=@/path/to/poster-no-qr.png" -F "filename=ai-breakfast-NUM-poster-no-qr.png" http://localhost:3000/api/upload
+# Returns: {"url":"https://...vercel-storage.com/...png"}
+
+# 2. Set UEditor content
+agent-browser --session hdx eval 'var ed = UE.instants[Object.keys(UE.instants)[0]]; ed.setContent("<p style=\"text-align:center\"><img src=\"" + posterUrl + "\" style=\"max-width:100%\"/></p>" + existingHtml); "set"'
 ```
 
-### 2. Navigate to Create Page
+### Fields don't always carry over from create → edit
+
+The detailed-address textbox came back **empty** on the edit page even though it was set on create (country/province/city DID persist). After every navigation between create/edit, re-verify all fields are populated.
+
+### Flatpickr on edit page
 
 ```bash
-agent-browser open https://www.huodongxing.com/createv3#/
+# Access the flatpickr instance via Vue and set programmatically
+agent-browser --session hdx eval 'el.__vue__.$data.fp.setDate("2026-04-09 08:00", true)'
 ```
 
-The page loads with the "标准模板" (Standard Template) selected by default. This is the correct template.
+### `node-Address` error on edit submit
 
-### 3. Fill Title
+The edit page sometimes throws `找不到对应ID的元素: node-Address` in the console, which silently blocks submission. Workaround: use the create page (`/createv3#/`) instead of editing.
+
+### Miniprogram-created events can't be fully edited in browser
+
+Events created in the WeChat miniprogram redirect or show a limited editor. Always create new events via the browser if you need full editability.
+
+---
+
+## After Submission: Get the QR Code
+
+The QR code generation has a **~10-minute server-side delay**. See `huodongxing-qr` skill — but the rule is: don't request the QR before the 10-min mark, or the server marks it permanently broken.
+
+After the wait:
 
 ```bash
-agent-browser snapshot -i  # get refs
-agent-browser fill @e34 "AI Breakfast #XX"  # title textbox
+agent-browser --session hdx open "https://www.huodongxing.com/myevent/promote?id=EVENT_ID&tab=0"
+agent-browser --session hdx wait 3000
+agent-browser --session hdx eval 'Array.from(document.querySelectorAll("img")).filter(function(i){return (i.src||"").includes("promoteMini")}).map(function(i){return i.src})'
+# https://cdn.huodongxing.com/logo/YYYYMM/EVENT_ID/promoteMini.png
+
+curl -sf -H "Referer: https://www.huodongxing.com/" -o /path/to/wechat-mini-program.png "https://cdn.huodongxing.com/logo/YYYYMM/EVENT_ID/promoteMini.png"
+file /path/to/wechat-mini-program.png  # MUST be: PNG image data, 400 x 400
 ```
 
-### 4. Upload Banner
+If the file is ~1KB or HTML, the QR isn't ready — wait longer, do NOT retry rapidly.
 
-```bash
-agent-browser eval 'var input = document.querySelectorAll("input[type=file]")[0]; input.id = "banner-upload-input"; "set id"'
-agent-browser upload "#banner-upload-input" "~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-XX/images/graphics/banner-1080x640.png"
-# Wait for upload to process
-agent-browser wait 2000
-```
-
-### 5. Set Date and Time
-
-Check `.claude/skills/PREFERENCES.md` for the current start/end time.
-
-```bash
-# Snapshot to identify combobox refs (they shift between sessions)
-agent-browser snapshot -i | grep combobox
-
-# Enumerate selects to find which index is which:
-agent-browser eval 'Array.from(document.querySelectorAll(".el-select")).map(function(s,i){return i+":"+s.textContent.trim().substring(0,30)}).join("|")'
-
-# Start date — click the date combobox, navigate calendar, click the day
-# Start time — open the time select by index, click the target time from the dropdown
-# End date/time — same pattern
-```
-
-**Note:** Combobox refs shift between sessions. Always `snapshot -i` first and use the `el-select` index pattern (see #12 below) for reliable selection.
-
-### 6. Set Location
-
-```bash
-# Province: click placeholder text, then select from dropdown
-agent-browser find text "\u7701\u4efd/\u76f4\u8f96\u5e02" click  # 省份/直辖市
-agent-browser eval 'var items = Array.from(document.querySelectorAll(".el-select-dropdown")).filter(function(d) { return d.offsetHeight > 0 && d.textContent.indexOf("\u5317\u4eac") > -1; })[0].querySelectorAll(".el-select-dropdown__item span"); var target = Array.from(items).find(function(s) { return s.textContent === "\u4e0a\u6d77"; }); if (target) { target.click(); "clicked"; } else { "not found"; }'
-
-# City/District
-agent-browser find text "\u57ce\u5e02/\u5730\u533a" click  # 城市/地区
-agent-browser eval 'var items = Array.from(document.querySelectorAll(".el-select-dropdown")).filter(function(d) { return d.offsetHeight > 0 && d.textContent.indexOf("\u9759\u5b89") > -1; })[0].querySelectorAll(".el-select-dropdown__item span"); var target = Array.from(items).find(function(s) { return s.textContent === "\u9759\u5b89"; }); if (target) { target.click(); "clicked"; } else { "not found"; }'
-
-# Address (standard textbox — agent-browser fill works here)
-agent-browser fill @e46 "BAKER&SPICE \u5357\u4eac\u897f\u8def1717\u53f7 \u4f1a\u5fb7\u4e30\u56fd\u9645\u5e7f\u573a\u5357\u9662\u9996\u5c42101\u53f7\u5546\u94fa"
-```
-
-Check `.claude/skills/PREFERENCES.md` for the current venue and address details.
-
-### 7. Fill Event Highlights (活动亮点)
-
-Max **150 characters**. Keep it bilingual and concise. Reference `.claude/skills/PREFERENCES.md` and recent events for the typical format.
-
-### 8. Fill Event Details (活动详情)
-
-The editor may be TinyMCE or UEditor depending on the page. Check which one is loaded:
-
-```bash
-agent-browser eval 'typeof tinymce !== "undefined" ? "tinymce" : typeof UE !== "undefined" ? "UEditor" : "unknown"'
-```
-
-**For TinyMCE:**
-```bash
-agent-browser eval "var editor = document.querySelector('.tinymce-wrap.mce-content-body'); editor.innerHTML = 'YOUR_HTML_HERE'; 'done'"
-agent-browser eval "tinymce.activeEditor.save(); 'saved'"
-```
-
-**For UEditor:**
-```bash
-agent-browser eval 'var editor = UE.instants[Object.keys(UE.instants)[0]]; editor.body.innerHTML = "YOUR_HTML_HERE"; "done"'
-```
-
-Build the HTML content with: event title, date, time, venue, address, agenda/theme (bilingual), and "free event" note. Check recent events for the typical structure.
-
-**Tip:** Use `\uXXXX` unicode escapes for Chinese characters in eval strings to avoid encoding issues.
-
-### 9. Set Ticket Type (REQUIRED)
-
-**This step is mandatory — submission will fail without it.**
-
-```bash
-# Scroll down to the 活动票种 section
-agent-browser scroll down 500
-
-# Click 免费票 (Free Ticket) button
-agent-browser snapshot -i  # find the 免费票 button ref
-agent-browser find role button click --name "免费票"
-
-# A ticket form appears. Set the capacity to 25.
-# Find the 总名额 (total capacity) input — default is 500, change to 25
-agent-browser snapshot -i  # find capacity input
-# The capacity input is usually near the ticket form that just appeared
-# Fill it with 25 (our standard attendee limit)
-```
-
-**Standard:** Free ticket, 25 max attendees.
-
-### 10. Accept Agreement and Submit
-
-```bash
-# Scroll to bottom
-agent-browser scroll down 3000
-
-# Check the agreement checkbox
-agent-browser find text "\u5df2\u9605\u8bfb\u5e76\u540c\u610f" click  # 已阅读并同意
-
-# Submit
-agent-browser snapshot -i | grep "\u521b\u5efa\u6d3b\u52a8"  # find 创建活动 button ref
-agent-browser click @e69  # or whatever ref the button has
-
-# Wait and verify — page stays on create form, but event is created
-agent-browser wait 3000
-```
-
-### 11. Verify Creation
-
-After successful submission, the URL changes to `/myevent/home?id=NEW_EVENT_ID`. Extract the event ID:
-
-```bash
-agent-browser get url
-# https://www.huodongxing.com/myevent/home?id=6851867032100
-# The event ID is: 6851867032100
-
-# Also verify on listings page
-agent-browser open https://www.huodongxing.com/console/eventadmin
-agent-browser screenshot /tmp/hdx-verify.png
-# Event should appear at top of list
-```
+---
 
 ## File Organization
-
-Generated images are stored at:
 
 ```
 ~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-{NUM}/images/
 ├── graphics/
-│   ├── banner-1080x640.png      # For huodongxing banner slot
-│   ├── poster-no-qr.png         # For huodongxing 活动详情 + social sharing
-│   └── poster-with-qr.png       # For WeChat/social sharing (has QR code)
+│   ├── banner-1080x640.png      # Huodongxing banner slot
+│   ├── poster-no-qr.png         # Huodongxing 活动详情 + social sharing
+│   └── poster-with-qr.png       # WeChat/social sharing
 └── qr-codes/
-    └── wechat-mini-program.png   # Downloaded via huodongxing-qr skill
+    └── wechat-mini-program.png   # 400x400, downloaded after 10-min wait
 ```
 
-## Poster Generation
+Defaults (venue, time, capacity) are in `.claude/skills/PREFERENCES.md`. Poster generation lives in the `generate-posters` skill.
 
-Use the `generate-posters` skill for full instructions. Check `.claude/skills/PREFERENCES.md` for current defaults.
+---
 
-## Troubleshooting
+## Quick Troubleshooting
 
-- **Element UI dropdown won't open:** Use `agent-browser find text "..." click` instead of ref-based click. Or use `eval` with direct DOM `.click()`.
-- **`Resource temporarily unavailable (os error 35)`:** Retry after a short wait, or use `find text` / `eval` approach instead of ref.
-- **Smart quotes in eval:** Use `agent-browser eval` with single-quote shell wrapping and double quotes inside JS. Use `\uXXXX` for Chinese characters.
-- **Content not saving:** Always call `tinymce.activeEditor.save()` after modifying editor innerHTML.
-- **Event created but page didn't change:** This is normal. Check listings page to confirm.
-- **Can't edit miniprogram event:** Events created in WeChat miniprogram have limited browser editability. Create new events via browser instead.
-- **Wrong district:** BAKER&SPICE Wheelock Square is in 静安 (Jing'an), NOT 徐汇 (Xuhui).
-- **Edit page `node-Address` error:** The edit page sometimes throws `找不到对应ID的元素: node-Address` in the console, which silently blocks submission. This happens when the address component fails to render. Creating via the create page (`/createv3#/`) instead of editing can avoid this.
-- **Edit page rich text editor is UEditor, not TinyMCE:** The create page uses TinyMCE but the edit page uses UEditor. Check with `typeof UE` vs `typeof tinymce`. UEditor instances are at `UE.instants`.
-- **Vue data manipulation:** For stubborn Element UI fields (dates, times, addresses), you can sometimes set values via the parent Vue component's `$data` and `$forceUpdate()`. Walk the `__vue__.$parent` chain to find the form data model. This is a last resort — prefer UI interactions first.
-- **Flatpickr on edit page:** Date inputs use flatpickr. Access via `el.__vue__.$data.fp` and use `fp.setDate("2026-04-09 08:00", true)` to set programmatically.
+- **Click did nothing** → check `window._toastLog` first, then check button is in viewport
+- **"暂无票种" still showing** → ticket drawer save didn't fire; re-do step 9
+- **`os error 35`** → retry, or use `find text` / direct DOM `.click()` instead of `@ref`
+- **Smart-quote SyntaxError in eval** → use `\uXXXX` escapes for Chinese
+- **TinyMCE content not saving** → call `tinymce.activeEditor.save()` after setting `innerHTML`
+- **Form submission stays on /createv3** → run through validation order checklist; check toast log
+- **Wrong district** → BAKER&SPICE is 静安, not 徐汇
+- **Listing shows wrong capacity** → set BOTH the master 总名额 AND the ticket drawer quantity to 25
