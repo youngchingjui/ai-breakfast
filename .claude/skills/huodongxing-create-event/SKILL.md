@@ -120,7 +120,7 @@ Times use Element UI selects — open by `.el-select` index, click the option (s
 
 Province (index 5) → city (index 6) → detailed address textbox. Use the `.el-select` index pattern. Address textbox accepts plain `inp.value = ...; dispatchEvent("input")`.
 
-**Note:** BAKER&SPICE Wheelock Square is in 静安 (Jing'an), NOT 徐汇 (Xuhui).
+**Note:** BAKER&SPICE Wheelock Square is in 静安 (Jing'an).
 
 ### 7. Fill highlights (活动亮点)
 
@@ -214,6 +214,7 @@ agent-browser --session hdx eval 'var dd = Array.from(document.querySelectorAll(
 ```
 
 **Layout reference for the create-page row of selects:**
+
 - Row 1 (y~385): start date · start time · event type · country · province
 - Row 2 (y~437): end date · end time · city/district
 
@@ -235,6 +236,7 @@ agent-browser --session hdx eval 'var btns = Array.from(document.querySelectorAl
 ### Click handlers that won't fire
 
 If `agent-browser click @ref` returns success but nothing happens, possible causes (in order):
+
 1. **Silent validation toast** — check `window._toastLog`
 2. **Button is below viewport** — `agent-browser eval 'el.scrollIntoView({block:"center"})'` then click
 3. **`os error 35`** — retry, or fall back to `find text` / direct DOM `.click()`
@@ -243,6 +245,7 @@ If `agent-browser click @ref` returns success but nothing happens, possible caus
 ### Smart-quote corruption in `eval`
 
 Shell can mangle straight quotes into curly quotes inside JS strings, causing `SyntaxError`. Workarounds:
+
 - Single-quote the outer shell string, double-quote inside JS
 - Use `\uXXXX` Unicode escapes for Chinese chars instead of literals
 - For complex JS, test simple expressions first
@@ -257,15 +260,15 @@ Many huodongxing links use `target="_blank"`. After clicking any link, run `agen
 
 The edit page (`/myevent/edit?id=XXX`) is a different React/Vue tree from the create page. Key differences:
 
-| Aspect | Create page | Edit page |
-|---|---|---|
-| Country/province/city | Element UI `.el-select` | **Vue Multiselect `.multiselect`** |
-| Rich-text editor | TinyMCE (`tinymce.activeEditor`) | **UEditor (`UE.instants[...]`)** |
-| Date inputs | `.el-date-editor` | **flatpickr (`el.__vue__.$data.fp`)** |
-| Save button | "创建活动" | "保存活动信息" / "提交" |
-| Banner upload | Crop dialog | No crop dialog |
-| Layout | Single scroll | Left sidebar nav |
-| File inputs | `[0]`=banner, `[1]`=TinyMCE | `[0]`=banner only |
+| Aspect                | Create page                      | Edit page                             |
+| --------------------- | -------------------------------- | ------------------------------------- |
+| Country/province/city | Element UI `.el-select`          | **Vue Multiselect `.multiselect`**    |
+| Rich-text editor      | TinyMCE (`tinymce.activeEditor`) | **UEditor (`UE.instants[...]`)**      |
+| Date inputs           | `.el-date-editor`                | **flatpickr (`el.__vue__.$data.fp`)** |
+| Save button           | "创建活动"                       | "保存活动信息" / "提交"               |
+| Banner upload         | Crop dialog                      | No crop dialog                        |
+| Layout                | Single scroll                    | Left sidebar nav                      |
+| File inputs           | `[0]`=banner, `[1]`=TinyMCE      | `[0]`=banner only                     |
 
 ### Multiselect on edit page
 
