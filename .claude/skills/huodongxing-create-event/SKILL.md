@@ -19,6 +19,8 @@ Create and manage AI Breakfast events on huodongxing.com using `agent-browser` (
 - `agent-browser` must be installed
 - User must log in manually (WeChat QR or SMS verification) — use `--headed` mode
 - Banner and posters generated via `generate-posters` skill — stored in `~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-{NUM}/images/graphics/`
+- Banner slot accepts **1080×640** jpg/png, max 4MB
+- Defaults (venue, time, capacity, highlights format) live in `.claude/skills/PREFERENCES.md` — check before filling per-event fields
 - Always use `--session hdx` so state persists across commands
 
 ## ⚠️ Meta: Keep this skill alive
@@ -71,6 +73,7 @@ If a click silently fails, check `window._toastLog` for the actual reason.
 ```bash
 agent-browser --session hdx --headed open https://www.huodongxing.com/login
 # Wait for user to log in via WeChat QR or SMS
+agent-browser --session hdx get url  # verify logged-in state
 ```
 
 ### 2. Open the create page + start toast watcher
@@ -103,13 +106,15 @@ The crop dialog may default to a smaller region than 1080×640 (e.g. 972×576). 
 
 ### 5. Set date and time
 
-Date pickers are `el-date-editor` text inputs — set values directly:
+Check `.claude/skills/PREFERENCES.md` for the canonical start/end time. Date pickers are `el-date-editor` text inputs — set values directly:
 
 ```bash
 agent-browser --session hdx eval 'var inputs = document.querySelectorAll(".el-date-editor input"); ["2026-05-07","2026-05-07"].forEach(function(d,i){inputs[i].value = d; inputs[i].dispatchEvent(new Event("input",{bubbles:true})); inputs[i].dispatchEvent(new Event("change",{bubbles:true}))}); "set"'
 ```
 
-Times use Element UI selects — open by `.el-select` index, click the option (see "Element UI Selects" pattern below). Index 1 = start time, index 2 = end time.
+If the direct-set approach is rejected (rare), fall back to clicking day cells in the picker popup — that path is more tolerant of validation. Navigate months with the arrow buttons in the popup.
+
+Times use Element UI selects — open by `.el-select` index, click the option (see "Element UI Selects" pattern below). Index 1 = start time, index 2 = end time. **Ref-based access (`@e37`, `@e38`) shifts between sessions** — always re-`snapshot -i` or use the index pattern.
 
 ### 6. Set address
 
@@ -119,9 +124,17 @@ Province (index 5) → city (index 6) → detailed address textbox. Use the `.el
 
 ### 7. Fill highlights (活动亮点)
 
-Plain `<textarea>`, max **150 chars**, bilingual. Find by placeholder `请简要概述活动亮点...`.
+Plain `<textarea>`, max **150 chars**, bilingual. Find by placeholder `请简要概述活动亮点...`. See `.claude/skills/PREFERENCES.md` and recent events for the typical phrasing.
 
 ### 8. Fill 活动详情 (TinyMCE)
+
+The create page uses TinyMCE; the edit page uses UEditor. If unsure which is loaded:
+
+```bash
+agent-browser --session hdx eval 'typeof tinymce !== "undefined" ? "tinymce" : typeof UE !== "undefined" ? "UEditor" : "unknown"'
+```
+
+Build the HTML with: event title, date/time, venue, address, agenda/theme (bilingual), and a "free event" note. Then set and save:
 
 ```bash
 agent-browser --session hdx eval 'var html = "<h2>...</h2><p>...</p>"; document.querySelector(".tinymce-wrap.mce-content-body").innerHTML = html; tinymce.activeEditor.save(); "saved, len:" + tinymce.activeEditor.getContent().length'
@@ -129,7 +142,7 @@ agent-browser --session hdx eval 'var html = "<h2>...</h2><p>...</p>"; document.
 
 **Use literal Unicode characters** (`·`, `–`, `—`, `'`, `"`) in HTML, not entity references — UEditor on the edit page double-escapes `&middot;` → `&amp;middot;`.
 
-For inserting the poster image, see "UEditor Image Insertion" under Edit Page Differences. On the create page TinyMCE has its own image upload but the simpler pattern is to set `innerHTML` with an `<img src="...vercel-blob...">` directly.
+For inserting the poster image, see "UEditor Image Insertion" under Edit Page Differences. On the create page TinyMCE has its own image upload but the simpler pattern is to set `innerHTML` with an `<img src="...vercel-blob...">` directly. As a fallback, the click-driven dialog flow also works: click the 图片 toolbar button → an upload dialog appears with a "+" and a hidden `<input type="file">` (index `[1]` of all file inputs on the page) → set an `id` on it, `agent-browser upload`, then click 上传 (scope by `button.el-button--success` to disambiguate from the banner upload button — see "File uploads" below).
 
 ### 9. Add free ticket via drawer
 
@@ -151,7 +164,7 @@ Verify the placeholder is gone:
 agent-browser --session hdx eval 'Array.from(document.querySelectorAll("*")).find(function(el){return el.textContent.trim() === "暂无票种"}) ? "still empty" : "ticket added"'
 ```
 
-**Also set the master 总名额 input to 25** (default is 500) — it's a separate cap from the ticket-type quantity. The listing page shows whichever is larger.
+**Standard:** free ticket, 25 max attendees (see `.claude/skills/PREFERENCES.md`). **Also set the master 总名额 input to 25** (default is 500) — it's a separate cap from the ticket-type quantity. The listing page shows whichever is larger.
 
 ### 10. Accept agreement and submit
 
@@ -172,7 +185,12 @@ agent-browser --session hdx get url
 # On success: https://www.huodongxing.com/myevent/home?id=NEW_EVENT_ID
 ```
 
-If the URL didn't change, check `window._toastLog`.
+If the URL didn't change, check `window._toastLog`. As a fallback verification, open the listings page to confirm the new event appears at the top:
+
+```bash
+agent-browser --session hdx open https://www.huodongxing.com/console/eventadmin
+agent-browser --session hdx screenshot /tmp/hdx-verify.png
+```
 
 ---
 
@@ -228,6 +246,10 @@ Shell can mangle straight quotes into curly quotes inside JS strings, causing `S
 - Single-quote the outer shell string, double-quote inside JS
 - Use `\uXXXX` Unicode escapes for Chinese chars instead of literals
 - For complex JS, test simple expressions first
+
+### Links open in new tabs
+
+Many huodongxing links use `target="_blank"`. After clicking any link, run `agent-browser --session hdx tab` to check for new tabs and switch into the right one before continuing.
 
 ---
 
