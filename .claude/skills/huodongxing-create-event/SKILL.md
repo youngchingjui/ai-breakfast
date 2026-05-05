@@ -142,7 +142,9 @@ agent-browser --session hdx eval 'var html = "<h2>...</h2><p>...</p>"; document.
 
 **Use literal Unicode characters** (`·`, `–`, `—`, `'`, `"`) in HTML, not entity references — UEditor on the edit page double-escapes `&middot;` → `&amp;middot;`.
 
-For inserting the poster image, see "UEditor Image Insertion" under Edit Page Differences. On the create page TinyMCE has its own image upload but the simpler pattern is to set `innerHTML` with an `<img src="...vercel-blob...">` directly. As a fallback, the click-driven dialog flow also works: click the 图片 toolbar button → an upload dialog appears with a "+" and a hidden `<input type="file">` (index `[1]` of all file inputs on the page) → set an `id` on it, `agent-browser upload`, then click 上传 (scope by `button.el-button--success` to disambiguate from the banner upload button — see "File uploads" below).
+For inserting the poster image, **use `poster-no-qr.png`** — huodongxing auto-generates its own QR on the listing page, so the QR-stamped poster is only for WeChat/social sharing. See "UEditor Image Insertion" under Edit Page Differences. On the create page TinyMCE has its own image upload but the simpler pattern is to set `innerHTML` with an `<img src="...vercel-blob...">` directly. As a fallback, the click-driven dialog flow also works: click the 图片 toolbar button → an upload dialog appears with a "+" and a hidden `<input type="file">` (index `[1]` of all file inputs on the page) → set an `id` on it, `agent-browser upload`, then click 上传 (scope by `button.el-button--success` to disambiguate from the banner upload button — see "File uploads" below).
+
+**Gotcha:** Once inserted, the poster renders at full ~1080px width inside the editor. To reach the ticket/submission sections below, you'll need **much larger scroll distances (3000–5000px)** than usual.
 
 ### 9. Add free ticket via drawer
 
