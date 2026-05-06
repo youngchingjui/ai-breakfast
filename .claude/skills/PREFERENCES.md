@@ -5,7 +5,7 @@ Current defaults for event creation. Edit these as things change.
 ## Schedule
 
 - Day: Thursday
-- Time: 8:00 - 10:30 AM
+- Time: 8:00 - 10:00 AM
 - Capacity: 25 attendees
 - Free ticket
 
