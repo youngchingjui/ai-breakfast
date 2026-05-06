@@ -22,6 +22,7 @@ Create and manage AI Breakfast events on huodongxing.com using `agent-browser` (
 - Banner slot accepts **1080×640** jpg/png, max 4MB
 - Defaults (venue, time, capacity, highlights format) live in `.claude/skills/PREFERENCES.md` — check before filling per-event fields
 - Always use `--session hdx` so state persists across commands
+- **Login session must match**: when prompting the user to log in, also pass `--session hdx` (e.g. `agent-browser --session hdx --headed open https://www.huodongxing.com/login`). If the user logs in via the default session, every subsequent `--session hdx` command sees a logged-out browser and silently redirects to `/login`.
 
 ## ⚠️ Meta: Keep this skill alive
 
@@ -295,7 +296,7 @@ agent-browser --session hdx eval 'var ed = UE.instants[Object.keys(UE.instants)[
 
 ### Fields don't always carry over from create → edit
 
-The detailed-address textbox came back **empty** on the edit page even though it was set on create (country/province/city DID persist). After every navigation between create/edit, re-verify all fields are populated.
+The detailed-address textbox shows **empty** on the edit page even though it was set on create (country/province/city DID persist). The value is actually still stored server-side and renders correctly on the public listing — but the form field itself is blank. If you save while it's blank, the listing keeps the old address, but if you fill it in and save, the listing updates. After every navigation between create/edit, re-verify all fields are populated.
 
 ### Flatpickr on edit page
 
@@ -307,6 +308,10 @@ agent-browser --session hdx eval 'el.__vue__.$data.fp.setDate("2026-04-09 08:00"
 ### `node-Address` error on edit submit
 
 The edit page sometimes throws `找不到对应ID的元素: node-Address` in the console, which silently blocks submission. Workaround: use the create page (`/createv3#/`) instead of editing.
+
+### Edit page save gives no visible feedback
+
+Clicking `保存活动信息` on the edit page produces no toast, no modal, no URL change — even when the save succeeds. The toast log will also be empty. **The only reliable way to verify a successful save is to reload the edit page and re-read the fields**, or open the public listing URL (`https://3583937770984.huodongxing.com/event/EVENT_ID`) and check that the changes are reflected there.
 
 ### Miniprogram-created events can't be fully edited in browser
 
@@ -360,3 +365,5 @@ Defaults (venue, time, capacity) are in `.claude/skills/PREFERENCES.md`. Poster 
 - **Form submission stays on /createv3** → run through validation order checklist; check toast log
 - **Wrong district** → BAKER&SPICE is 静安, not 徐汇
 - **Listing shows wrong capacity** → set BOTH the master 总名额 AND the ticket drawer quantity to 25
+- **All `--session hdx` commands redirect to /login** → user logged in via the default session; restart the login step with `agent-browser --session hdx --headed open https://www.huodongxing.com/login`
+- **Edit save: "did it work?"** → no toast/modal/redirect on success; reload the page or check the public listing to verify
