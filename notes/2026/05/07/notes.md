@@ -49,7 +49,7 @@ The software architect added one more metric his team uses to grade agent qualit
 
 ### Storytelling on Top of Insurance Data
 
-A returning member, an actuary at a Chinese insurance company, walked through three AI products he's building on top of a health-and-wellness program. The cleanest win is multimodal: instead of OCR-ing a blood pressure monitor, take a photo and ask the model "is this a real monitor or someone faking it?" Cheating is now harder than just measuring. Same trick for vaccinations, weight scales, and lung-nodule follow-ups.
+An actuary at a Chinese insurance company walked through three AI products he's building on top of a health-and-wellness program. The cleanest win is multimodal: instead of OCR-ing a blood pressure monitor, take a photo and ask the model "is this a real monitor or someone faking it?" Cheating is now harder than just measuring. Same trick for vaccinations, weight scales, and lung-nodule follow-ups.
 
 The harder problem is "connecting intelligence" — pulling nutrition logs, pathology results, claims, and medication into one personalized recommendation across many different data fields. Pure LLM reasoning produces plausible output, but validating it without a clinician is the open question. The plan: have clinicians approve recommendations on existing customers, accumulate enough approvals to seed a reference database, and use that to ground future outputs.
 
