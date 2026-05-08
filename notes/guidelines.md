@@ -10,21 +10,13 @@
 
 ### TL;DR
 
-- Place a **TL;DR** section before the Executive Summary, immediately after the title/frontmatter (and any group photo).
-- Format: 3 bullets max. Each starts with a bolded one-line thesis, followed by 1–2 sentences of context.
+The **TL;DR** is the only front-matter section. It replaces the older Executive Summary + Summary/TOC pair — one section now does all three jobs (takeaways, scope, navigation) so the reader doesn't parse the same meeting three times before the actual notes start.
+
+- Place TL;DR immediately after the title/frontmatter (and any group photo).
+- Format: 3 bullets max. Each starts with a **bolded one-line thesis**, followed by 1–2 sentences of context, ending with `See [Section title](#anchor).` — the link points to where that takeaway lives.
 - Each bullet should be a concrete takeaway a reader can use, not a topic label. Pick the items multiple persona reviewers flagged as interesting.
-- TL;DR is distinct from the Executive Summary: TL;DR surfaces what to remember; Executive Summary names what was discussed.
-
-### Executive Summary
-
-- Each notes document must include an **Executive Summary** section after the TL;DR (and any group photo) and before the longer table of contents.
-- The Executive Summary should be a short paragraph (about 1–3 sentences) written in simple, straightforward language (around a 5th-grade reading level) with no marketing or promotional wording.
-- The first sentence should generally follow this pattern (adjusted for each event):
-  ```
-  At our <event name>, our group of <short list of attendee roles> discussed topics ranging from <topic 1 with markdown link to its section>, <topic 2 with link>, etc. The attendees also shared the latest on their work and projects, including <project 1 with link>, <project 2 with link>, etc.
-  ```
-- Always link topics and projects to their detailed sections in the same document using markdown anchor links.
-- For topics that live in Quick Hits rather than as full sections, link them collectively to `#quick-hits` rather than naming each anchor.
+- After the bullets, add one **Also covered:** line that anchor-links the remaining sections (Tool Demo, additional Group Discussions, Quick Hits). Use `·` as a separator. Group Quick Hits items in parentheses after the `#quick-hits` link rather than linking each one individually.
+- Do **not** add a separate Executive Summary or Summary/TOC section. The TL;DR is sufficient.
 
 ### Section Headers
 
@@ -77,5 +69,4 @@
 ## Skim Aids
 
 - **Bolded thesis lead.** Start each main discussion section and each Quick Hit with a single bolded one-liner stating the takeaway. The first sentence should not bury the lead.
-- **Compressed table of contents.** TOC entries are link + 4–6 word descriptor. No subordinate clauses; descriptions belong in TL;DR.
 - **Italic "for engineers" callouts (optional).** When a technical detail (specific framework, architecture choice, performance number) won't land for non-technical readers but is worth keeping for engineers, set it as an indented italic line so general readers can skip without losing the thread.

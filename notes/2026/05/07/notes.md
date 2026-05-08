@@ -7,22 +7,11 @@ Author: Ching Jui Young
 
 ## TL;DR
 
-- **Reviewer agents are the pattern that ships.** Two members independently used writer-plus-reviewer agent loops for code reviews, executive-style consulting reports, and insurance claims attribution — agent pushback now beats human review for landing first drafts close to "shippable."
-- **The em-dash is the new AI tell on LinkedIn.** Strip every "—" from your drafts even when grammatically correct; the table now closes any post on first sight of one.
-- **Cheating is harder than measuring.** An insurer's AI team replaced OCR-ing blood pressure monitors with one multimodal prompt — "is this a real device or fake?" — and the same trick generalizes to vaccinations, weight scales, and lung-nodule follow-ups.
+- **Reviewer agents are the pattern that ships.** Two members independently used writer-plus-reviewer agent loops for code reviews, executive-style consulting reports, and insurance claims attribution — agent pushback now beats human review for landing first drafts close to "shippable." See [Analyst and Reviewer Agents](#analyst-and-reviewer-agents-the-pattern-that-actually-ships).
+- **The em-dash is the new AI tell on LinkedIn.** Strip every "—" from your drafts even when grammatically correct; the table now closes any post on first sight of one. See [The Em-Dash as the AI Tell](#the-em-dash-as-the-ai-tell).
+- **Cheating is harder than measuring.** An insurer's AI team replaced OCR-ing blood pressure monitors with one multimodal prompt — "is this a real device or fake?" — and the same trick generalizes to vaccinations, weight scales, and lung-nodule follow-ups. See [Storytelling on Top of Insurance Data](#storytelling-on-top-of-insurance-data).
 
-## Executive Summary
-
-At AI Breakfast #38, our group of software architects, founders, engineers, and consultants discussed [a hands-on demo of Descript](#demo-descript), [the em-dash as the new AI tell](#the-em-dash-as-the-ai-tell), [reviewer agent patterns for code, claims, and consulting copy](#analyst-and-reviewer-agents-the-pattern-that-actually-ships), [multimodal anti-fraud in insurance](#storytelling-on-top-of-insurance-data), and [GraphRAG for invoice parsing](#graphrag-for-invoice-parsing). [Quick Hits](#quick-hits) covered the influencer-marketplace scraping treadmill and one contrarian read of quantum vs RSA. The group also kicked off a new format: weekly tool demos from members.
-
-## Summary
-
-- [Demo: Descript](#demo-descript) — transcript-driven video editor
-- [The Em-Dash as the AI Tell](#the-em-dash-as-the-ai-tell) — LinkedIn's new tofu signal
-- [Analyst and Reviewer Agents: The Pattern That Actually Ships](#analyst-and-reviewer-agents-the-pattern-that-actually-ships) — writer-plus-reviewer loops
-- [Storytelling on Top of Insurance Data](#storytelling-on-top-of-insurance-data) — multimodal anti-fraud win
-- [GraphRAG for Invoice Parsing](#graphrag-for-invoice-parsing) — graph layer beats vector search
-- [Quick Hits](#quick-hits) — influencer scraping, quantum vs RSA
+**Also covered:** [Descript demo](#demo-descript) · [GraphRAG for invoice parsing](#graphrag-for-invoice-parsing) · [Quick Hits](#quick-hits) (influencer-marketplace scraping, quantum vs RSA)
 
 ## Demo: Descript
 

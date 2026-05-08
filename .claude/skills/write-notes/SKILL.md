@@ -63,21 +63,17 @@ Determine the breakfast number by checking the most recent notes file in the `no
 
 ### Document Structure
 
-Order: TL;DR → Executive Summary → Summary (TOC) → Tool Demo of the Week (when present) → Group Discussions → Quick Hits → Other Resources.
+Order: TL;DR → Tool Demo of the Week (when present) → Group Discussions → Quick Hits → Other Resources.
 
-1. **TL;DR** — 3 bullets max, each starting with a **bolded one-line thesis** followed by 1–2 sentences of context. Concrete takeaways, not topic labels. Pick the items that landed across multiple persona reviewers (see Persona Review below).
+1. **TL;DR** — The only front-matter section. 3 bullets max, each starting with a **bolded one-line thesis** followed by 1–2 sentences of context, ending with `See [Section title](#anchor).` Pick items that landed across multiple persona reviewers (see Persona Review below). After the bullets, add one **Also covered:** line that anchor-links the remaining sections, using `·` as separator. Group Quick Hits items in parentheses after the `#quick-hits` link. Do not add a separate Executive Summary or Summary/TOC section.
 
-2. **Executive Summary** — One short paragraph (1–3 sentences) following the pattern in `notes/guidelines.md`. Lists what was discussed; links each topic to its section. Topics living in Quick Hits link collectively to `#quick-hits`.
+2. **Tool Demo of the Week** (when present) — Cap at three short paragraphs: what it does, what landed, what didn't, who it's for.
 
-3. **Summary (TOC)** — Bullet list. Each line is `[Section title](#anchor) — 4-6 word descriptor`. No subordinate clauses; descriptions belong in TL;DR.
+3. **Group Discussions** — One subsection per major topic. Each starts with a **bolded one-line thesis** as the first sentence. 2–3 short paragraphs max. Weave in relevant member projects and work where they naturally fit the topic — don't separate member work into its own section. Avoid duplication: if the same person or pattern shows up across two sections, consolidate into one.
 
-4. **Tool Demo of the Week** (when present) — Cap at three short paragraphs: what it does, what landed, what didn't, who it's for.
+4. **Quick Hits** — Single section for topics that landed but don't merit a full section. One short paragraph (2–4 sentences) per item, each starting with a **bolded one-line thesis**. No sub-headers.
 
-5. **Group Discussions** — One subsection per major topic. Each starts with a **bolded one-line thesis** as the first sentence. 2–3 short paragraphs max. Weave in relevant member projects and work where they naturally fit the topic — don't separate member work into its own section. Avoid duplication: if the same person or pattern shows up across two sections, consolidate into one.
-
-6. **Quick Hits** — Single section for topics that landed but don't merit a full section. One short paragraph (2–4 sentences) per item, each starting with a **bolded one-line thesis**. No sub-headers.
-
-7. **Other Resources** - Bullet list of tools/links mentioned in the transcript that are **not already linked in the body prose** (no duplicates — Resources is not a recap). Each entry:
+5. **Other Resources** - Bullet list of tools/links mentioned in the transcript that are **not already linked in the body prose** (no duplicates — Resources is not a recap). Each entry:
    - Has a markdown link to the specific resource (search for the real URL)
    - One punchy sentence: what it is and why it came up
    - Example: `[Prodigy](https://prodi.gy/): Annotation tool for building custom AI models with active learning. Used for domain-specific models like physio posture correction.`
