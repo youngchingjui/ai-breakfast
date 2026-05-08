@@ -8,15 +8,15 @@
 
 ## Document Structure
 
-### TL;DR
+### Executive Summary
 
-The **TL;DR** is the only front-matter section. It replaces the older Executive Summary + Summary/TOC pair — one section now does all three jobs (takeaways, scope, navigation) so the reader doesn't parse the same meeting three times before the actual notes start.
-
-- Place TL;DR immediately after the title/frontmatter (and any group photo).
-- Format: 3 bullets max. Each starts with a **bolded one-line thesis**, followed by 1–2 sentences of context, ending with `See [Section title](#anchor).` — the link points to where that takeaway lives.
-- Each bullet should be a concrete takeaway a reader can use, not a topic label. Pick the items multiple persona reviewers flagged as interesting.
-- After the bullets, add one **Also covered:** line that anchor-links the remaining sections (Tool Demo, additional Group Discussions, Quick Hits). Use `·` as a separator. Group Quick Hits items in parentheses after the `#quick-hits` link rather than linking each one individually.
-- Do **not** add a separate Executive Summary or Summary/TOC section. The TL;DR is sufficient.
+- Each notes document must include an **Executive Summary** section immediately after any group photo and before the longer table of contents.
+- The Executive Summary should be a short paragraph (about 1–3 sentences) written in simple, straightforward language (around a 5th-grade reading level) with no marketing or promotional wording.
+- The first sentence should generally follow this pattern (adjusted for each event):
+  ```
+  At our <event name>, our group of <short list of attendee roles> discussed topics ranging from <topic 1 with markdown link to its section>, <topic 2 with link>, etc. The attendees also shared the latest on their work and projects, including <project 1 with link>, <project 2 with link>, etc.
+  ```
+- Always link topics and projects to their detailed sections in the same document using markdown anchor links.
 
 ### Section Headers
 
@@ -28,17 +28,10 @@ The **TL;DR** is the only front-matter section. It replaces the older Executive 
 
 - The section about member work (typically titled "Member Introductions" or similar) should focus on projects and works that members shared, not member introductions themselves. This section is about celebrating and highlighting our members' work.
 
-### Quick Hits
-
-- For topics that landed but don't merit a full section, group them under a single **Quick Hits** section with one short paragraph (2–4 sentences) per item.
-- Each Quick Hit starts with a **bolded one-line thesis**. No sub-headers inside Quick Hits — paragraphs only, so the long tail visually compresses.
-- Use Quick Hits to keep minor topics out of the main flow rather than letting every side thread become its own section.
-
 ### Other Resources Section
 
 - The last section should be titled "Other Resources".
 - Include a bullet list of all the resources mentioned in the transcripts, especially smaller tools, links, or references that were not covered in detail in the main write‑up.
-- **Do not duplicate** items already linked in the body prose. Resources is for items not previously linked — it is not a recap.
 - Do an online search to find **direct, specific links** to these resources (e.g., the actual product page, not a company homepage). If a specific link cannot be found, omit the link rather than linking to a generic page.
 - Each resource should have a concise, single-sentence description that combines:
   1. A brief description of what the resource is
@@ -61,12 +54,6 @@ The **TL;DR** is the only front-matter section. It replaces the older Executive 
 
 ## Content Organization
 
-- The volume of each section should reflect **signal, not airtime**. A long sidetrack that didn't land for the audience should be compressed (or moved to Quick Hits) even if it ate ten minutes of the meeting; a short remark that captured a real insight can earn a full paragraph.
+- The volume of each section should generally reflect the volume of discussion in the transcripts. Topics or projects that were discussed more extensively should have correspondingly longer sections, while brief mentions should be shorter.
 - Aim for no more than about three short paragraphs per major section so that each topic stays focused and easy to skim.
 - Keep the overall document to roughly a 5‑minute read. Prioritize the most important insights and examples rather than capturing every detail from the transcript.
-- Avoid duplication across sections. If two sections describe the same person, the same pattern, or the same product applied to different problems, consolidate into one place — fragmenting a strong cross-cutting insight weakens it.
-
-## Skim Aids
-
-- **Bolded thesis lead.** Start each main discussion section and each Quick Hit with a single bolded one-liner stating the takeaway. The first sentence should not bury the lead.
-- **Italic "for engineers" callouts (optional).** When a technical detail (specific framework, architecture choice, performance number) won't land for non-technical readers but is worth keeping for engineers, set it as an indented italic line so general readers can skip without losing the thread.
