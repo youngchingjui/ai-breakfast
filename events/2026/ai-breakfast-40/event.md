@@ -11,12 +11,12 @@
 
 **Speaker:** Dave Smith
 **Title:** AI Consultant (placeholder — Dave will update)
-**Demo:** How he used Claude Code to automate a weekly research report that gets emailed out.
+**Demo:** Use Claude Cowork to generate and email weekly research reports.
 
 ## Agenda
 
 - Intros
-- Dave's demo: Claude Code → automated weekly research report email
+- Dave's demo: Claude Cowork → automated weekly research report email
 - Open discussion
 
 ## Notes
