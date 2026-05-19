@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>AI Breakfast #40</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;0,900;1,700&family=Inter:wght@400;500;600;700;800&family=Ubuntu+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --warm-white: #fffaf5;
+        --peach-50: #fff1e6;
+        --sand: #f5ede6;
+        --border: #e7ddd4;
+        --terracotta: #c2410c;
+        --flame: #ea580c;
+        --burnt: #9a3412;
+        --peach: #fb923c;
+        --stone-900: #292524;
+        --stone-700: #44403c;
+        --stone-500: #78716c;
+
+        --font-display: "Playfair Display", Georgia, serif;
+        --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        --font-mono: "Ubuntu Mono", "SF Mono", Menlo, monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      html,
+      body {
+        background: #0c0a09;
+      }
+
+      .poster {
+        width: 1080px;
+        height: 1920px;
+        background: var(--warm-white);
+        position: relative;
+        overflow: hidden;
+        font-family: var(--font-sans);
+        color: var(--stone-900);
+      }
+
+      /* Café photo wash across the bottom — atmospheric, not literal */
+      .cafe-bg {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 720px;
+        background-image: linear-gradient(
+            to bottom,
+            var(--warm-white) 0%,
+            rgba(255, 250, 245, 0.85) 18%,
+            rgba(255, 250, 245, 0.35) 50%,
+            rgba(255, 250, 245, 0.55) 100%
+          ),
+          url("images/cafe.jpg");
+        background-size: cover;
+        background-position: center 30%;
+        z-index: 0;
+      }
+
+      .frame {
+        position: relative;
+        z-index: 1;
+        padding: 80px 96px 72px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== Header ===== */
+      .eyebrow {
+        font-family: var(--font-sans);
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--terracotta);
+      }
+
+      .masthead {
+        margin-top: 22px;
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .title {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 108px;
+        line-height: 1;
+        letter-spacing: -0.025em;
+        color: var(--stone-900);
+        white-space: nowrap;
+      }
+
+      .issue {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-weight: 700;
+        font-size: 88px;
+        line-height: 1;
+        color: var(--flame);
+        letter-spacing: -0.02em;
+        white-space: nowrap;
+      }
+
+      .datestrip {
+        margin-top: 28px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-family: var(--font-sans);
+        font-size: 28px;
+        font-weight: 600;
+        color: var(--stone-700);
+      }
+      .datestrip .dot {
+        width: 8px;
+        height: 8px;
+        background: var(--flame);
+        border-radius: 999px;
+      }
+
+      .rule {
+        margin-top: 40px;
+        height: 1px;
+        background: var(--border);
+      }
+
+      /* ===== Demo card ===== */
+      .demo {
+        margin-top: 44px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .agenda {
+        margin-top: 24px;
+        font-family: var(--font-sans);
+        font-size: 24px;
+        font-weight: 500;
+        color: var(--stone-500);
+        letter-spacing: 0.01em;
+      }
+
+      .headline {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 84px;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        color: var(--stone-900);
+        max-width: 880px;
+      }
+      .headline em {
+        font-style: italic;
+        font-weight: 700;
+        color: var(--terracotta);
+      }
+
+      .lede {
+        margin-top: 30px;
+        font-family: var(--font-sans);
+        font-size: 30px;
+        line-height: 1.5;
+        color: var(--stone-700);
+        max-width: 820px;
+        font-weight: 400;
+      }
+
+      /* ===== Speaker row ===== */
+      .speaker {
+        margin-top: 72px;
+        display: flex;
+        align-items: center;
+        gap: 36px;
+      }
+
+      .portrait {
+        width: 220px;
+        height: 220px;
+        border-radius: 999px;
+        object-fit: cover;
+        object-position: center 48%;
+        border: 4px solid var(--warm-white);
+        box-shadow: 0 0 0 2px var(--border),
+          0 18px 40px -16px rgba(154, 52, 18, 0.35);
+        flex-shrink: 0;
+      }
+
+      .speaker-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .speaker-name {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 56px;
+        line-height: 1;
+        letter-spacing: -0.01em;
+        color: var(--stone-900);
+      }
+      .speaker-title {
+        font-family: var(--font-sans);
+        font-size: 24px;
+        font-weight: 500;
+        color: var(--stone-500);
+      }
+      .speaker-pill {
+        margin-top: 8px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--font-mono);
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--burnt);
+        background: var(--peach-50);
+        border: 1px solid var(--border);
+        padding: 8px 14px;
+        border-radius: 6px;
+        align-self: flex-start;
+      }
+
+      /* ===== Code ribbon ===== */
+      .terminal {
+        margin-top: 64px;
+        background: var(--stone-900);
+        color: var(--sand);
+        border-radius: 14px;
+        padding: 26px 32px 28px;
+        font-family: var(--font-mono);
+        font-size: 24px;
+        line-height: 1.55;
+        box-shadow: 0 24px 50px -28px rgba(41, 37, 36, 0.6);
+      }
+      .terminal .bar {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+      .terminal .bar span {
+        width: 12px;
+        height: 12px;
+        border-radius: 999px;
+        background: #44403c;
+      }
+      .terminal .bar span:first-child {
+        background: var(--flame);
+      }
+      .terminal .bar span:nth-child(2) {
+        background: var(--peach);
+      }
+      .terminal .bar span:nth-child(3) {
+        background: var(--sand);
+      }
+      .terminal .prompt {
+        color: var(--peach);
+      }
+      .terminal .arrow {
+        color: var(--peach);
+      }
+      .terminal .comment {
+        color: #a8a29e;
+      }
+
+      /* ===== Footer ===== */
+      .footer {
+        margin-top: auto;
+        padding-top: 48px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 32px;
+      }
+
+      .venue {
+        font-family: var(--font-sans);
+      }
+      .venue .name {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 30px;
+        letter-spacing: 0.04em;
+        color: var(--stone-900);
+        text-transform: uppercase;
+      }
+      .venue .addr {
+        margin-top: 8px;
+        font-size: 21px;
+        line-height: 1.45;
+        color: var(--stone-700);
+      }
+      .venue .cn {
+        margin-top: 4px;
+        font-size: 21px;
+        line-height: 1.4;
+        color: var(--stone-500);
+      }
+      .venue .hint {
+        margin-top: 10px;
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: 20px;
+        color: var(--stone-500);
+      }
+
+      .tagline {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-weight: 500;
+        font-size: 22px;
+        color: var(--stone-500);
+        text-align: right;
+        max-width: 320px;
+        line-height: 1.4;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="poster">
+      <div class="cafe-bg"></div>
+      <div class="frame">
+        <!-- Header -->
+        <div class="eyebrow">Shanghai</div>
+        <div class="masthead">
+          <div class="title">AI Breakfast</div>
+          <div class="issue">№ 40</div>
+        </div>
+        <div class="datestrip">
+          <span>Thursday, May 21</span>
+          <span class="dot"></span>
+          <span>8:00 – 10:00 AM</span>
+        </div>
+        <div class="rule"></div>
+
+        <!-- Demo block -->
+        <div class="demo">
+          <h1 class="headline">
+            Use <em>Claude Code</em> to generate and email weekly research
+            reports.
+          </h1>
+          <div class="agenda">Intros · Demo · Open discussion</div>
+
+          <!-- Speaker -->
+          <div class="speaker">
+            <img
+              class="portrait"
+              src="images/speakers/dave.jpeg"
+              alt="Dave"
+            />
+            <div class="speaker-meta">
+              <div class="speaker-name">Dave</div>
+              <div class="speaker-title">AI Consultant</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+          <div class="venue">
+            <div class="name">Baker&amp;Spice</div>
+            <div class="addr">
+              1717 West Nanjing Road<br />
+              Wheelock Square, Jing'an
+            </div>
+            <div class="cn">南京西路1717号 · 会德丰国际广场</div>
+            <div class="hint">Look for the long table in the back.</div>
+          </div>
+          <div class="tagline">every Thursday morning</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
