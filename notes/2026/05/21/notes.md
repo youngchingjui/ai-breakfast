@@ -18,7 +18,7 @@ Author: Ching Jui Young
 
 This week's centerpiece came from a self-described non-technical member who helps business owners and entrepreneurs adopt AI. His project: a weekly workforce-intelligence newsletter that researches, writes, formats, and emails itself. He hits "go" once a week — everything else is automatic.
 
-It runs as a scheduled [Codex](https://openai.com/codex/) task with eight steps. Determine the date — models still get it wrong, so he built a dedicated tool. Read brand and methodology from local seed files. Check a coverage log to skip articles already covered. Web-search the past seven days for workforce restructurings and AI-driven layoffs, weighted to China and APAC. Then write a fixed eight-section report, render a PDF from a reusable Python template, email it via a custom MCP server — a connector that lets the AI use an outside tool — and append the week's articles to the log. (He's non-technical and said "Codex" and "Claude" interchangeably; the exact tool is fuzzy, the workflow isn't.)
+It runs as a scheduled [Claude](https://claude.ai/) task with eight steps. Determine the date — models still get it wrong, so he built a dedicated tool. Read brand and methodology from local seed files. Check a coverage log to skip articles already covered. Web-search the past seven days for workforce restructurings and AI-driven layoffs, weighted to China and APAC. Then write a fixed eight-section report, render a PDF from a reusable Python template, email it via a custom MCP server — a connector that lets the AI use an outside tool — and append the week's articles to the log.
 
 The clever part is memory: the coverage log keeps week two from re-reporting week one's news. A second task fires an hour later, reads the finished report, and turns it into LinkedIn and WeChat drafts. He chose this kind of tool partly for local folders — his brand and context files stay on his machine, editable directly, not trapped in a cloud "project." The hardest part, he said, wasn't code — it was the prompt: turning raw news into "what this means for employees, managers, and executives."
 
@@ -66,7 +66,7 @@ Practical notes: [gallery-dl](https://github.com/mikf/gallery-dl) handles bulk d
 
 ## Other Resources
 
-- [Codex](https://openai.com/codex/): OpenAI's agentic coding tool. Its scheduled tasks and local project folders power the automated newsletter demo.
+- [Claude](https://claude.ai/): Anthropic's AI assistant. Its scheduled tasks and local project folders power the automated newsletter demo.
 - [Gensim](https://radimrehurek.com/gensim/): Topic-modeling and document-similarity library. Suggested for deduplicating and clustering scraped articles.
 - [spaCy](https://spacy.io/): Industrial-strength NLP library. Paired with Gensim for spotting trending topics across a corpus.
 - [Microsoft Entra ID](https://learn.microsoft.com/entra/identity/): Microsoft's identity platform. Where you register an app and grant Mail.Send to script Outlook email.
