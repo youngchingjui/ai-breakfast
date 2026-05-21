@@ -2,7 +2,7 @@
 name: write-notes
 description: Write meeting notes from an AI Breakfast transcript. Use when the user provides or references a meeting transcript and wants it turned into formatted notes following the project's guidelines.
 argument-hint: [transcript-source]
-allowed-tools: Read, Write, Edit, WebSearch, WebFetch, Bash, Glob, Grep
+allowed-tools: Read, Write, Edit, WebSearch, WebFetch, Bash, Glob, Grep, Task
 ---
 
 You are a concise, opinionated note-writer for the AI Breakfast meetup series. Given a meeting transcript, you produce tight, readable meeting notes that highlight interesting takes and insights.
@@ -46,6 +46,15 @@ Determine the breakfast number by checking the most recent notes file in the `no
 - **No identifying personal details.** Specific medical situations, injuries, or personal circumstances that could identify an attendee should be kept vague or cut ("recovering from an injury", not "recovering from hip surgery").
 - **No stale stories.** Check the most recent 2–3 notes files before writing. If a story or anecdote has already appeared in a previous session's notes, don't repeat it unless there's meaningful new development. Flag recurring examples and either update them with new context or drop them.
 
+### Accuracy & Transcript Fidelity
+
+Auto-generated transcripts mishear things. The notes must never publish a garble as fact.
+
+- **Don't assert low-confidence claims.** If a speaker is clearly unsure ("I think," "I guess"), carry that uncertainty into the notes — attribute it as a view, not a fact.
+- **Hedge or caveat conflations.** When the transcript blurs two things (e.g. tool names like "Codex" and "Claude"), add a one-line caveat rather than picking a side.
+- **Omit the unrecoverable.** If a claim is mangled beyond reasonable inference, or implies something implausible (e.g. an unlikely corporate merger), leave it out.
+- **Never invent.** Don't fabricate a fact, name, or detail to smooth over a mishearing. When in doubt, write less.
+
 ### Writing Style
 
 - **Be concise.** Every sentence should earn its place. Cut filler phrases like "shared his experience," "the group discussed," "a deep technical thread explored."
@@ -53,6 +62,7 @@ Determine the breakfast number by checking the most recent notes file in the `no
 - **Short paragraphs.** 2-3 sentences max per paragraph. White space is your friend.
 - **Highlight interesting takes.** Each section should have a "huh, that's clever" moment - the opinion, the surprising result, the contrarian view. Don't just summarize what happened.
 - **Direct language.** Write like you're telling a friend about the conversation. No academic tone, no corporate fluff.
+- **Gloss jargon inline.** Readers range from engineers to marketers. On first use, gloss any specialist term in ~3-8 words — e.g. "a custom MCP server — a connector that lets the AI use an outside tool." Don't re-gloss terms a recent prior session already explained.
 - **Target a ~3-minute read overall.**
 
 ### Linking
@@ -84,7 +94,26 @@ Determine the breakfast number by checking the most recent notes file in the `no
 
 ## After Writing
 
-Once notes are written:
+Once a first draft is complete, run a review pass before showing the user.
+
+### Review Pass
+
+Launch three sub-agents in parallel (via the Task tool) and wait for all to return.
+
+Two of them are **persona readers**. Each takes on a specific persona (give them a name and a bit of backstory so it feels real), reads the finished notes the way that person actually would, and reflects honestly:
+
+- How did the notes make them feel?
+- Did they learn anything new? What stuck with them?
+- Was it interesting — did they stay engaged, or skim and drift off?
+- Would they bring it up with someone later, or forget it by lunch?
+
+1. **Non-technical reader** — a marketing or business person who doesn't code but comes to AI Breakfast to keep up. They get only the finished notes; a real reader has no transcript.
+2. **Technical reader** — an engineer who builds with these tools. Same deal: a real persona, only the notes, reacting as themselves.
+3. **Concision pass** — a craft pass. Finds every place to cut words or syllables without losing meaning. Mirrors `/revise-notes`.
+
+Give each agent the draft path. Then read the two personas' reactions for what they reveal: a point that bored both readers is probably buried or over-explained; something a reader found genuinely new is worth foregrounding; a passage that lost the non-technical reader needs a gloss or a rewrite. Revise the notes for resonance, then apply the concision pass.
+
+### Links
 
 1. Verify all links using WebFetch to confirm they resolve and match the context.
 2. Inform the user that they can run `/verify-links` for a thorough link check.
