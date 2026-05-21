@@ -98,13 +98,20 @@ Once a first draft is complete, run a review pass before showing the user.
 
 ### Review Pass
 
-Launch three sub-agents in parallel (via the Task tool) and wait for all to return:
+Launch three sub-agents in parallel (via the Task tool) and wait for all to return.
 
-1. **Non-technical reader** — reviews the draft as a marketing or business reader who doesn't code. Flags unexplained jargon, confusing sentences, and buried insights.
-2. **Technical reader** — reviews the draft against the transcript as an engineer. Flags inaccuracies, claims that overreach what the transcript supports, and interesting points the draft dropped.
-3. **Concision pass** — finds every place to cut words or syllables without losing meaning. This mirrors `/revise-notes`; running it here keeps the whole review in one step.
+Two of them are **persona readers**. Their job is *not* to proofread or fact-check — it is to be a person. Each takes on a specific persona (give them a name and a bit of backstory so it feels real), reads the finished notes the way that person actually would, and reflects honestly:
 
-Give each agent the draft path (and, for the technical reader, the transcript path too). Then apply the feedback that holds up — prioritize accuracy fixes and missing insights first, then jargon glosses, then concision. Skip suggestions that would pad the notes or blunt a sharp take.
+- How did the notes make them feel?
+- Did they learn anything new? What stuck with them?
+- Was it interesting — did they stay engaged, or skim and drift off?
+- Would they bring it up with someone later, or forget it by lunch?
+
+1. **Non-technical reader** — a marketing or business person who doesn't code but comes to AI Breakfast to keep up. They get only the finished notes; a real reader has no transcript.
+2. **Technical reader** — an engineer who builds with these tools. Same deal: a real persona, only the notes, reacting as themselves.
+3. **Concision pass** — the one craft check. Finds every place to cut words or syllables without losing meaning. Mirrors `/revise-notes`.
+
+Give each agent the draft path. Then read the two personas' reactions for what they reveal: a point that bored both readers is probably buried or over-explained; something a reader found genuinely new is worth foregrounding; a passage that lost the non-technical reader needs a gloss or a rewrite. Revise the notes for resonance, then apply the concision pass.
 
 ### Links
 
