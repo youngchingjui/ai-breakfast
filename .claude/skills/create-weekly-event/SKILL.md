@@ -18,10 +18,11 @@ Orchestrates the full end-to-end flow for setting up a new AI Breakfast event. T
 ## Phase Order
 
 1. **Create skeleton event on huodongxing** (`huodongxing-create-event`) — just title, date, ticket type
-2. **Start poster dev server + continue editing event** — use the wait time productively
+2. **Draft poster + banner HTML and render banner / poster-without-QR** — use the wait time productively
 3. **Download QR code** (`huodongxing-qr`) — only after ~10 min have passed since event creation
-4. **Generate posters & banner** (`generate-posters`) — now that QR is available
+4. **Re-render poster with QR** (`generate-posters`) — now that the QR is available
 5. **Finalize event on huodongxing** — upload banner, poster, description
+6. **Update the website front page** — `app/page.tsx` displays the next meetup, so it has to be touched every week
 
 Read each sub-skill's SKILL.md for detailed instructions. This skill provides the overall flow and timing.
 
@@ -84,28 +85,29 @@ After submission, note the **event ID** from the listings page (`https://www.huo
 
 ---
 
-## Phase 2: Start Poster Dev Server + Continue Editing
+## Phase 2: Draft Posters + Continue Editing
 
 While waiting for the QR code to become available, use the time productively:
 
-### 2a. Start the event-poster-website dev server
-
-```bash
-cd ~/Projects/youngchingjui/event-poster-website && bun dev &
-# Wait for "Ready" message
-```
-
-### 2b. Create output directories
+### 2a. Create the event folder and copy templates
 
 ```bash
 EVENT_NUM=XX
-mkdir -p ~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-${EVENT_NUM}/images/qr-codes
-mkdir -p ~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-${EVENT_NUM}/images/graphics
+PREV_NUM=$((EVENT_NUM - 1))
+SRC=~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-${PREV_NUM}
+DST=~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-${EVENT_NUM}
+mkdir -p "$DST"/images/{graphics,qr-codes,speakers}
+cp "$SRC"/poster.html "$SRC"/poster-qr.html "$SRC"/banner.html "$DST/"
+# Also create event.md (see _templates) — date, time, venue, speaker, demo title/blurb
 ```
 
-### 2c. Generate banner and poster without QR
+### 2b. Edit the three HTML files for this week's content
 
-Use the `generate-posters` skill. Check the most recent event's posters for current parameter values (time, tagline, venue, etc.).
+Hand-author against the brand system. See the `generate-posters` skill for layout anatomy and which fields to change. Avatar and QR placeholders stay in until the real assets arrive.
+
+### 2c. Render banner + poster (no QR) to PNG
+
+Use the `generate-posters` skill's render commands. Skip `poster-qr.html` for now — you'll re-render it in Phase 4 once the QR is downloaded.
 
 ### 2d. Go back to huodongxing and fill in remaining event details
 
@@ -155,11 +157,11 @@ file ~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-${EVENT_NUM}
 
 ---
 
-## Phase 4: Generate Poster WITH QR
+## Phase 4: Render Poster WITH QR
 
 **Skill:** `generate-posters`
 
-Now that the QR is downloaded, generate the poster with QR using the `generate-posters` skill. The QR code needs to be served at a public URL — either upload to Vercel Blob via the app's `/api/upload` endpoint, or copy to the poster website's `public/` directory and reference via `http://localhost:3000/filename.png`.
+Now that `images/qr-codes/wechat-mini-program.png` exists, swap the QR placeholder in `poster-qr.html` for an `<img>` tag pointing at it, then re-render to `images/graphics/poster-with-qr.png`. The render is purely local — `agent-browser` loads the HTML as a `file://` URL, so no dev server or public hosting is needed.
 
 ---
 
@@ -186,18 +188,40 @@ Event should appear in the listings with all details filled in.
 
 ---
 
+## Phase 6: Update Website Front Page
+
+`app/page.tsx` displays the upcoming meetup. **This must be updated every week** — the date, topic blurb, and (if relevant) agenda times are all hardcoded in the JSX. Skipping this leaves the site advertising a past event.
+
+Open `app/page.tsx` and update these fields against the new `event.md`:
+
+| What | Where | Source |
+| --- | --- | --- |
+| Topic blurb | `<p>` under the `<h1>` — `This week: <strong>…</strong> — …` | event.md "This Week's Demo" |
+| Next meetup date | The "Next meetup" `<aside>` — `Thu MMM DD \| H–Ham` format | event.md Date + Time |
+| Agenda times (if changed) | The "What to expect" `<ul>` — currently `8:00–8:30` intros, `8:30+` demos | `.claude/skills/PREFERENCES.md` |
+
+After editing, eyeball the page (`bun dev` then open `http://localhost:3000`) before declaring done.
+
+If the front page ever gets refactored to read from `event.md` directly, this phase can drop to "verify the most recent event.md is picked up." Until then, treat this as required manual work.
+
+---
+
 ## Output Checklist
 
+- [ ] `event.md` populated for `ai-breakfast-NUM`
 - [ ] Event created on huodongxing (with banner, description, location, ticket type)
 - [ ] QR code: `events/2026/ai-breakfast-NUM/images/qr-codes/wechat-mini-program.png`
 - [ ] Banner: `events/2026/ai-breakfast-NUM/images/graphics/banner-1080x640.png`
-- [ ] Poster (no QR): `events/2026/ai-breakfast-NUM/images/graphics/poster-no-qr.png`
+- [ ] Poster (no QR): `events/2026/ai-breakfast-NUM/images/graphics/poster.png`
 - [ ] Poster (with QR): `events/2026/ai-breakfast-NUM/images/graphics/poster-with-qr.png`
+- [ ] Speaker photo dropped into `images/speakers/` and posters re-rendered
 - [ ] Share poster-with-qr.png with Ching for WeChat/social distribution
+- [ ] Front page (`app/page.tsx`) updated with new date, topic blurb, and agenda times (Phase 6)
 
 ## Notes
 
 - The poster-with-qr is the primary asset Ching shares on WeChat Moments and group chats.
-- The poster-no-qr goes into huodongxing's 活动详情 section (huodongxing adds its own QR).
+- The poster (no QR) goes into huodongxing's 活动详情 section (huodongxing adds its own QR).
 - The banner goes into huodongxing's banner/header slot (1080x640).
 - If events were pre-created via the WeChat miniprogram, skip Phase 1 but still respect the QR timing — check when the event was created before downloading.
+- The `event-poster-website` Next.js app is no longer used for poster generation. Posters are hand-authored HTML rendered via `agent-browser`. See `generate-posters` for details.
