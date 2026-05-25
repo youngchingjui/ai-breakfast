@@ -2,7 +2,7 @@
 
 ## What We Are
 
-AI Breakfast is a weekly morning meetup in Shanghai where AI enthusiasts, builders, creatives, and professionals gather over coffee every Thursday at Baker & Spice, Wheelock Square. No slides, no sponsors — just roundtable conversations, demos, and peer feedback. English language.
+AI Breakfast is a weekly morning meetup in Shanghai where AI enthusiasts, builders, creatives, and professionals gather every Thursday. English language.
 
 ## Color Palette: Terracotta
 
@@ -77,10 +77,10 @@ The `.container-prose` container uses Inter for body text at `1.0625rem` with `1
 
 ### We Are
 
-- **Conversational** — like explaining something to a friend over coffee
-- **Practical** — real tools, real demos, real experiences
-- **Curious** — sharing what we're learning, not what we've mastered
-- **Community-first** — peer-led, no hierarchy, everyone contributes
+- Warm
+- Helpful
+- Supportive
+- Educational
 
 ### We Are Not
 
@@ -93,7 +93,6 @@ The `.container-prose` container uses Inter for body text at `1.0625rem` with `1
 
 - Journalistic, ~5th-grade reading level
 - Flowing paragraphs, not bullet-point walls
-- Anonymous descriptions (role + context) instead of personal names
 - Sections flow like a story, not a numbered agenda
 - Link to specific resources, not generic homepages
 
@@ -103,27 +102,20 @@ See `notes/guidelines.md` for detailed notes writing standards.
 
 **Warm, Curious, Unpretentious, Practical, Builder-focused, Multilingual**
 
-The brand should feel like a well-lit cafe on a Thursday morning — coffee in hand, laptop open, someone sharing their screen. The coffee is there, but it's fuel, not the main character.
-
-## Logo
-
-**Status:** Not yet finalized. Four directions exist in `public/images/logo-option-*.svg` but none are locked in. The brand guide explorer (`brand-guide.html`) shows all options with live palette/font switching.
+The brand should feel like a well-lit cafe on a Thursday morning — coffee in hand, chatter, warm. There are laughs, inquisitive chatter, and a sense of community.
 
 ## Where These Decisions Live
 
-| Asset               | File                                                                       |
-| ------------------- | -------------------------------------------------------------------------- |
-| Colors & fonts      | `app/globals.css`                                                          |
-| Font loading        | `app/layout.tsx`                                                           |
-| Prose styles        | `app/globals.css` (`.container-prose`)                                     |
-| Notes writing guide | `notes/guidelines.md`                                                      |
-| Brand explorer      | `brand-guide.html`                                                         |
+| Asset               | File                                                                        |
+| ------------------- | --------------------------------------------------------------------------- |
+| Colors & fonts      | `app/globals.css`                                                           |
+| Font loading        | `app/layout.tsx`                                                            |
+| Prose styles        | `app/globals.css` (`.container-prose`)                                      |
+| Notes writing guide | `notes/guidelines.md`                                                       |
+| Brand explorer      | `brand-guide.html`                                                          |
 | Poster generation   | `.claude/skills/generate-posters/` (hand-authored HTML, terracotta palette) |
-| Poster templates    | Latest event's `poster.html` / `poster-qr.html` / `banner.html`            |
+| Poster templates    | Latest event's `poster.html` / `poster-qr.html` / `banner.html`             |
 
 ## Open Decisions
 
 - **Logo:** Pick a direction and finalize
-- **Chinese voice guide:** Brand voice is defined only in English; needs Chinese-language guidance for WeChat content
-- **"Shanghai" in the name:** Is it always "AI Breakfast Shanghai" or just "AI Breakfast"?
-- **Tagline:** "Where AI meets over coffee" — keep, evolve, or drop?
