@@ -111,19 +111,19 @@ The brand should feel like a well-lit cafe on a Thursday morning — coffee in h
 
 ## Where These Decisions Live
 
-| Asset               | File                                   |
-| ------------------- | -------------------------------------- |
-| Colors & fonts      | `app/globals.css`                      |
-| Font loading        | `app/layout.tsx`                       |
-| Prose styles        | `app/globals.css` (`.container-prose`) |
-| Notes writing guide | `notes/guidelines.md`                  |
-| Brand explorer      | `brand-guide.html`                     |
-| Poster generation   | `.claude/skills/generate-posters/`     |
+| Asset               | File                                                                       |
+| ------------------- | -------------------------------------------------------------------------- |
+| Colors & fonts      | `app/globals.css`                                                          |
+| Font loading        | `app/layout.tsx`                                                           |
+| Prose styles        | `app/globals.css` (`.container-prose`)                                     |
+| Notes writing guide | `notes/guidelines.md`                                                      |
+| Brand explorer      | `brand-guide.html`                                                         |
+| Poster generation   | `.claude/skills/generate-posters/` (hand-authored HTML, terracotta palette) |
+| Poster templates    | Latest event's `poster.html` / `poster-qr.html` / `banner.html`            |
 
 ## Open Decisions
 
 - **Logo:** Pick a direction and finalize
-- **Poster palette:** Poster generation still uses old colors (`#C65B3C` rust, `#F6EBDC` beige) — should be updated to match the terracotta palette
 - **Chinese voice guide:** Brand voice is defined only in English; needs Chinese-language guidance for WeChat content
 - **"Shanghai" in the name:** Is it always "AI Breakfast Shanghai" or just "AI Breakfast"?
 - **Tagline:** "Where AI meets over coffee" — keep, evolve, or drop?
