@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>AI Breakfast #42 — Banner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700&family=Inter:wght@400;500;600;700;800&family=Ubuntu+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --warm-white: #fffaf5;
+        --peach-50: #fff1e6;
+        --peach-100: #fde2c7;
+        --border: #e7ddd4;
+        --terracotta: #c2410c;
+        --flame: #ea580c;
+        --burnt: #9a3412;
+        --peach: #fb923c;
+        --stone-900: #292524;
+        --stone-700: #44403c;
+        --stone-500: #78716c;
+        --stone-400: #a8a29e;
+
+        --font-display: "Playfair Display", Georgia, serif;
+        --font-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-mono: "Ubuntu Mono", "SF Mono", Menlo, monospace;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+      html, body { background: #0c0a09; }
+
+      .banner {
+        width: 1080px;
+        height: 640px;
+        background: var(--warm-white);
+        position: relative;
+        overflow: hidden;
+        font-family: var(--font-sans);
+        color: var(--stone-900);
+        display: flex;
+      }
+
+      .left {
+        flex: 1;
+        padding: 56px 48px 56px 64px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-width: 0;
+      }
+
+      .right {
+        width: 460px;
+        background: var(--peach-50);
+        padding: 56px 48px 56px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-left: 1px solid var(--border);
+        min-width: 0;
+      }
+
+      .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: var(--stone-500);
+      }
+      .title-row {
+        margin-top: 14px;
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        flex-wrap: nowrap;
+      }
+      .title {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 76px;
+        line-height: 1;
+        letter-spacing: -0.025em;
+        color: var(--stone-900);
+        white-space: nowrap;
+      }
+      .issue {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 66px;
+        line-height: 1;
+        color: var(--flame);
+        letter-spacing: -0.02em;
+        white-space: nowrap;
+      }
+
+      .datestack {
+        margin-top: 28px;
+      }
+      .datestack .d {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 38px;
+        line-height: 1;
+        letter-spacing: -0.015em;
+        color: var(--stone-900);
+      }
+      .datestack .t {
+        margin-top: 10px;
+        font-family: var(--font-sans);
+        font-size: 24px;
+        font-weight: 500;
+        color: var(--stone-700);
+      }
+
+      .venue {
+        border-top: 1px solid var(--border);
+        padding-top: 22px;
+      }
+      .venue-name {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 30px;
+        letter-spacing: 0.015em;
+        color: var(--stone-900);
+        text-transform: uppercase;
+        line-height: 1;
+      }
+      .venue-addr {
+        margin-top: 8px;
+        font-family: var(--font-sans);
+        font-size: 18px;
+        line-height: 1.4;
+        color: var(--stone-700);
+        font-weight: 500;
+      }
+      .venue-cn {
+        margin-top: 4px;
+        font-family: var(--font-sans);
+        font-size: 16px;
+        line-height: 1.4;
+        color: var(--stone-500);
+      }
+
+      .demo-label {
+        font-family: var(--font-mono);
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.30em;
+        text-transform: uppercase;
+        color: var(--terracotta);
+      }
+      .demo-title {
+        margin-top: 18px;
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 56px;
+        line-height: 1.02;
+        letter-spacing: -0.03em;
+        color: var(--stone-900);
+      }
+      .demo-blurb {
+        margin-top: 18px;
+        font-family: var(--font-sans);
+        font-size: 17px;
+        line-height: 1.5;
+        color: var(--stone-700);
+        font-weight: 400;
+      }
+      .demo-blurb em {
+        font-style: normal;
+        font-weight: 600;
+        color: var(--stone-900);
+      }
+
+      .byline {
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding-top: 22px;
+        border-top: 1px solid var(--peach-100);
+      }
+      .byline .avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 999px;
+        object-fit: cover;
+        object-position: center 35%;
+        flex-shrink: 0;
+        border: 2px solid var(--warm-white);
+        box-shadow: 0 0 0 1px var(--border),
+          0 8px 18px -10px rgba(154, 52, 18, 0.35);
+        background: linear-gradient(135deg, var(--flame), var(--burnt));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 26px;
+        color: var(--warm-white);
+        letter-spacing: -0.01em;
+      }
+      .byline .meta { display: flex; flex-direction: column; gap: 2px; }
+      .byline .kicker {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--stone-500);
+      }
+      .byline .name {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 24px;
+        line-height: 1;
+        letter-spacing: -0.015em;
+        color: var(--stone-900);
+        margin-top: 2px;
+      }
+      .byline .role {
+        margin-top: 2px;
+        font-family: var(--font-sans);
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--stone-700);
+      }
+
+      .agenda {
+        padding-top: 22px;
+        border-top: 1px solid var(--peach-100);
+      }
+      .agenda .kicker {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--stone-500);
+      }
+      .agenda .agenda-line {
+        margin-top: 8px;
+        font-family: var(--font-sans);
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--stone-900);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="banner">
+      <div class="left">
+        <div>
+          <div class="eyebrow">Shanghai</div>
+          <div class="title-row">
+            <div class="title">AI Breakfast</div>
+            <div class="issue">#42</div>
+          </div>
+          <div class="datestack">
+            <div class="d">Thursday, June 4</div>
+            <div class="t">8:00 – 10:00 AM</div>
+          </div>
+        </div>
+
+        <div class="venue">
+          <div class="venue-name">Baker &amp; Spice</div>
+          <div class="venue-addr">1717 West Nanjing Road, Wheelock Square, Jing'an</div>
+          <div class="venue-cn">南京西路1717号 · 会德丰国际广场</div>
+        </div>
+      </div>
+
+      <div class="right">
+        <div>
+          <div class="demo-label">This week</div>
+          <div class="demo-title">Open table</div>
+          <div class="demo-blurb">
+            Coffee and conversation with the AI community — bring your questions and <em>whatever you're building</em>.
+          </div>
+        </div>
+        <div class="agenda">
+          <div class="kicker">The format</div>
+          <div class="agenda-line">Intros · Open discussion · Coffee</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -9,9 +9,9 @@ export default function Home() {
         <h1 className="text-3xl font-bold">AI Breakfast — Shanghai</h1>
         <p className="text-muted-foreground max-w-prose">
           Join us for a casual roundtable meetup over breakfast to discuss the
-          latest in AI. This week: <strong>Local-first RAG</strong> — Paul Ropel
-          walks us through retrieval-augmented generation that runs entirely on
-          your own machine.
+          latest in AI. This week: a casual <strong>open table</strong> —
+          coffee, conversation, and whatever the community is building. Bring
+          your questions and works-in-progress.
         </p>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -22,7 +22,7 @@ export default function Home() {
                 <strong>8:00–8:30</strong> — Introductions & lightning updates
               </li>
               <li>
-                <strong>8:30+</strong> — Demos and open discussion
+                <strong>8:30+</strong> — Open discussion & show-and-tell
               </li>
               <li>Show off something you&apos;ve built (with or without AI)</li>
               <li>Peer feedback, troubleshooting & collaboration</li>
@@ -36,7 +36,7 @@ export default function Home() {
 
           <aside className="rounded-lg border border-border p-4 bg-card space-y-3">
             <div className="text-sm text-muted-foreground">Next meetup</div>
-            <div className="text-lg font-semibold">Thu May 28 | 8–10am</div>
+            <div className="text-lg font-semibold">Thu Jun 4 | 8–10am</div>
             <div className="space-y-1 text-foreground">
               <div className="font-medium">BAKER&SPICE</div>
               <div>1717 West Nanjing Road, Wheelock Square</div>
