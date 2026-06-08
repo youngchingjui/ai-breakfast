@@ -6,19 +6,20 @@
 - **Address:** 1717 West Nanjing Road, Wheelock Square, Jing'an
   - 南京西路1717号 会德丰国际广场南院首层101号商铺
 - **City:** Shanghai
+- **Venue hint:** Look for the long table in the back, past the grilling station.
 
 ## This Week's Demo
 
-**Speaker:** Juli Tian (田洁蓉)
-**Demo:** Building [clausr.ai](https://clausr.ai) on Coze — a full-stack ERP for the certification, testing, and auditing (CTA) industry, built by a non-technical founder.
+**Title:** How to build AI apps as a non-technical founder
+**Speaker:** Juli Tian (田洁蓉) — formerly TÜV SÜD, now founder of [clausr.ai](https://clausr.ai)
 
-A brief demo by Juli followed by community discussion — the focus this week is sharing and conversation, not a long presentation.
+Juli built a full ERP for the certification, testing & auditing industry as a non-technical founder. She walks us through how she did it.
 
 ## Agenda
 
-- Intros
-- Brief demo: Juli on clausr.ai
-- Open discussion + community sharing
+- **8:00** — Intros: share what you're building with AI
+- **8:30** — Demo by Juli
+- **9:00** — Open discussion
 
 ## Huodongxing
 
@@ -29,5 +30,6 @@ A brief demo by Juli followed by community discussion — the focus this week is
 
 ## Notes
 
-- Speaker photo: drop into `images/speakers/juli.jpeg` (referenced by poster + banner).
-- Theme: non-technical builder shipping a real product — speaks to AI Breakfast's all-backgrounds, community-first ethos.
+- Speaker photo: `images/speakers/juli.jpeg` (referenced by poster + banner).
+- Poster uses a new agenda-wrapped layout — the demo card is the 8:30 beat, sitting between the 8:00 intros and 9:00 open discussion. The demo is one beat in the agenda, not the whole event.
+- Theme: non-technical founder shipping a real product — speaks to AI Breakfast's all-backgrounds, community-first ethos.
