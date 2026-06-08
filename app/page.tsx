@@ -9,9 +9,9 @@ export default function Home() {
         <h1 className="text-3xl font-bold">AI Breakfast — Shanghai</h1>
         <p className="text-muted-foreground max-w-prose">
           Join us for a casual roundtable meetup over breakfast to discuss the
-          latest in AI. This week: a casual <strong>open table</strong> —
-          coffee, conversation, and whatever the community is building. Bring
-          your questions and works-in-progress.
+          latest in AI. This week: <strong>ERP, no code</strong> — Juli Tian on
+          how she built clausr.ai on Coze as a non-technical founder. Brief
+          demo, then community discussion.
         </p>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -36,7 +36,7 @@ export default function Home() {
 
           <aside className="rounded-lg border border-border p-4 bg-card space-y-3">
             <div className="text-sm text-muted-foreground">Next meetup</div>
-            <div className="text-lg font-semibold">Thu Jun 4 | 8–10am</div>
+            <div className="text-lg font-semibold">Thu Jun 11 | 8–10am</div>
             <div className="space-y-1 text-foreground">
               <div className="font-medium">BAKER&SPICE</div>
               <div>1717 West Nanjing Road, Wheelock Square</div>
