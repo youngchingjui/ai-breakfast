@@ -50,6 +50,7 @@ export default function RootLayout({
             <Link href="/" className="text-lg font-semibold tracking-tight" style={{ fontFamily: 'var(--font-display), Georgia, serif' }}>AI Breakfast Shanghai</Link>
             <nav className="flex items-center gap-4 text-sm text-muted-foreground">
               <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+              <Link href="/briefs" className="hover:text-foreground transition-colors">AI Briefs</Link>
               <Link href="/notes" className="hover:text-foreground transition-colors">Notes</Link>
             </nav>
           </div>

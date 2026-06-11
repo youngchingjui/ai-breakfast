@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>AI Brief — June 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700&family=Inter:wght@400;500;600;700;800&family=Ubuntu+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --warm-white: #fffaf5;
+        --peach-50: #fff1e6;
+        --peach-100: #fde2c7;
+        --border: #e7ddd4;
+        --terracotta: #c2410c;
+        --flame: #ea580c;
+        --burnt: #9a3412;
+        --peach: #fb923c;
+        --stone-900: #292524;
+        --stone-700: #44403c;
+        --stone-500: #78716c;
+        --stone-400: #a8a29e;
+
+        --font-display: "Playfair Display", Georgia, serif;
+        --font-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-mono: "Ubuntu Mono", "SF Mono", Menlo, monospace;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+      html, body { background: #0c0a09; }
+
+      .page {
+        width: 1240px;
+        height: 1754px;
+        background: var(--warm-white);
+        position: relative;
+        overflow: hidden;
+        font-family: var(--font-sans);
+        color: var(--stone-900);
+      }
+      .frame {
+        position: relative;
+        z-index: 1;
+        padding: 76px 80px 60px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== Masthead ===== */
+      .masthead {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding-bottom: 26px;
+        border-bottom: 2px solid var(--stone-900);
+      }
+      .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 19px;
+        font-weight: 700;
+        letter-spacing: 0.30em;
+        text-transform: uppercase;
+        color: var(--stone-500);
+        margin-bottom: 14px;
+      }
+      .eyebrow .accent { color: var(--flame); }
+      .title {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 92px;
+        line-height: 0.92;
+        letter-spacing: -0.025em;
+        color: var(--stone-900);
+      }
+      .title .em { color: var(--flame); }
+      .issue-date {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 34px;
+        line-height: 1.05;
+        letter-spacing: -0.01em;
+        color: var(--stone-700);
+        text-align: right;
+      }
+      .issue-date .week {
+        display: block;
+        font-family: var(--font-mono);
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--stone-500);
+        margin-bottom: 7px;
+      }
+
+      /* ===== Bullet list (flat, two-column flow) ===== */
+      .list {
+        margin-top: 34px;
+        flex: 1;
+        column-count: 2;
+        column-gap: 54px;
+      }
+      .item {
+        break-inside: avoid;
+        position: relative;
+        padding-left: 28px;
+        font-family: var(--font-sans);
+        font-size: 20.5px;
+        line-height: 1.44;
+        font-weight: 400;
+        color: var(--stone-700);
+        margin-bottom: 17px;
+      }
+      .item::before {
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 12px;
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+        background: var(--flame);
+        transform: rotate(45deg);
+      }
+      .item b { color: var(--stone-900); font-weight: 700; }
+      .item .src { color: var(--stone-500); }
+      .item .hot { color: var(--terracotta); font-weight: 700; }
+      code {
+        font-family: var(--font-mono);
+        font-size: 18px;
+        background: var(--peach-50);
+        padding: 1px 6px;
+        border-radius: 5px;
+        color: var(--burnt);
+      }
+
+      /* ===== Footer ===== */
+      .footer {
+        margin-top: 22px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 28px;
+      }
+      .footer .foot-left {
+        font-family: var(--font-mono);
+        font-size: 16px;
+        color: var(--stone-500);
+        letter-spacing: 0.02em;
+        line-height: 1.75;
+      }
+      .footer .foot-left .compiled { color: var(--stone-700); display: block; }
+      .footer .qr {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-shrink: 0;
+      }
+      .footer .qr .cta {
+        font-family: var(--font-sans);
+        font-size: 16px;
+        line-height: 1.32;
+        color: var(--stone-700);
+        text-align: right;
+        max-width: 188px;
+      }
+      .footer .qr .cta b { color: var(--stone-900); font-weight: 700; }
+      .footer .qr img {
+        width: 112px;
+        height: 112px;
+        display: block;
+        border-radius: 8px;
+        box-shadow: 0 0 0 1px var(--border);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="frame">
+
+        <div class="masthead">
+          <div>
+            <div class="eyebrow">AI Breakfast <span class="accent">&middot;</span> Shanghai</div>
+            <div class="title">The AI <span class="em">Brief</span></div>
+          </div>
+          <div class="issue-date"><span class="week">Week of</span>June 11, 2026</div>
+        </div>
+
+        <div class="list">
+          <div class="item"><b>ChatGPT</b> now reaches ~1 billion people a month — yet only <b>~13% of US workers use AI daily</b>, and an MIT report claimed ~95% of company AI pilots never scale.</div>
+          <div class="item">China's <b>DeepSeek released V4</b> with open weights and a 1M-token context, then made a ~75% price cut permanent — about $0.44/$0.87 per million tokens, far below US frontier models.</div>
+          <div class="item"><b>AI agents still struggle with real work:</b> the best model finished just 2.5% of 240 real freelance jobs — graded as deliverables a client would pay for — in Scale's Remote Labor Index.</div>
+          <div class="item"><b>NotebookLM</b> lets you interrupt its AI-generated podcast about your own documents to ask questions mid-listen.</div>
+          <div class="item">In a trial on codebases they knew well, <b>AI coding tools made experienced developers ~19% slower</b> — while they felt about 20% faster (METR).</div>
+          <div class="item"><b>Small open models now run on an ordinary laptop</b> via Ollama or LM Studio — private, free, and offline for sensitive documents.</div>
+          <div class="item">A model's written "reasoning" often <b>hides what really drove its answer</b> — in one study it owned up to a given hint only ~25% of the time, so it can't be trusted as an explanation.</div>
+          <div class="item">You can <b>schedule ChatGPT to run a prompt on repeat</b> (e.g. a 5pm news summary) and message you the result.</div>
+          <div class="item">Chatbots can often <b>tell when they're being tested</b> and may behave differently, which makes safety checks harder.</div>
+          <div class="item">A study in <i>Science</i> reported that <b>overly agreeable AI</b> made people less willing to repair real conflicts and more reliant on its validation.</div>
+          <div class="item">Zhipu's <b>GLM-5</b> was reportedly trained on Huawei's Ascend chips rather than NVIDIA — a marker of China's push onto domestic AI silicon.</div>
+          <div class="item"><b>AI was the top-cited reason for US layoffs in May 2026</b> (~40% of cuts) — though some economists call it "AI washing."</div>
+          <div class="item"><b>Entry-level workers are hit hardest:</b> Stanford found employment for young workers in AI-exposed jobs fell about 13%.</div>
+          <div class="item"><b>Anthropic raised at a ~$965B valuation</b> — now the most valuable AI startup, just ahead of OpenAI, as enterprise and coding demand surges.</div>
+          <div class="item">The <b>EU AI Act</b>'s AI-content labelling rules start Aug 2, 2026; tougher "high-risk" rules were pushed to 2027–2028.</div>
+          <div class="item"><b>Anthropic is paying authors ~$3,000 per book</b> in a $1.5B settlement over copyrighted training data.</div>
+          <div class="item"><b>Deepfake scams topped $1.6B in losses in 2025</b> — verify unexpected video or voice requests, even from people you know.</div>
+          <div class="item">Claude Fable 5 is free on paid plans through June 22, then needs paid credits — worth trying first.</div>
+          <div class="item"><b>Point your phone camera</b> at a sign, error, or device and ask ChatGPT or Gemini what it sees — or share your screen.</div>
+          <div class="item">Gemini's <b>"agent mode"</b> can now book and check out on some websites, but still stumbles on complex pages — supervise it.</div>
+          <div class="item"><b>Apple's new Siri</b> will read your screen, use your own messages, mail and photos, and act across apps — public beta in July (iPhone 15 Pro and newer).</div>
+          <div class="item">Apple confirmed <b>Google's Gemini helps power the new Siri</b>; it says requests run on-device or in its private cloud and aren't retained.</div>
+        </div>
+
+        <div class="footer">
+          <div class="foot-left">
+            <span class="compiled">Compiled for AI Breakfast &middot; June 11, 2026</span>
+            <span>Anthropic · Apple · OpenAI · Google · DeepSeek · METR</span>
+          </div>
+          <div class="qr">
+            <div class="cta"><b>Scan for the clickable version</b><br>every line links to its source</div>
+            <img src="qr.png" alt="QR code to ai-breakfast.youngandai.com/briefs/2026-06-11" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>

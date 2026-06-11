@@ -58,6 +58,19 @@ export default function Home() {
 
       <section className="border-t border-border pt-6">
         <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold">AI Briefs</h2>
+          <Link href="/briefs" className="button">
+            Read the latest brief →
+          </Link>
+        </div>
+        <p className="text-muted-foreground max-w-prose mt-2">
+          Short, sourced roundups of recent AI developments worth knowing — for
+          people who use AI.
+        </p>
+      </section>
+
+      <section className="border-t border-border pt-6">
+        <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold">Previous notes</h2>
           <Link href="/notes" className="button">
             Browse all notes →

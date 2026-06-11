@@ -31,3 +31,6 @@ events/**/.DS_Store
 # events/**/*.avi
 
 
+
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo
