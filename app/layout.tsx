@@ -23,7 +23,7 @@ const ubuntuMono = Ubuntu_Mono({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ai-breakfast.vercel.app'),
+  metadataBase: new URL('https://ai-breakfast.youngandai.com'),
   title: {
     default: 'AI Breakfast | Shanghai',
     template: '%s | AI Breakfast',
