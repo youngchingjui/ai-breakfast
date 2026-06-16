@@ -9,9 +9,12 @@ export default function Home() {
         <h1 className="text-3xl font-bold">AI Breakfast — Shanghai</h1>
         <p className="text-muted-foreground max-w-prose">
           Join us for a casual roundtable meetup over breakfast to discuss the
-          latest in AI. This week: <strong>ERP, no code</strong> — Juli Tian on
-          how she built clausr.ai on Coze as a non-technical founder. Brief
-          demo, then community discussion.
+          latest in AI. This week:{" "}
+          <strong>Automating browser work with agents</strong> — Ching Jui Young
+          on how he configured agents to handle browser-only workflows, how he
+          built them, the failure modes to watch for, and how to set up
+          automatic improvements every time you use them. Brief demo, then
+          community discussion.
         </p>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -19,10 +22,14 @@ export default function Home() {
             <h2 className="text-xl font-semibold">What to expect</h2>
             <ul className="list-disc pl-5 text-foreground space-y-2">
               <li>
-                <strong>8:00–8:30</strong> — Introductions & lightning updates
+                <strong>8:00</strong> — Intros & lightning updates
               </li>
               <li>
-                <strong>8:30+</strong> — Open discussion & show-and-tell
+                <strong>8:30</strong> — Demo: automating browser work with
+                agents
+              </li>
+              <li>
+                <strong>9:00</strong> — Open chat & show-and-tell
               </li>
               <li>Show off something you&apos;ve built (with or without AI)</li>
               <li>Peer feedback, troubleshooting & collaboration</li>
@@ -36,7 +43,7 @@ export default function Home() {
 
           <aside className="rounded-lg border border-border p-4 bg-card space-y-3">
             <div className="text-sm text-muted-foreground">Next meetup</div>
-            <div className="text-lg font-semibold">Thu Jun 11 | 8–10am</div>
+            <div className="text-lg font-semibold">Thu Jun 18 | 8–10am</div>
             <div className="space-y-1 text-foreground">
               <div className="font-medium">BAKER&SPICE</div>
               <div>1717 West Nanjing Road, Wheelock Square</div>
