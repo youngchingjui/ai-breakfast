@@ -4,7 +4,7 @@
 - **Time:** 8:00 – 10:00 AM
 - **Venue:** Baker & Spice, Wheelock Square
 - **Address:** 1717 West Nanjing Road, Wheelock Square, Jing'an
-  - 南京西路1717号 会德丰国际广场南院首层101号商铺
+  - 南京西路 1717 号 会德丰国际广场南院首层 101 号商铺
 - **City:** Shanghai
 - **Venue hint:** Look for the long table in the back, past the grilling station.
 
@@ -13,13 +13,13 @@
 **Title:** Automating browser work with agents
 **Speaker:** Ching Jui Young — host of AI Breakfast, Young & AI
 
-Ching walks through automating browser work with AI agents — why it's worth doing, how he builds them, the failure modes to watch for, and the feedback loops that make the agent sharper every week. The receipts are in your hand: this listing, this poster, and the QR all came from the same agent.
+Ching will share how he configured agents to manage some workflows that can only be done in the browser, and why you should look for similar opportunities. He'll alos share how he built them, failure modes to look out for, and how to setup automatic improvements every time you use them.
 
 ## Agenda
 
-- **8:00** — Intros: share what you're building with AI
-- **8:30** — Demo by Ching
-- **9:00** — Open discussion
+- **8:00** — Intros
+- **8:30** — Demo on agentic browser work
+- **9:00** — Open chat
 
 ## Huodongxing
 
