@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Letting agents do browser work</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --fg: #f5f6f8;
+    --muted: #9aa3b0;
+    --accent: #ff8a3d;
+    --accent-2: #4da3ff;
+    --card: #1a1d24;
+    --border: #2a2f3a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  .deck { height: 100vh; width: 100vw; }
+
+  .slide {
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    padding: 6vh 7vw;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .slide.active { display: flex; }
+
+  /* Typography — large for big-room presenting */
+  h1 { font-size: 6.5vw; line-height: 1.05; font-weight: 800; letter-spacing: -0.02em; }
+  h2 { font-size: 4.2vw; line-height: 1.1; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 4vh; }
+  .lead { font-size: 2.6vw; line-height: 1.4; color: var(--fg); max-width: 60ch; }
+  .muted { color: var(--muted); }
+  .accent { color: var(--accent); }
+  .accent-2 { color: var(--accent-2); }
+
+  ul { list-style: none; }
+  li {
+    font-size: 2.6vw;
+    line-height: 1.5;
+    margin-bottom: 2.2vh;
+    padding-left: 1.6em;
+    position: relative;
+  }
+  li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 0.55em;
+    height: 0.55em;
+    border-radius: 2px;
+    background: var(--accent);
+  }
+  li.sub {
+    font-size: 2.0vw;
+    color: var(--muted);
+    margin-left: 1.8em;
+    margin-bottom: 1.2vh;
+  }
+  li.sub::before { background: var(--border); top: 0.7em; }
+
+  .kicker {
+    font-size: 1.6vw;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 3vh;
+  }
+
+  code {
+    font-family: "SF Mono", ui-monospace, Menlo, Monaco, monospace;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.08em 0.35em;
+    color: var(--accent-2);
+    font-size: 0.92em;
+  }
+
+  /* 2-pane layout for screenshots */
+  .two-pane {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5vw;
+    align-items: center;
+    height: 100%;
+  }
+  .pane-text { display: flex; flex-direction: column; justify-content: center; }
+  .pane-text h2 { margin-bottom: 3vh; }
+  .placeholder {
+    border: 3px dashed var(--border);
+    border-radius: 16px;
+    background: var(--card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--muted);
+    font-size: 1.8vw;
+    height: 78vh;
+    padding: 2vw;
+  }
+  .placeholder span { opacity: 0.7; }
+
+  .shot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 82vh;
+  }
+  .shot img {
+    max-width: 100%;
+    max-height: 82vh;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+  }
+
+  /* Skills flow */
+  .flow { display: flex; flex-direction: column; gap: 2.4vh; margin-top: 2vh; }
+  .orch {
+    border: 2px solid var(--accent);
+    border-radius: 14px;
+    padding: 2.4vh 2.4vw;
+    font-size: 2.4vw;
+    background: rgba(255,138,61,0.08);
+  }
+  .orch .label { font-size: 1.4vw; color: var(--accent); text-transform: uppercase; letter-spacing: 0.18em; font-weight: 700; display: block; margin-bottom: 0.6vh; }
+  .children { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw; }
+  .child {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.4vh 1.6vw;
+    background: var(--card);
+  }
+  .child code { font-size: 1.7vw; display: inline-block; margin-bottom: 1vh; }
+  .child p { font-size: 1.4vw; color: var(--muted); line-height: 1.35; }
+
+  /* footer / progress */
+  .footer {
+    position: fixed;
+    bottom: 2.5vh;
+    left: 7vw;
+    right: 7vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.3vw;
+    color: var(--muted);
+  }
+  .dots { display: flex; gap: 0.8vw; }
+  .dot { width: 0.9vw; height: 0.9vw; border-radius: 50%; background: var(--border); }
+  .dot.on { background: var(--accent); }
+
+  .title-slide { align-items: flex-start; }
+  .title-slide h1 { margin-bottom: 3vh; }
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <!-- 1. Title -->
+  <section class="slide active title-slide">
+    <div class="kicker">AI Breakfast</div>
+    <h1>Letting agents<br />do browser work</h1>
+    <p class="lead muted">Automating the weekly event-creation grind with browser-driving skills.</p>
+  </section>
+
+  <!-- 2. Context -->
+  <section class="slide">
+    <h2>Context</h2>
+    <ul>
+      <li>Every week, I create an event poster for the upcoming <span class="accent">AI Breakfast</span> — great for inviting newcomers.</li>
+      <li>The poster includes a <span class="accent-2">QR code</span> so people can sign up on Huodongxing, a Chinese event-hosting platform.</li>
+      <li>Creating events every week on Huodongxing is <span class="accent">painful</span>.</li>
+    </ul>
+  </section>
+
+  <!-- 3. Huodongxing pain (2-pane) -->
+  <section class="slide">
+    <div class="two-pane">
+      <div class="pane-text">
+        <h2>Huodongxing pain</h2>
+        <ul>
+          <li>Generate and import custom image assets</li>
+          <li>Simple details are hard to input
+            <ul>
+              <li class="sub">Copy &amp; paste Chinese address</li>
+              <li class="sub">Select location and date</li>
+              <li class="sub">Create ticket type</li>
+              <li class="sub">…and more</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="shot"><img src="hdx-create.png" alt="Huodongxing event creation page" /></div>
+    </div>
+  </section>
+
+  <!-- 4. Prerequisites (2-pane) -->
+  <section class="slide">
+    <div class="two-pane">
+      <div class="pane-text">
+        <h2>Prerequisites</h2>
+        <ul>
+          <li><code>agent-browser</code></li>
+          <li class="sub">Installs Chrome for Testing (Playwright) so agents can drive a real browser</li>
+        </ul>
+      </div>
+      <div class="shot"><img src="agent-browser.png" alt="agent-browser SKILL documentation" /></div>
+    </div>
+  </section>
+
+  <!-- 5. Skills -->
+  <section class="slide">
+    <h2>Individual skills for discrete tasks</h2>
+    <div class="flow">
+      <div class="orch">
+        <span class="label">Orchestrates the whole flow</span>
+        <code>create-weekly-event</code>
+      </div>
+      <div class="children">
+        <div class="child">
+          <code>huodongxing-create-event</code>
+          <p>Creates the event on HDX</p>
+        </div>
+        <div class="child">
+          <code>generate-posters</code>
+          <p>Generates all poster assets in various formats</p>
+        </div>
+        <div class="child">
+          <code>huodongxing-qr</code>
+          <p>Downloads the event QR code</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="footer">
+  <div>Letting agents do browser work</div>
+  <div class="dots" id="dots"></div>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const dotsWrap = document.getElementById('dots');
+  let i = 0;
+
+  slides.forEach((_, idx) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (idx === 0 ? ' on' : '');
+    dotsWrap.appendChild(d);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    dots.forEach((d, idx) => d.classList.toggle('on', idx === i));
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key)) { show(i + 1); e.preventDefault(); }
+    if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { show(i - 1); e.preventDefault(); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(slides.length - 1);
+  });
+  document.addEventListener('click', (e) => {
+    if (e.clientX < window.innerWidth * 0.25) show(i - 1);
+    else show(i + 1);
+  });
+</script>
+</body>
+</html>
