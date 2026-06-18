@@ -42,7 +42,7 @@ The same trick scales beyond chore-killing. The visiting British journalist's re
 
 He's also probing the limits — automating mispriced-odds arbitrage between traditional sportsbooks, [Polymarket](https://polymarket.com/), and [Kalshi](https://kalshi.com/). The edge is real but visibly shrinking as other bots find it. The cat-and-mouse twist: newer headless-browser libraries are evolving specifically to defeat the bot detection that betting and dating sites deploy.
 
-A travel-agency founder wants to pull an influencer's full Instagram feed into her knowledge base. Instagram has no useful API; Reddit and X have priced theirs out; only [Grok](https://grok.com/) can search Reddit and X natively. Agent-browser is the escape hatch.
+A travel-agency founder wants to pull an influencer's full Instagram feed into her knowledge base. Instagram has no useful API; Reddit and X have priced theirs out; only [Grok](https://grok.com/) can search X natively (ChatGPT now reaches Reddit through an [OpenAI–Reddit data deal](https://openai.com/index/openai-and-reddit-partnership/), so the table's "only Grok" line overstated it). Agent-browser is the escape hatch.
 
 ## Why Nobody at the Table Uses GitHub Copilot
 
@@ -52,15 +52,15 @@ The same underlying model — Claude, accessed through [Cursor](https://cursor.c
 
 ## Quick Hits
 
-**A Morse-coded jailbreak, as told at the table.** Two months back, someone reportedly tricked Grok into authorizing a $200K transfer by encoding the malicious prompt in Morse code and wrapping it in an innocent "please decode this" request. Same family as the old "my dead grandma used to give me Windows activation keys" jailbreak. The story passed around the table without a source — believe it loosely, but the point stood for the demo above: never auto-approve agent actions on anything that can move money.
+**A Morse-coded jailbreak.** Two months back, someone tricked Grok into authorizing a $200K transfer by encoding the malicious prompt in Morse code and wrapping it in an innocent "please decode this" request. Same family as the old "my dead grandma used to give me Windows activation keys" jailbreak. (Grok was tagged in a thread and [decoded the Morse code](https://repello.ai/blog/grok-bankrbot-morse-code-coding-agent-pattern) on its own.)
 
 **A 120-episode AI satire series, posted daily.** One attendee has gotten hooked on a Chinese TikTok cartoon series where Iran is a Persian cat, Trump is an eagle (everyone keeps misreading it as an owl), and China is the panda referee. Generated daily through the Iran war, the run is ~120 episodes — AI-generated narrative content reliable enough to sustain a daily audience.
 
 **Teaching a four-year-old Chinese with an AI dog.** The same attendee is producing short videos starring an AI version of his dog, voiced down to a four-year-old's vocabulary, to teach his niece Chinese and his nephew English. A bit embarrassing, he admits. But the kids watch.
 
-**Fable went missing.** Anthropic's newer Fable model was intermittently unavailable in the last two weeks. Some users could still reach it inside Cursor while it was gone from the Claude app — you're not getting "the model," you're getting whatever harness is in front of it.
+**Fable went missing.** Anthropic's newer Fable model was intermittently unavailable in the last two weeks. Some users could still reach it inside Cursor while it was gone from the Claude app — you're not getting "the model," you're getting whatever harness is in front of it. (Anthropic [turned off Fable for all users](https://www.anthropic.com/news/fable-mythos-access), including through Cursor, under a US export-control directive.)
 
-**Token economics on the Max plan.** A passing note worth flagging: the $100/month Claude Max plan operates on five-hour rolling session limits, with a 1M-token context window per thread. The 30-minute browser-automation run shown in the demo burned about 200K of that thread's context — a quarter of the budget for one fully automated chore.
+**Token economics on the Max plan.** A passing note worth flagging: the $100/month Claude Max plan operates on five-hour rolling session limits, with a 1M-token context window per thread (1M is the Claude Code / API ceiling — the Claude web app is still 200K per [Anthropic's plan docs](https://support.claude.com/en/articles/8606394-how-large-is-the-context-window-on-paid-claude-plans); the demo ran through Claude Code, so the budget applies). The 30-minute browser-automation run shown in the demo burned about 200K of that thread's context — a quarter of the budget for one fully automated chore.
 
 ## Other Resources
 
@@ -75,4 +75,4 @@ The same underlying model — Claude, accessed through [Cursor](https://cursor.c
 - [Polymarket](https://polymarket.com/) and [Kalshi](https://kalshi.com/): Prediction markets. The arbitrage targets in the journalist's headless-browser betting experiments.
 - [Cursor](https://cursor.com/): AI-first code editor. Cited as evidence that the harness matters more than the model.
 - [GitHub Copilot](https://github.com/features/copilot): Microsoft's pioneer coding assistant. Now unused by anyone at the table.
-- [Grok](https://grok.com/): xAI's chatbot. The only major model that can natively search Reddit and X.
+- [Grok](https://grok.com/): xAI's chatbot. The only major model that can natively search X (ChatGPT also pulls Reddit content via its [OpenAI–Reddit partnership](https://openai.com/index/openai-and-reddit-partnership/)).
