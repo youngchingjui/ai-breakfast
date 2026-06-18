@@ -52,13 +52,13 @@ The same underlying model — Claude, accessed through [Cursor](https://cursor.c
 
 ## Quick Hits
 
-**A Morse-coded jailbreak, as told at the table.** Two months back, someone tricked Grok into authorizing a $200K transfer by encoding the malicious prompt in Morse code and wrapping it in an innocent "please decode this" request. Same family as the old "my dead grandma used to give me Windows activation keys" jailbreak. (Grok was tagged in a thread and **[decoded the Morse code](https://repello.ai/blog/grok-bankrbot-morse-code-coding-agent-pattern)** on its own.)
+**A Morse-coded jailbreak.** Two months back, someone tricked Grok into authorizing a $200K transfer by encoding the malicious prompt in Morse code and wrapping it in an innocent "please decode this" request. Same family as the old "my dead grandma used to give me Windows activation keys" jailbreak. (Grok was tagged in a thread and [decoded the Morse code](https://repello.ai/blog/grok-bankrbot-morse-code-coding-agent-pattern) on its own.)
 
 **A 120-episode AI satire series, posted daily.** One attendee has gotten hooked on a Chinese TikTok cartoon series where Iran is a Persian cat, Trump is an eagle (everyone keeps misreading it as an owl), and China is the panda referee. Generated daily through the Iran war, the run is ~120 episodes — AI-generated narrative content reliable enough to sustain a daily audience.
 
 **Teaching a four-year-old Chinese with an AI dog.** The same attendee is producing short videos starring an AI version of his dog, voiced down to a four-year-old's vocabulary, to teach his niece Chinese and his nephew English. A bit embarrassing, he admits. But the kids watch.
 
-**Fable went missing.** Anthropic's newer Fable model was intermittently unavailable in the last two weeks. Some users could still reach it inside Cursor while it was gone from the Claude app — you're not getting "the model," you're getting whatever harness is in front of it. (Anthropic **[turned off Fable for all users](https://www.anthropic.com/news/fable-mythos-access)**, including through Cursor, under a US export-control directive.)
+**Fable went missing.** Anthropic's newer Fable model was intermittently unavailable in the last two weeks. Some users could still reach it inside Cursor while it was gone from the Claude app — you're not getting "the model," you're getting whatever harness is in front of it. (Anthropic [turned off Fable for all users](https://www.anthropic.com/news/fable-mythos-access), including through Cursor, under a US export-control directive.)
 
 **Token economics on the Max plan.** A passing note worth flagging: the $100/month Claude Max plan operates on five-hour rolling session limits, with a 1M-token context window per thread (1M is the Claude Code / API ceiling — the Claude web app is still 200K per [Anthropic's plan docs](https://support.claude.com/en/articles/8606394-how-large-is-the-context-window-on-paid-claude-plans); the demo ran through Claude Code, so the budget applies). The 30-minute browser-automation run shown in the demo burned about 200K of that thread's context — a quarter of the budget for one fully automated chore.
 
