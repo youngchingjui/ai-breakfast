@@ -9,11 +9,9 @@ export default function Home() {
         <h1 className="text-3xl font-bold">AI Breakfast — Shanghai</h1>
         <p className="text-muted-foreground max-w-prose">
           Join us for a casual roundtable meetup over breakfast to discuss the
-          latest in AI. This week: <strong>Automating browser work with
-          agents</strong> — Ching Jui Young on how he configured agents to
-          handle browser-only workflows, how he built them, the failure modes to
-          watch for, and how to make them improve every time you use them. Brief
-          demo, then community discussion.
+          latest in AI. This week: <strong>Process stacking and workflow
+          chaining</strong> — Alex Gill, Lead Software Architect at
+          Helio-Additive.
         </p>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -38,7 +36,7 @@ export default function Home() {
 
           <aside className="rounded-lg border border-border p-4 bg-card space-y-3">
             <div className="text-sm text-muted-foreground">Next meetup</div>
-            <div className="text-lg font-semibold">Thu Jun 18 | 8–10am</div>
+            <div className="text-lg font-semibold">Thu Jun 25 | 8–10am</div>
             <div className="space-y-1 text-foreground">
               <div className="font-medium">BAKER&SPICE</div>
               <div>1717 West Nanjing Road, Wheelock Square</div>
