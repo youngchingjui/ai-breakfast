@@ -10,10 +10,8 @@
 
 ## This Week's Demo
 
-**Title:** Topic TBD
+**Title:** Process stacking and workflow chaining
 **Speaker:** Alex Gill — Lead Software Architect, Helio-Additive
-
-Alex is back. Topic still in the oven — he'll share what he's been working on with AI. Final theme to follow.
 
 ## Agenda
 
