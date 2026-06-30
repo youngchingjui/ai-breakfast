@@ -30,10 +30,11 @@ Each event ships three assets:
 ## Authoring approach
 
 ```bash
+ROOT="${AI_BREAKFAST_ROOT:-$PWD}"
 EVENT_NUM=42  # the new event
 PREV_NUM=41   # the most recent one
-SRC=~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-${PREV_NUM}
-DST=~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-${EVENT_NUM}
+SRC="$ROOT/events/2026/ai-breakfast-${PREV_NUM}"
+DST="$ROOT/events/2026/ai-breakfast-${EVENT_NUM}"
 mkdir -p "$DST"/images/{graphics,qr-codes,speakers}
 cp "$SRC"/poster.html "$SRC"/poster-qr.html "$SRC"/banner.html "$DST/"
 ```
@@ -45,7 +46,7 @@ Then edit the three HTML files for the new event's content.
 Use `agent-browser` to screenshot each HTML at the right viewport size.
 
 ```bash
-cd ~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-${EVENT_NUM}
+cd "$DST"
 
 # Poster (1080x1920)
 agent-browser set viewport 1080 1920
@@ -72,14 +73,6 @@ file images/graphics/*.png
 # banner-1080x640.png: PNG image data, 1080 x 640
 # poster.png:          PNG image data, 1080 x 1920
 # poster-with-qr.png:  PNG image data, 1080 x 1920
-```
-
-## Import poster-with-qr into Apple Photos
-
-So it's one tap away when sharing on WeChat:
-
-```bash
-osascript -e "tell application \"Photos\" to import POSIX file \"$(pwd)/images/graphics/poster-with-qr.png\""
 ```
 
 ## File organization

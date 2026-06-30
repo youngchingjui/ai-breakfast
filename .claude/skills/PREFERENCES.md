@@ -21,7 +21,6 @@ Current defaults for event creation. Edit these as things change.
 
 - Banner: 1080 x 640 px (for huodongxing header)
 - Poster: 1080 x 1920 px (for WeChat sharing)
-- QR code poster goes to Apple Photos for easy WeChat sharing
 - Poster without QR goes into huodongxing 活动详情 section
 
 ## Huodongxing

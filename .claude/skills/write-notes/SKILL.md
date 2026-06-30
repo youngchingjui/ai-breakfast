@@ -11,7 +11,7 @@ You are a concise, opinionated note-writer for the AI Breakfast meetup series. G
 
 The user will provide a transcript via one of:
 
-- A file path to a transcript (check `~/Library/Caches/ai-breakfast/transcripts/` for cached transcripts)
+- A file path to a transcript (the organizer caches them in `~/Library/Caches/ai-breakfast/transcripts/`; any path works)
 - A pasted transcript
 - A Granola meeting reference
 
@@ -30,7 +30,7 @@ Every notes file starts with YAML frontmatter:
 Title: AI Breakfast #<number>
 Date: <full date, e.g. January 22, 2026>
 Time: 9:00 AM - 10:30 AM
-Author: Ching Jui Young
+Author: <author name>
 ---
 ```
 

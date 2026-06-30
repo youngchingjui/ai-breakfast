@@ -44,7 +44,7 @@ Huodongxing's server needs time to generate the WeChat mini-program QR code afte
 
 ## Inputs Needed
 
-Before starting, confirm with Ching:
+Before starting, confirm with the organizer:
 
 - **Event number** — check the most recent event folder in `events/` to determine the next number
 - **Date** — AI Breakfast is typically on Thursdays
@@ -63,7 +63,7 @@ For defaults (time, venue, location, capacity), check `.claude/skills/PREFERENCE
 ```bash
 # Open browser in headed mode for login
 agent-browser --headed open https://www.huodongxing.com/login
-# Wait for Ching to log in (WeChat QR or SMS)
+# Wait for the organizer to log in (WeChat QR or SMS)
 
 # Navigate to create page
 agent-browser open https://www.huodongxing.com/createv3#/
@@ -92,10 +92,11 @@ While waiting for the QR code to become available, use the time productively:
 ### 2a. Create the event folder and copy templates
 
 ```bash
+ROOT="${AI_BREAKFAST_ROOT:-$PWD}"
 EVENT_NUM=XX
 PREV_NUM=$((EVENT_NUM - 1))
-SRC=~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-${PREV_NUM}
-DST=~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-${EVENT_NUM}
+SRC="$ROOT/events/2026/ai-breakfast-${PREV_NUM}"
+DST="$ROOT/events/2026/ai-breakfast-${EVENT_NUM}"
 mkdir -p "$DST"/images/{graphics,qr-codes,speakers}
 cp "$SRC"/poster.html "$SRC"/poster-qr.html "$SRC"/banner.html "$DST/"
 # Also create event.md (see _templates) — date, time, venue, speaker, demo title/blurb
@@ -144,11 +145,11 @@ Then download:
 
 ```bash
 curl -sf -H "Referer: https://www.huodongxing.com/" \
-  -o ~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-${EVENT_NUM}/images/qr-codes/wechat-mini-program.png \
+  -o "$DST/images/qr-codes/wechat-mini-program.png" \
   "https://cdn.huodongxing.com/logo/YYYYMM/EVENT_ID/promoteMini.png"
 
 # VERIFY before proceeding — this is critical
-file ~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-${EVENT_NUM}/images/qr-codes/wechat-mini-program.png
+file "$DST/images/qr-codes/wechat-mini-program.png"
 # MUST show: PNG image data, 400 x 400, 8-bit/color RGBA
 # If it shows 1KB or HTML, the QR isn't ready yet — wait longer and retry
 ```
@@ -215,12 +216,12 @@ If the front page ever gets refactored to read from `event.md` directly, this ph
 - [ ] Poster (no QR): `events/2026/ai-breakfast-NUM/images/graphics/poster.png`
 - [ ] Poster (with QR): `events/2026/ai-breakfast-NUM/images/graphics/poster-with-qr.png`
 - [ ] Speaker photo dropped into `images/speakers/` and posters re-rendered
-- [ ] Share poster-with-qr.png with Ching for WeChat/social distribution
+- [ ] Share poster-with-qr.png with the organizer for WeChat/social distribution
 - [ ] Front page (`app/page.tsx`) updated with new date, topic blurb, and agenda times (Phase 6)
 
 ## Notes
 
-- The poster-with-qr is the primary asset Ching shares on WeChat Moments and group chats.
+- The poster-with-qr is the primary asset the organizer shares on WeChat Moments and group chats.
 - The poster (no QR) goes into huodongxing's 活动详情 section (huodongxing adds its own QR).
 - The banner goes into huodongxing's banner/header slot (1080x640).
 - If events were pre-created via the WeChat miniprogram, skip Phase 1 but still respect the QR timing — check when the event was created before downloading.
