@@ -75,14 +75,6 @@ file images/graphics/*.png
 # poster-with-qr.png:  PNG image data, 1080 x 1920
 ```
 
-## Import poster-with-qr into Apple Photos (macOS only)
-
-So it's one tap away when sharing on WeChat:
-
-```bash
-osascript -e "tell application \"Photos\" to import POSIX file \"$(pwd)/images/graphics/poster-with-qr.png\""
-```
-
 ## File organization
 
 ```
