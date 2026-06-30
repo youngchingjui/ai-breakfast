@@ -1,6 +1,6 @@
 ---
 name: huodongxing-create-event
-description: Create and manage events on huodongxing.com via browser automation. Use when Ching needs to create a new AI Breakfast event or update an existing one.
+description: Create and manage events on huodongxing.com via browser automation. Use when the organizer needs to create a new AI Breakfast event or update an existing one.
 argument-hint: "[event number and details, e.g. '#39 theme: LLM tools']"
 user-invocable: true
 allowed-tools:
@@ -18,7 +18,7 @@ Create and manage AI Breakfast events on huodongxing.com using `agent-browser` (
 
 - `agent-browser` must be installed
 - User must log in manually (WeChat QR or SMS verification) — use `--headed` mode
-- Banner and posters generated via `generate-posters` skill — stored in `~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-{NUM}/images/graphics/`
+- Banner and posters generated via `generate-posters` skill — stored in `events/2026/ai-breakfast-{NUM}/images/graphics/` (relative to the repo root)
 - Banner slot accepts **1080×640** jpg/png, max 4MB
 - Defaults (venue, time, capacity, highlights format) live in `.claude/skills/PREFERENCES.md` — check before filling per-event fields
 - Always use `--session hdx` so state persists across commands
@@ -26,7 +26,7 @@ Create and manage AI Breakfast events on huodongxing.com using `agent-browser` (
 
 ## ⚠️ Meta: Keep this skill alive
 
-Huodongxing's UI changes silently. **Every time you run this skill, watch for behavior that doesn't match these instructions** — new validation rules, refs that shift, toasts that flash and disappear, fields that don't carry over between pages. When you finish the workflow, **report any new quirks you encountered to Ching at the end** so this SKILL.md can be updated. The skill is only as good as the last person who maintained it.
+Huodongxing's UI changes silently. **Every time you run this skill, watch for behavior that doesn't match these instructions** — new validation rules, refs that shift, toasts that flash and disappear, fields that don't carry over between pages. When you finish the workflow, **report any new quirks you encountered to the user at the end** so this SKILL.md can be updated. The skill is only as good as the last person who maintained it.
 
 In particular, set up the toast watcher (next section) at the start of every session — it's the single highest-value debugging tool for this site.
 
@@ -342,7 +342,7 @@ If the file is ~1KB or HTML, the QR isn't ready — wait longer, do NOT retry ra
 ## File Organization
 
 ```
-~/Projects/youngchingjui/ai-breakfast/events/2026/ai-breakfast-{NUM}/images/
+events/2026/ai-breakfast-{NUM}/images/
 ├── graphics/
 │   ├── banner-1080x640.png      # Huodongxing banner slot
 │   ├── poster-no-qr.png         # Huodongxing 活动详情 + social sharing

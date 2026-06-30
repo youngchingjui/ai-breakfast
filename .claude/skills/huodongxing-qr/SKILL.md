@@ -1,6 +1,6 @@
 ---
 name: huodongxing-qr
-description: Download WeChat mini-program QR codes from huodongxing.com for AI Breakfast events. Use when Ching needs QR codes for event posters or sharing.
+description: Download WeChat mini-program QR codes from huodongxing.com for AI Breakfast events. Use when the organizer needs QR codes for event posters or sharing.
 argument-hint: "[event numbers, e.g. '32-38' or '40 41 42']"
 user-invocable: true
 allowed-tools:
